@@ -1,0 +1,9 @@
+﻿@page
+@model ArticleModel
+@{
+    ViewData["Title"] = "article";
+}
+
+<h1>@Model.ArticleTitle</h1>
+<p>@Html.Raw(Model.ArticleText)</p>
+<p></p>

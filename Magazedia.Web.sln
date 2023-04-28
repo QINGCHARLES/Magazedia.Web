@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magazedia.Web", "Magazedia.Web\Magazedia.Web.csproj", "{F6F0C5A7-3550-4474-9B3F-E66C06CF651A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magazedia.Web", "Magazedia.Web\Magazedia.Web.csproj", "{F6F0C5A7-3550-4474-9B3F-E66C06CF651A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
