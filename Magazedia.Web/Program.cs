@@ -53,7 +53,7 @@ using (TextReader sr = new StringReader(@$"
 {
         var options = new RewriteOptions()
                 .AddIISUrlRewrite(sr)
-                .AddRewrite(@"^(?!Identity)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
+                .AddRewrite(@"^(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
 //              .AddRewrite(@"^(.*)", "Article?title=$1", skipRemainingRules: true);
 		app.UseRewriter(options);
 }
