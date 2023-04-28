@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -29,7 +28,7 @@ else
     app.UseHsts();
 }
 
-using (TextReader sr = new StringReader(@$"
+using( TextReader sr = new StringReader(@$"
     <rewrite>
         <rules>
             <clear />
@@ -54,12 +53,9 @@ using (TextReader sr = new StringReader(@$"
         var options = new RewriteOptions()
                 .AddIISUrlRewrite(sr)
                 .AddRewrite(@"^(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
-//              .AddRewrite(@"^(.*)", "Article?title=$1", skipRemainingRules: true);
 		app.UseRewriter(options);
 }
 
-
-//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
