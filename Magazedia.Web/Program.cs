@@ -46,13 +46,24 @@ using( TextReader sr = new StringReader(@$"
                 </conditions>
                 <action type=""Redirect"" url=""https://magazedia.site/{{R:1}}"" redirectType=""308"" />
             </rule>
+		<rule enabled=""true"">
+	                <match url=""^create-article:"" />
+	                <action type=""Rewrite"" url=""https://magazedia.site/CreateEdit"" />
+		</rule>
+		<rule enabled=""true"">
+	                <match url=""^edit:(.+)"" />
+	                <action type=""Rewrite"" url=""https://magazedia.site/CreateEdit?UrlSlug={{R:1}}"" />
+		</rule>
+
         </rules>
     </rewrite>
 "))
 {
         var options = new RewriteOptions()
                 .AddIISUrlRewrite(sr)
-                .AddRewrite(@"^(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
+                .AddRewrite(@"^(?!CreateEdit)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
+                //.AddRewrite(@"^#create-article$", "Create", skipRemainingRules: true);
+
 		app.UseRewriter(options);
 }
 
