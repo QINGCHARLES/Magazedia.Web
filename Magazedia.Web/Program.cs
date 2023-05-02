@@ -48,20 +48,23 @@ using( TextReader sr = new StringReader(@$"
             </rule>
 		<rule enabled=""true"">
 	                <match url=""^create-article:"" />
-	                <action type=""Rewrite"" url=""https://magazedia.site/CreateEdit"" />
+	                <action type=""Rewrite"" url=""https://magazedia.site/Create"" />
 		</rule>
 		<rule enabled=""true"">
 	                <match url=""^edit:(.+)"" />
-	                <action type=""Rewrite"" url=""https://magazedia.site/CreateEdit?UrlSlug={{R:1}}"" />
+	                <action type=""Rewrite"" url=""https://magazedia.site/Edit?UrlSlug={{R:1}}"" />
 		</rule>
-
+		<rule enabled=""true"">
+	                <match url=""^history:(.+)"" />
+	                <action type=""Rewrite"" url=""https://magazedia.site/History?UrlSlug={{R:1}}"" />
+		</rule>
         </rules>
     </rewrite>
 "))
 {
         var options = new RewriteOptions()
                 .AddIISUrlRewrite(sr)
-                .AddRewrite(@"^(?!CreateEdit)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
+                .AddRewrite(@"^(?!Create)(?!History)(?!Edit)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
                 //.AddRewrite(@"^#create-article$", "Create", skipRemainingRules: true);
 
 		app.UseRewriter(options);

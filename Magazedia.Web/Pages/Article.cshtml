@@ -1,9 +1,10 @@
 ﻿@page
 @model ArticleModel
 @{
-    ViewData["Title"] = "article";
+    ViewData["Title"] = Model.ArticleTitle;
 }
 
 <h1>@Model.ArticleTitle</h1>
 <p>@Html.Raw(Model.ArticleText)</p>
-<p></p>
+<p><a href="/edit:@Model.UrlSlug">Edit Article</a></p>
+<p><a href="/history:@Model.UrlSlug">View Edit History</a></p>

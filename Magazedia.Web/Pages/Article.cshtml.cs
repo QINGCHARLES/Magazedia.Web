@@ -16,19 +16,12 @@ namespace Magazedia.Web.Pages
         public string? UrlSlug { get; set; }
 
 
-        private readonly ILogger<ArticleModel> _logger;
-
-        //public ArticleModel(ILogger<ArticleModel> logger)
-        //{
-        //    _logger = logger;
-        //}
-
         public IActionResult OnGet()
         {
-            using (var connection = new SqlConnection(@"TrustServerCertificate=True;Server=localhost,1433;Database=testdb;User Id=SA;Password=<YourStrong@Passw0rd>"))
+            using (var connection = new SqlConnection(@"TrustServerCertificate=True;Server=localhost,1433;Database=Magazedia;User Id=SA;Password=<YourStrong@Passw0rd>"))
             {
 
-                var sql = "SELECT * FROM Article WHERE UrlSlug=@UrlSlug AND Language='en'"; ;
+                var sql = "SELECT TOP(1) * FROM Article WHERE UrlSlug=@UrlSlug AND Language='en' AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 
 
                 var Article = connection.QuerySingleOrDefault(sql, new { UrlSlug = UrlSlug });
@@ -42,7 +35,7 @@ namespace Magazedia.Web.Pages
 
                 // Console.WriteLine($"{product.ProductID} {product.ProductName}
                 ArticleTitle = HttpContext.Request.Host.Host;
-                //ArticleTitle = Article.Title;
+                ArticleTitle = Article.Title;
                 ArticleText = Markdown.ToHtml(Article.Text, pipeline);
             }
 
