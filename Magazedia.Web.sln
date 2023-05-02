@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magazedia.Web", "Magazedia.Web\Magazedia.Web.csproj", "{F6F0C5A7-3550-4474-9B3F-E66C06CF651A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magazedia.Helpers", "Magazedia.Helpers\Magazedia.Helpers.csproj", "{64D1550B-17B2-4A92-B5FC-4FDD1CB08FAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F6F0C5A7-3550-4474-9B3F-E66C06CF651A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6F0C5A7-3550-4474-9B3F-E66C06CF651A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6F0C5A7-3550-4474-9B3F-E66C06CF651A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D1550B-17B2-4A92-B5FC-4FDD1CB08FAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D1550B-17B2-4A92-B5FC-4FDD1CB08FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D1550B-17B2-4A92-B5FC-4FDD1CB08FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D1550B-17B2-4A92-B5FC-4FDD1CB08FAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
