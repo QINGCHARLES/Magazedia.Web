@@ -4,49 +4,43 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Dapper;
 
-namespace Magazedia.Web.Pages
+namespace Magazedia.Web.Pages;
+public class ArticleModel : PageModel
 {
-    public class ArticleModel : PageModel
-    {
-        public string? ArticleTitle { get; set; }
-        public string? ArticleText { get; set; }
+	public string? ArticleTitle { get; set; }
+	public string? ArticleText { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-        public string? UrlSlug { get; set; }
+	[BindProperty(SupportsGet = true)]
+	public string? UrlSlug { get; set; }
 
-		private readonly IConfiguration _config;
+	private readonly IConfiguration Config;
+	private readonly string Language;
 
-		public ArticleModel(IConfiguration config)
+	public ArticleModel(IConfiguration Config)
+	{
+		this.Config = Config;
+		Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
+	}
+
+	public IActionResult OnGet()
+	{
+		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+
+		string SqlQuery = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
+
+		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
+
+		if (Article is null)
 		{
-			_config = config;
+			return NotFound();
 		}
 
-		public IActionResult OnGet()
-        {
-			string? connectionString = _config.GetConnectionString("DefaultConnection");
+		var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 
-			using (var connection = new SqlConnection(connectionString))
-            {
+		ArticleTitle = Article.Title;
+		ArticleText = Markdown.ToHtml(Article.Text, pipeline);
 
-                var sql = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = 'en' AND DateDeleted IS NULL ORDER BY DateCreated DESC";
-
-
-                var Article = connection.QuerySingleOrDefault(sql, new { UrlSlug = UrlSlug });
-
-                if (Article is null)
-                {
-                    return NotFound();
-                }
-
-                var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-
-                ArticleTitle = HttpContext.Request.Host.Host;
-                ArticleTitle = Article.Title;
-                ArticleText = Markdown.ToHtml(Article.Text, pipeline);
-            }
-
-            return Page();
-        }
-    }
+		return Page();
+	}
 }
 

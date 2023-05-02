@@ -16,7 +16,7 @@ public class Article
 	public DateTime DateCreated { get; set; }
 	public DateTime? DateDeleted { get; set; }
 
-	public Article(int Id, int SiteId, string Language, string Title, string UrlSlug, string Text, string RevisionReason, string CreatedByAspNetUserId, DateTime DateCreated )
+	public Article(int Id, int SiteId, string Language, string Title, string UrlSlug, string Text, string RevisionReason, string CreatedByAspNetUserId, DateTime DateCreated, DateTime DateDeleted )
 	{
 		this.Id = Id;
 		this.SiteId = SiteId;
@@ -27,5 +27,6 @@ public class Article
 		this.RevisionReason = RevisionReason;
 		this.CreatedByAspNetUserId = CreatedByAspNetUserId;
 		this.DateCreated = DateCreated;
+		this.DateDeleted = DateDeleted;
 	}
 }

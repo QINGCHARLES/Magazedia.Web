@@ -7,27 +7,34 @@ using WikiWikiWorld.Models;
 
 namespace Magazedia.Web.Pages
 {
-    public class HistoryModel : PageModel
-    {
-        public string ArticleTitle { get; set; }
+	public class HistoryModel : PageModel
+	{
+		public string? ArticleTitle { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-        public string? UrlSlug { get; set; }
+		[BindProperty(SupportsGet = true)]
+		public string? UrlSlug { get; set; }
 
-	public IList<Article>? Articles { get; set; }
+		public IList<Article>? Articles { get; set; }
 
-        public IActionResult OnGet()
-        {
-            using (var connection = new SqlConnection(@"TrustServerCertificate=True;Server=localhost,1433;Database=Magazedia;User Id=SA;Password=<YourStrong@Passw0rd>"))
-            {
-                var sql = "SELECT * FROM Article WHERE UrlSlug=@UrlSlug AND Language='en' ORDER BY DateCreated DESC";
-                var ArticlesList = connection.Query<Article>(sql, new { UrlSlug = UrlSlug }).ToList();
-Articles = ArticlesList;
-                ArticleTitle = ArticlesList[0].Title;
-            }
+		private readonly IConfiguration Config;
+		private readonly string Language;
+		public HistoryModel(IConfiguration Config)
+		{
+			this.Config = Config;
+			Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
+		}
 
-            return Page();
-        }
-    }
+		public IActionResult OnGet()
+		{
+			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+
+			string SqlQuery = "SELECT * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language ORDER BY DateCreated DESC";
+			Articles = Connection.Query<Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language }).ToList();
+			//Articles = ArticlesList;
+			ArticleTitle = Articles[0].Title;
+
+			return Page();
+		}
+	}
 }
 
