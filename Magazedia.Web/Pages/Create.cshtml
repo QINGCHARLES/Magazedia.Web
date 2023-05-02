@@ -1,0 +1,14 @@
+﻿@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create new article";
+}
+
+<h1>Create new article</h1>
+<p></p>
+<form method="post">
+<textarea asp-for="ArticleText" style="height: auto;" cols="50" rows="30"></textarea>
+
+<button type="submit">Submit</button>
+</form>
+
