@@ -1,0 +1,14 @@
+.category-link
+{
+padding: 5px 8px;
+border-radius: 12px;
+b
+background-color: #eee;
+margin: 6px;
+}
+
+.category-linkj a
+{
+color: #fff;
+}
+

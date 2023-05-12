@@ -57,12 +57,24 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Create"" />
 				</rule>
 				<rule enabled=""true"">
-					<match url=""^edit:(.+)"" />
+					<match url=""(.+)/edit"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Edit?UrlSlug={{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
-					<match url=""^history:(.+)"" />
+					<match url=""(.+)/talk$"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Talk?UrlSlug={{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""^firehose:(.*)"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Firehose?UrlSlug={{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""(.+)/history$"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/History?UrlSlug={{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""(.+)/revision/(.+)"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article?UrlSlug={{R:1}}&amp;Id={{R:2}}"" />
 				</rule>
 			</rules>
 		</rewrite>
@@ -70,7 +82,7 @@ using (TextReader sr = new StringReader(@$"
 {
 	var options = new RewriteOptions()
 			.AddIISUrlRewrite(sr)
-			.AddRewrite(@"^(?!Create)(?!History)(?!Edit)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
+			.AddRewrite(@"^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
 	//.AddRewrite(@"^#create-article$", "Create", skipRemainingRules: true);
 
 	app.UseRewriter(options);

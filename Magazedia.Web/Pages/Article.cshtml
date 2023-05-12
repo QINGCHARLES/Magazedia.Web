@@ -6,5 +6,6 @@
 
 <h1>@Model.ArticleTitle</h1>
 <p>@Html.Raw(Model.ArticleText)</p>
-<p><a href="/edit:@Model.UrlSlug">Edit Article</a></p>
-<p><a href="/history:@Model.UrlSlug">View Edit History</a></p>
+<p><a href="/@Model.UrlSlug/edit">Edit Article</a></p>
+<p><a href="/@Model.UrlSlug/history">View Edit History</a></p>
+<p><a href="/@Model.UrlSlug/talk">Talk</a></p>

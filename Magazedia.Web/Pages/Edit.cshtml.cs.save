@@ -30,9 +30,7 @@ public class EditModel : PageModel
 	}
 	public IActionResult OnPost()
 	{
-		ArticleTitle = Request.Form[nameof(ArticleTitle)];
 		ArticleText = Request.Form[nameof(ArticleText)];
-		ArticleUrlSlug = Request.Form[nameof(ArticleUrlSlug)];
 		ArticleRevisionReason = Request.Form[nameof(ArticleRevisionReason)];
 
 		ClaimsPrincipal? user = HttpContextAccessor.HttpContext?.User;
@@ -43,8 +41,9 @@ public class EditModel : PageModel
 		var SqlQuery = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
 
-		SqlQuery = "INSERT Article (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
-		var res = Connection.Execute( SqlQuery, new { Title = ArticleTitle, UrlSlug = ArticleUrlSlug, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username, SiteId = 1, Language = Language });
+		SqlQuery = "INSERT Article (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, 
+Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
+		var res = Connection.Execute( SqlQuery, new { Title = Article.Title, UrlSlug = Article.UrlSlug, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username, SiteId = 1, Language = Language });
 
 		return Content("output:" + res.ToString() + UrlSlug + ArticleText);
 	}

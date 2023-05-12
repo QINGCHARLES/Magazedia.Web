@@ -1,5 +1,6 @@
 using Markdig;
 using MarkdigMantisLink;
+using WikiWikiWorld.Markdig
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
@@ -14,9 +15,6 @@ public class ArticleModel : PageModel
 	[BindProperty(SupportsGet = true)]
 	public string? UrlSlug { get; set; }
 
-	[BindProperty(SupportsGet = true)]
-	public string? Id { get; set; }
-
 	private readonly IConfiguration Config;
 	private readonly string Language;
 
@@ -30,20 +28,9 @@ public class ArticleModel : PageModel
 	{
 		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-		string SqlQuery = "";
-WikiWikiWorld.Models.Article? Article = null;
-		
-if( Id is not null )
-{
-	SqlQuery = "SELECT * FROM Article WHERE Id = @Id AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
-	Article = Connection.QuerySingleOrDefault<WikiWikiWorld.Models.Article>(SqlQuery, new { Id = Id, Language = Language });
-}
-else
-{
-	SqlQuery = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
-	Article = Connection.QuerySingleOrDefault<WikiWikiWorld.Models.Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
-}
+		string SqlQuery = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 
+		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
 
 		if (Article is null)
 		{

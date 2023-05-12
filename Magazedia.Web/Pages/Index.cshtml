@@ -6,5 +6,14 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="gq-usa-november-2020">GQ (USA) November 2020</a></p>
+
+@if (Model.Articles != null) {
+foreach (var Article in Model.Articles)
+{
+
+    <p><a href="@Article.UrlSlug">@Article.Title</a></p>
+}
+} 
+
+   <p> <a href="/firehose:">View the Firehose</a></p>
 </div>

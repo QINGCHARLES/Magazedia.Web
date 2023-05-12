@@ -1,0 +1,93 @@
+﻿// Copyright (c) 2017 Cyotek Ltd.
+// http://www.cyotek.com/blog/writing-custom-markdig-extensions
+// Licensed under the MIT License. See LICENSE.txt for the full text.
+            // Replace all spaces with the 
+            // hyphen.
+
+using System.Text.RegularExpressions;
+
+
+
+
+
+	
+using Markdig.Helpers;
+using Markdig.Renderers;
+using Markdig.Renderers.Html;
+
+namespace MarkdigMantisLink
+{
+  public class MantisLinkRenderer : HtmlObjectRenderer<MantisLink>
+  {
+    #region Fields
+
+    private MantisLinkOptions _options;
+
+    #endregion
+
+    #region Constructors
+
+    public MantisLinkRenderer(MantisLinkOptions options)
+    {
+      _options = options;
+    }
+
+    #endregion
+
+    #region Properties
+
+    public MantisLinkOptions Options
+    {
+      get { return _options; }
+      set { _options = value; }
+    }
+
+    #endregion
+
+    #region Methods
+
+    protected override void Write(HtmlRenderer renderer, MantisLink obj)
+    {
+      StringSlice issueNumber;
+
+      issueNumber = obj.IssueNumber;
+
+      if (renderer.EnableHtmlForInline)
+      {
+        // write a full a tag
+        renderer.Write("<span class=\"tag\"><a href=\"").Write("/tag:").Write(Slug(issueNumber.ToString())).Write('"');
+
+        if (_options.OpenInNewWindow)
+        {
+          // if adding the `target` attribute, also add a `rel` as per MDN
+          // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target
+          renderer.Write(" target=\"blank\" rel=\"noopener noreferrer\"");
+        }
+
+        renderer.Write('>').Write(issueNumber).Write("</a></span>");
+      }
+      else
+      {
+        // inline HTML is disabled, so write the raw value
+        renderer.Write('#').Write(obj.IssueNumber);
+      }
+    }
+
+
+private string Slug(string Text)
+{
+
+
+
+string    output = Regex.Replace(Text, @"[^A-Za-z0-9\s-]", "");
+            output = Regex.Replace(output, @"\s+", " ").Trim(); 
+            output = Regex.Replace(output, @"\s", "-");  
+return output.ToLower();
+
+  }
+
+
+    #endregion
+ }
+  
+}
