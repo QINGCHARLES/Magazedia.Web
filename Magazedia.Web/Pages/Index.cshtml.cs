@@ -31,7 +31,7 @@ public IList<Article>? Articles { get; set; }
         {
 using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-string SqlQuery = "SELECT * FROM Article WHERE Language = @Language ORDER BY DateCreated DESC";
+string SqlQuery = "SELECT * FROM Articles WHERE Language = @Language ORDER BY DateCreated DESC";
 
 Articles = Connection.Query<Article>(SqlQuery, new { Language = Language }).ToList();
         

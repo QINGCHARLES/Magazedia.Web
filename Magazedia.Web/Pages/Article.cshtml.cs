@@ -35,12 +35,12 @@ WikiWikiWorld.Models.Article? Article = null;
 		
 if( Id is not null )
 {
-	SqlQuery = "SELECT * FROM Article WHERE Id = @Id AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
+	SqlQuery = "SELECT * FROM Articles WHERE Id = @Id AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 	Article = Connection.QuerySingleOrDefault<WikiWikiWorld.Models.Article>(SqlQuery, new { Id = Id, Language = Language });
 }
 else
 {
-	SqlQuery = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
+	SqlQuery = "SELECT TOP(1) * FROM Articles WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 	Article = Connection.QuerySingleOrDefault<WikiWikiWorld.Models.Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
 }
 

@@ -36,7 +36,7 @@ using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConn
 var SlugOptions = new UnicodeSlug.SlugOptions();
 string UrlSlug = SlugOptions.GenerateSlug(ArticleTitle);
 string ArticleRevisionReason = "Created";
-var SqlQuery = "INSERT Article (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
+var SqlQuery = "INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
 var res = Connection.Execute( SqlQuery, new { Title = ArticleTitle, UrlSlug = UrlSlug, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username, SiteId = 1, Language = Language });
 return Content("output:" + res.ToString() + UrlSlug + ArticleText);
 

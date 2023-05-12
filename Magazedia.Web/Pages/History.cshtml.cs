@@ -28,7 +28,7 @@ namespace Magazedia.Web.Pages
 		{
 			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-			string SqlQuery = "SELECT * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language ORDER BY DateCreated DESC";
+			string SqlQuery = "SELECT * FROM Articles WHERE UrlSlug = @UrlSlug AND Language = @Language ORDER BY DateCreated DESC";
 			Articles = Connection.Query<Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language }).ToList();
 			//Articles = ArticlesList;
 			ArticleTitle = Articles[0].Title;

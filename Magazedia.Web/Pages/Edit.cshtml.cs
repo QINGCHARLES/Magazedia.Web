@@ -43,7 +43,7 @@ public class EditModel : PageModel
 		var SqlQuery = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
 
-		SqlQuery = "INSERT Article (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
+		SqlQuery = "INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
 		var res = Connection.Execute( SqlQuery, new { Title = ArticleTitle, UrlSlug = ArticleUrlSlug, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username, SiteId = 1, Language = Language });
 
 		return Content("output:" + res.ToString() + UrlSlug + ArticleText);
@@ -51,7 +51,7 @@ public class EditModel : PageModel
 	public IActionResult OnGet()
 	{
 		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
-		string SqlQuery = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
+		string SqlQuery = "SELECT TOP(1) * FROM Articles WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
 
 		if (Article is null)

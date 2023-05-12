@@ -26,7 +26,7 @@ namespace Magazedia.Web.Pages
 		{
 			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-			string SqlQuery = "SELECT * FROM Article WHERE Language = @Language ORDER BY DateCreated DESC";
+			string SqlQuery = "SELECT * FROM Articles WHERE Language = @Language ORDER BY DateCreated DESC";
 			Articles = Connection.Query<Article>(SqlQuery, new { Language = Language }).ToList();
 			//Articles = ArticlesList;
 //			ArticleTitle = Articles[0].Title;
@@ -41,7 +41,7 @@ namespace Magazedia.Web.Pages
 			//Articles = ArticlesList;
 //			ArticleTitle = Articles[0].Title;
 
-string SqlQuery = "DELETE Article WHERE Id = @Id;";
+string SqlQuery = "DELETE Articles WHERE Id = @Id;";
 var res = Connection.Execute( SqlQuery, new { Id = Id });
 
 	//		return Content(res.ToString());;
