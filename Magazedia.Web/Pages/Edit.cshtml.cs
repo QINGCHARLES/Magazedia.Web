@@ -11,10 +11,11 @@ public class EditModel : PageModel
 {
 	public string? ArticleTitle { get; set; }
 	public string? ArticleUrlSlug { get; set; }
-
 	public string? ArticleHtml { get; set; }
 	public string? ArticleRevisionReason { get; set; }
 	public string? ArticleText { get; set; }
+
+	public Article Article { get; set; }
 
 	[BindProperty(SupportsGet = true)]
 	public string? UrlSlug { get; set; }
@@ -22,6 +23,7 @@ public class EditModel : PageModel
 	private readonly IConfiguration Config;
 	private readonly IHttpContextAccessor HttpContextAccessor;
 	private readonly string Language;
+
 	public EditModel(IConfiguration Config, IHttpContextAccessor HttpContextAccessor)
 	{
 		this.Config = Config;
@@ -36,11 +38,11 @@ public class EditModel : PageModel
 		ArticleRevisionReason = Request.Form[nameof(ArticleRevisionReason)];
 
 		ClaimsPrincipal? user = HttpContextAccessor.HttpContext?.User;
-		string Username = user?.Identity?.Name ?? "Anonymous";
+		string Username = user?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Anonymous";
 
 		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-		var SqlQuery = "SELECT TOP(1) * FROM Article WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
+		var SqlQuery = "SELECT TOP(1) * FROM Articles WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
 
 		SqlQuery = "INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
@@ -51,20 +53,25 @@ public class EditModel : PageModel
 	public IActionResult OnGet()
 	{
 		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
-		string SqlQuery = "SELECT TOP(1) * FROM Articles WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
-		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
+
+		string SqlQuery = @"SELECT TOP(1) *
+							FROM Articles
+							WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL
+							ORDER BY DateCreated DESC";
+
+		Article = Connection.QuerySingleOrDefault<Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
 
 		if (Article is null)
 		{
 			return NotFound();
 		}
 
-		var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+		var Pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 
 		ArticleTitle = Article.Title;
 		ArticleUrlSlug = Article.UrlSlug;
 		ArticleText = Article.Text;
-		ArticleHtml = Markdown.ToHtml(Article.Text, pipeline);
+		ArticleHtml = Markdown.ToHtml(Article.Text, Pipeline);
 
 		return Page();
 	}

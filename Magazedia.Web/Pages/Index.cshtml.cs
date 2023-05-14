@@ -6,37 +6,39 @@ using Dapper;
 
 namespace Magazedia.Web.Pages
 {
-    public class IndexModel : PageModel
-    {
-        private readonly ILogger<IndexModel> _logger;
+	public class IndexModel : PageModel
+	{
+		//private readonly ILogger<IndexModel> _logger;
 
-private readonly IConfiguration Config;
-private readonly string Language;
+		private readonly IConfiguration Config;
+		private readonly IHttpContextAccessor HttpContextAccessor;
+		private readonly string Language;
 
-        //public IndexModel(ILogger<IndexModel> logger)
+		//public IndexModel(ILogger<IndexModel> logger)
 
-public IndexModel(IConfiguration Config)
-        {
-this.Config = Config;
-Language = "en";
-            //_logger = logger;
-        }
-
-
-
-public IList<Article>? Articles { get; set; }
+		public IndexModel(IConfiguration Config, IHttpContextAccessor HttpContextAccessor)
+		{
+			this.Config = Config;
+			this.HttpContextAccessor = HttpContextAccessor;
+			Language = Magazedia.Helpers.GetLanguage(HttpContextAccessor.HttpContext!.Request.Host.Host);
+			//_logger = logger;
+		}
 
 
-        public IActionResult OnGet()
-        {
-using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-string SqlQuery = "SELECT * FROM Articles WHERE Language = @Language ORDER BY DateCreated DESC";
+		public IList<Article>? Articles { get; set; }
 
-Articles = Connection.Query<Article>(SqlQuery, new { Language = Language }).ToList();
-        
 
-return Page();
-}
-    }
+		public IActionResult OnGet()
+		{
+			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+
+			string SqlQuery = "SELECT * FROM Articles WHERE Language = @Language ORDER BY DateCreated DESC";
+
+			Articles = Connection.Query<Article>(SqlQuery, new { Language = Language }).ToList();
+
+
+			return Page();
+		}
+	}
 }

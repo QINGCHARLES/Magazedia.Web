@@ -20,17 +20,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
 	app.UseMigrationsEndPoint();
-
-
-
 }
 else
 {
 	app.UseExceptionHandler("/Error");
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
-
-
 }
 
 
@@ -48,9 +43,9 @@ using (TextReader sr = new StringReader(@$"
 				<rule enabled=""true"">
 					<match url=""(.*)"" />
 					<conditions logicalGrouping=""MatchAll"" trackAllCaptures=""false"">
-						<add input=""{{HTTP_HOST}}"" pattern=""^magazedia\.site$|^ja\.magazedia\.site$|^ja\.localhost"" negate=""true"" />
+						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magazedia\.site$|^ja\.magazedia\.site$|^en\.localhost|^ja\.localhost"" negate=""true"" />
 					</conditions>
-					<action type=""Redirect"" url=""https://magazedia.site/{{R:1}}"" redirectType=""308"" />
+					<action type=""Redirect"" url=""https://en.magazedia.site/{{R:1}}"" redirectType=""308"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^create-article:"" />
@@ -63,6 +58,10 @@ using (TextReader sr = new StringReader(@$"
 				<rule enabled=""true"">
 					<match url=""(.+)/talk$"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Talk?UrlSlug={{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""(.+)/talk/(.+)"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/TalkSubject?ArticleUrlSlug={{R:1}}&amp;ArticleTalkSubjectUrlSlug={{R:2}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^firehose:(.*)"" />
@@ -82,13 +81,11 @@ using (TextReader sr = new StringReader(@$"
 {
 	var options = new RewriteOptions()
 			.AddIISUrlRewrite(sr)
-			.AddRewrite(@"^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1", skipRemainingRules: true);
-	//.AddRewrite(@"^#create-article$", "Create", skipRemainingRules: true);
+			.AddRewrite(@"^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1",
+						skipRemainingRules: true);
 
 	app.UseRewriter(options);
 }
-
-
 
 app.UseStaticFiles();
 

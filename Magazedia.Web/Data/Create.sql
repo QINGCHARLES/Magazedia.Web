@@ -1,5 +1,14 @@
-﻿
+﻿SELECT
+law.plus
+law.online
+law.zone
 
+SELECT		ArticleTalkSubjectPosts.*, AspNetUsers.UserName AS CreatedByAspNetUsername
+								FROM		ArticleTalkSubjectPosts
+								INNER JOIN	AspNetUsers ON ArticleTalkSubjectPosts.CreatedByAspNetUserId = AspNetUsers.Id
+								WHERE		ArticleTalkSubjectPosts.ArticleTalkSubjectId = 1 AND
+											ArticleTalkSubjectPosts.DateDeleted IS NULL
+								ORDER BY	ArticleTalkSubjectPosts.DateCreated DESC
 
 CREATE TABLE AspNetRoles( Id nvarchar(450) NOT NULL PRIMARY KEY, ConcurrencyStamp nvarchar(max) NULL, [Name] nvarchar(256) NULL, NormalizedName nvarchar(256) NULL );
 CREATE TABLE AspNetRoleClaims( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, ClaimType nvarchar(max) NULL, ClaimValue nvarchar(max) NULL, RoleId nvarchar(450) NOT NULL );
@@ -11,11 +20,11 @@ CREATE TABLE AspNetUserTokens( UserId nvarchar(450) NOT NULL, LoginProvider nvar
 GO
 
 
-CREATE TABLE Download
+CREATE TABLE DownloadUrls
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	SiteId int NOT NULL,
-	Filename nvarchar(1000) NOT NULL,
+	[Filename] nvarchar(1000) NOT NULL,
 	Filesize int NOT NULL,
 	HashSha256 varbinary(64) NOT NULL,
 	DownloadUrlOne nvarchar(2000) NULL,
@@ -62,54 +71,73 @@ Source: Conversation with Bing, 4/24/2023
 
 
 
-CREATE TABLE ArticleTalkSubject
+CREATE TABLE ArticleTalkSubjects
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-ArticleTitle nvarchar(1000) NOT NULL,
-	Subject nvarchar(1000) NOT NULL,
+	SiteId int NOT NULL,
+	[Language] nvarchar(20) NOT NULL,
+	ArticleTitle nvarchar(1000) NOT NULL,
+	[Subject] nvarchar(300) NOT NULL,
+	UrlSlug nvarchar(300) NOT NULL,
+	[Text] nvarchar(2000) NOT NULL,
+	HasBeenEdited bit NOT NULL DEFAULT 0,
 	CreatedByAspNetUserId nvarchar(450) NOT NULL,
+	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
 	DateModified datetime2(7) NULL,
 	DateDeleted datetime2(7) NULL
 )
 
-CREATE TABLE ArticleTalkSubject( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, ArticleTitle nvarchar(1000) NOT NULL, Subject nvarchar(1000) NOT NULL, CreatedByAspNetUserId nvarchar(450) NOT NULL, DateModified datetime2(7) NULL, DateDeleted datetime2(7) NULL );
-
-INSERT INTO ArticleTalkSubject ( ArticleTitle, Subject, CreatedByAspNetUserId ) VALUES ( 'GQ (USA) - November 2020', 'Is this the Man of the Year issue?', 'test@example.com' );
-
-CREATE TABLE TalkSubjectPost( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, TalkSubjectId int NOT NULL, ParentTalkSubjectPostId int NULL, [Text] nvarchar(MAX) NOT NULL, CreatedByAspNetUserId nvarchar(450) NOT NULL, DateCreated datetime2(7) NOT NULL, DateModified datetime2(7) NOT NULL, DateDeleted datetime2(7) NULL );
+CREATE TABLE ArticleTalkSubjects( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, ArticleTitle nvarchar(1000) NOT NULL, SiteId int NOT NULL, [Language] nvarchar(20) NOT NULL, [Subject] nvarchar(300) NOT NULL, UrlSlug nvarchar(300) NOT NULL, [Text] nvarchar(2000) NOT NULL, HasBeenEdited bit NOT NULL DEFAULT 0, CreatedByAspNetUserId nvarchar(450) NOT NULL, DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(), DateModified datetime2(7) NULL, DateDeleted datetime2(7) NULL );
+INSERT ArticleTalkSubjects ( SiteId, [Language], ArticleTitle, [Subject], CreatedByAspNetUserId ) VALUES ( 1, 'en', 'GQ (USA) - November 2020', 'Is this the Man of the Year issue?', '7240be61-df81-46f9-8152-6a48b96abc40' );
 
 
-CREATE TABLE ArticleLanguageLink 
+CREATE TABLE ArticleTalkSubjectPosts
+(
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	ArticleTalkSubjectId int NOT NULL,
+	ParentTalkSubjectPostId int NULL,
+	[Text] nvarchar(2000) NOT NULL,
+	HasBeenEdited bit NOT NULL DEFAULT 0,
+	CreatedByAspNetUserId nvarchar(450) NOT NULL,
+	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateModified datetime2(7) NULL,
+	DateDeleted datetime2(7) NULL
+)
+
+CREATE TABLE ArticleTalkSubjectPosts( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, ArticleTalkSubjectId int NOT NULL, ParentTalkSubjectPostId int NULL, [Text] nvarchar(2000) NOT NULL, HasBeenEdited bit NOT NULL DEFAULT 0, CreatedByAspNetUserId nvarchar(450) NOT NULL, DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(), DateModified datetime2(7) NULL, DateDeleted datetime2(7) NULL );
+INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [Text], CreatedByAspNetUserId ) VALUES ( 1, NULL, 'Yes I think it is the MOTY issue. Can anyone confirm?', '7240be61-df81-46f9-8152-6a48b96abc40' );
+INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [Text], CreatedByAspNetUserId ) VALUES ( 1, NULL, 'OK, I found the answer. It is the MOTY issue!', '7240be61-df81-46f9-8152-6a48b96abc40' );
+
+
+CREATE TABLE ArticleLanguageLinks 
 (
 	Id int IDENTITY(1,1) NOT NULL,
 	SiteId int NOT NULL,
 	ArticleLanguageGroupId int NOT NULL,
-	Language nvarchar(20) NOT NULL,
-	Title nvarchar(1000) NOT NULL ,
-DateDeleted datetime2(7) NULL
-)
+	[Language] nvarchar(20) NOT NULL,
+	ArticleTitle nvarchar(1000) NOT NULL,
+	DateDeleted datetime2(7) NULL
+);
 
-CREATE TABLE ArticleLanguageLink (Id  int IDENTITY(1,1) NOT NULL, SiteId int NOT NULL, ArticleLanguageGroupId int NOT NULL, Language nvarchar(20) NOT NULL, Title nvarchar(1000) NOT NULL, DateDeleted datetime2(7) NULL );
+CREATE TABLE ArticleLanguageLinks (Id int IDENTITY(1,1) NOT NULL, SiteId int NOT NULL, ArticleLanguageGroupId int NOT NULL, [Language] nvarchar(20) NOT NULL, ArticleTitle nvarchar(1000) NOT NULL, DateDeleted datetime2(7) NULL );
 
-INSERT INTO ArticleLanguageLink ( SiteId, ArticleLanguageGroupId, Language, Title ) VALUES ( 1, 1, 'en', 'GQ (USA) - November 2020' );
-
-
-INSERT INTO ArticleLanguageLink ( SiteId, ArticleLanguageGroupId, Language, Title ) VALUES ( 1, 1, 'ja', メインページ' );
+INSERT INTO ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Language, ArticleTitle ) VALUES ( 1, 1, N'en', N'GQ (USA)' );
+INSERT INTO ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Language, ArticleTitle ) VALUES ( 1, 1, N'ja', N'GQ (アメリカ)' );
 
 
 
 
-CREATE TABLE Article
+CREATE TABLE Articles
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	SiteId int NOT NULL,
-	Language nvarchar(20) NOT NULL,
+	[Language] nvarchar(20) NOT NULL,
 	Title nvarchar(1000) NOT NULL,
 	UrlSlug nvarchar(1000) NOT NULL,
 	[Text] nvarchar(max) NOT NULL,
 	RevisionReason nvarchar(1000) NOT NULL,
   	CreatedByAspNetUserId nvarchar(450) NOT NULL,
-	DateCreated datetime2(7) NOT NULL,
+	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
 	DateDeleted datetime2(7) NULL
 )
 
@@ -132,7 +160,6 @@ INSERT Article (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, S
 128.140.38.19
 mguiJLbasW3AifV4tCxN
 
-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
 
 
 

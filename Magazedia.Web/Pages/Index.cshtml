@@ -1,19 +1,22 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home";
+	ViewData["Title"] = "Home";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+	<h1 class="display-4">Welcome</h1>
 
-@if (Model.Articles != null) {
-foreach (var Article in Model.Articles)
-{
+	@{
+		if (Model.Articles != null)
+		{
+			foreach (var Article in Model.Articles)
+			{
+				<p><a href="@Article.UrlSlug">@Article.Title</a></p>
+			}
+		}
+	}
 
-    <p><a href="@Article.UrlSlug">@Article.Title</a></p>
-}
-} 
-
-   <p> <a href="/firehose:">View the Firehose</a></p>
+	<p> <a href="/firehose:">View the Firehose</a></p>
+	<p> <a href="/DbHelper">DbHelper</a></p>
 </div>

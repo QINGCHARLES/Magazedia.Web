@@ -1,4 +1,3 @@
-using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
@@ -28,9 +27,14 @@ namespace Magazedia.Web.Pages
 		{
 			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-			string SqlQuery = "SELECT * FROM Articles WHERE UrlSlug = @UrlSlug AND Language = @Language ORDER BY DateCreated DESC";
+			// Get a list of all the revisions of this Article and convert the UserId in the Article table to a Username for display
+			string SqlQuery = @"SELECT		Articles.*, AspNetUsers.UserName AS CreatedByAspNetUsername
+								FROM		Articles
+								INNER JOIN	AspNetUsers ON Articles.CreatedByAspNetUserId = AspNetUsers.Id
+								WHERE		Articles.DateDeleted IS NULL
+								ORDER BY	Articles.DateCreated DESC";
+
 			Articles = Connection.Query<Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language }).ToList();
-			//Articles = ArticlesList;
 			ArticleTitle = Articles[0].Title;
 
 			return Page();

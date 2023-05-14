@@ -2,23 +2,28 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model HistoryModel
 @{
-    ViewData["Title"] = "Revision history:" + Model.ArticleTitle;
+	ViewData["Title"] = "Revision history: " + Model.ArticleTitle;
 }
 
-<h1>@Model.ArticleTitle</h1>
-<p></p>
+<h1>Revision history: @Model.ArticleTitle</h1>
 
 <table class="table">
 	<thead>
-		<tr><th>When</th><th>Reason</th><th>User</th></tr> 
+		<tr><th>When</th><th>Reason</th><th>Username</th></tr>
 	</thead>
 	<tbody>
-	@if (Model.Articles != null) {
-            foreach (var Article in Model.Articles)
-		{ 
-		<tr><td><a href="/@Article.UrlSlug/revision/@Article.Id">@Article.DateCreated</a></td> <td>@Article.RevisionReason</td> <td>
-@Article.CreatedByAspNetUserId                    </td> </tr>
-            }
-        }
-        </tbody>
-    </table>
+		@if (Model.Articles != null)
+		{
+			foreach (var Article in Model.Articles)
+			{
+				<tr>
+					<td><a href="/@Article.UrlSlug/revision/@Article.Id">@Article.DateCreated</a></td>
+					<td>@Article.RevisionReason</td>
+					<td>
+						<a href="/@@@Article.CreatedByAspNetUsername">@Article.CreatedByAspNetUsername</a>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

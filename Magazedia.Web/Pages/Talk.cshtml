@@ -1,0 +1,26 @@
+﻿@page
+@model Magazedia.Web.Pages.TalkModel
+@{
+	ViewData["Title"] = "Talk: " + Model.ArticleTitle;
+}
+
+<h1>Talk: @Model.ArticleTitle</h1>
+
+<table class="table">
+	<thead>
+		<tr><th>Subject</th><th>Username</th><th>When</th></tr>
+	</thead>
+	<tbody>
+		@if (Model.ArticleTalkSubjects != null)
+		{
+			foreach (var ArticleTalkSubject in Model.ArticleTalkSubjects)
+			{
+				<tr>
+					<td><a href="/@Model.UrlSlug/talk/@ArticleTalkSubject.UrlSlug">@ArticleTalkSubject.Subject</a></td>
+					<td>@ArticleTalkSubject.CreatedByAspNetUsername</td>
+					<td>@ArticleTalkSubject.DateCreated</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magazedia.Web", "Magazedia.Web\Magazedia.Web.csproj", "{F6F0C5A7-3550-4474-9B3F-E66C06CF651A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magazedia.Helpers", "Magazedia.Helpers\Magazedia.Helpers.csproj", "{64D1550B-17B2-4A92-B5FC-4FDD1CB08FAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magazedia.Helpers", "Magazedia.Helpers\Magazedia.Helpers.csproj", "{64D1550B-17B2-4A92-B5FC-4FDD1CB08FAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,21 +1,16 @@
 ﻿@page
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model EditModel
+@model Magazedia.Web.Pages.DbHelperModel
 @{
-	ViewData["Title"] = "Editing: " + Model.ArticleTitle;
 }
+<h1>DbHelper</h1>
 
-<h1>@Model.ArticleTitle</h1>
-<p>@Html.Raw(Model.ArticleHtml)</p>
-<p></p>
 <form method="post">
 	<input asp-for="ArticleTitle" />
 	<input asp-for="ArticleUrlSlug" />
-	<input asp-for="ArticleRevisionReason" />
 	<br />
 	<textarea asp-for="ArticleText" style="height:300px; width:300px;"></textarea>
 	<br />
 	<input type="submit" />
 	<br />
 </form>
-
