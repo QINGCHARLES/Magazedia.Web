@@ -39,31 +39,17 @@ CREATE TABLE DownloadUrls
 sudo docker exec -it sql1 "bash"
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
 
-
-CREATE TABLE Download( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, SiteId int NOT NULL, Filename nvarchar(1000) NOT NULL, Filesize int NOT NULL, HashSha256 varbinary(64) NOT NULL, DownloadUrlOne nvarchar(2000) NULL, DownloadUrlTwo nvarchar(2000) NULL, DownloadUrlThree nvarchar(2000) NULL, CreatedByAspNetUserId nvarchar(450) NOT NULL, DateCreated datetime2(7) NOT NULL, DateModified datetime2(7) NOT NULL, DateDeleted datetime2(7) NULL );
-
-
-
-https://en.wikipedia.org/wiki/Science_Fiction_Monthly
+-- this needs to be checked
+CREATE TABLE DownloadUrls( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, SiteId int NOT NULL, [Filename] nvarchar(1000) NOT NULL, Filesize int NOT NULL, HashSha256 varbinary(64) NOT NULL, DownloadUrlOne nvarchar(2000) NULL, DownloadUrlTwo nvarchar(2000) NULL, DownloadUrlThree nvarchar(2000) NULL, CreatedByAspNetUserId nvarchar(450) NOT NULL, DateCreated datetime2(7) NOT NULL, DateModified datetime2(7) NOT NULL, DateDeleted datetime2(7) NULL );
 
 
-I'm sorry but I couldn't find the contents of the GQ Men of the Year 2022 issue. However, I found that the November 2022 issue of GQ features Christian Bale on the cover and includes articles on the new titans of the World Cup, the wild story of the best hoodie ever, and a Nigerian singer who is taking over the globe¹. 
 
-Is there anything else I can help you with?
 
-Source: Conversation with Bing, 4/24/2023
-(1) GQ Magazine, November 2022 – Issues Magazine Shop. https://bing.com/search?q=GQ+Nov+2022+issue+contents.
-(2) TXT's Yeonjun Has Everyone Swerving Into His Lane For His New GQ Korea .... https://www.koreaboo.com/news/txt-yeonjun-everyone-swerving-lane-gq-korea-covers/.
-(3) GQ Men of the Year 2022: Everything you need to know. https://www.gq-magazine.co.uk/culture/article/gq-men-of-the-year-2022-news.
-(4) GQ Magazine, November 2022 – Issues Magazine Shop. https://issuesmagshop.com/products/gq-magazine-november-2022.
-(5) Issue November 2022 - GQ. https://www.zinio.com/gq-mag/november-2022-i547212.
-(6) GQ Men of the Year | GQ. https://www.gq.com/about/men-of-the-year.I'm sorry but I couldn't find the contents of the GQ Men of the Year 2022 issue. However, I found that the November 2022 issue of GQ features Christian Bale on the cover and includes articles on the new titans of the World Cup, the wild story of the best hoodie ever, and a Nigerian singer who is taking over the globe¹. Is there anything else I can help you with?Source: Conversation with Bing, 4/24/2023(1) GQ Magazine, November 2022 – Issues Magazine Shop. https://bing.com/search?q=GQ+Nov+2022+issue+contents.(2) TXT's Yeonjun Has Everyone Swerving Into His Lane For His New GQ Korea .... https://www.koreaboo.com/news/txt-yeonjun-everyone-swerving-lane-gq-korea-covers/.(3) GQ Men of the Year 2022: Everything you need to know. https://www.gq-magazine.co.uk/culture/article/gq-men-of-the-year-2022-news.(4) GQ Magazine, November 2022 – Issues Magazine Shop. https://issuesmagshop.com/products/gq-magazine-november-2022.(5) Issue November 2022 - GQ. https://www.zinio.com/gq-mag/november-2022-i547212.(6) GQ Men of the Year | GQ. https://www.gq.com/about/men-of-the-year.
+
+
 
 The October 2022 issue of GQ features Alexandria Ocasio-Cortez on the cover and includes a conversation about masculinity, power and politics in post-Roe America³. 
 
-Is there anything else I can help you with?
-
-Source: Conversation with Bing, 4/24/2023
 (1) GQ, October 2022 – Issues Magazine Shop. https://issuesmagshop.com/products/gq-october-2022.
 (2) Issue October 2022 - GQ. https://www.zinio.com/gq-mag/october-2022-i547211.
 (3) AOC on the Fight for Abortion Rights and Whether She’ll Ever Be .... https://www.gq.com/story/alexandria-ocasio-cortez-october-cover-profile.
@@ -123,6 +109,7 @@ CREATE TABLE ArticleLanguageLinks (Id int IDENTITY(1,1) NOT NULL, SiteId int NOT
 
 INSERT INTO ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Language, ArticleTitle ) VALUES ( 1, 1, N'en', N'GQ (USA)' );
 INSERT INTO ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Language, ArticleTitle ) VALUES ( 1, 1, N'ja', N'GQ (アメリカ)' );
+INSERT INTO ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Language, ArticleTitle ) VALUES ( 1, 1, N'ar', N'جي كيو (الأمريكي)' );
 
 
 
