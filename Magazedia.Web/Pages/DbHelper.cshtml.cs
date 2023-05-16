@@ -2,6 +2,7 @@ using Dapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using WikiWikiWorld.Models;
 
@@ -13,8 +14,13 @@ namespace Magazedia.Web.Pages
 		public string? ArticleUrlSlug { get; set; }
 		public string? ArticleText { get; set; }
 
-		[Inject]
-		private IConfiguration? Config { get; set; }
+		private readonly IConfiguration Config;
+		private readonly string Language;
+		public DbHelperModel(IConfiguration Config)
+		{
+			this.Config = Config;
+			Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
+		}
 
 		public IActionResult OnPost()
         {
@@ -26,7 +32,7 @@ namespace Magazedia.Web.Pages
 			{
 				using var Connection = new SqlConnection(Config!.GetConnectionString("DefaultConnection"));
 
-				string SqlQuery = ArticleText;
+				string SqlQuery = Request.Form[nameof(ArticleText)].ToString();
 				var result = Connection.Execute(SqlQuery);
 
 				return Content("output: " + result);

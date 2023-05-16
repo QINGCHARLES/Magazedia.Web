@@ -130,6 +130,14 @@ CREATE TABLE Articles
 
 GO
 
+CREATE TABLE Articles( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, SiteId int NOT NULL, Language nvarchar(20) NOT NULL, Title nvarchar(1000) NOT NULL, UrlSlug nvarchar(1000) NOT NULL, [Text] nvarchar(max) NOT NULL, RevisionReason nvarchar(1000) NOT NULL, CreatedByAspNetUserId nvarchar(450) NOT NULL, DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(), DateDeleted datetime2(7) NULL );
+ 
+GO 
+
+
+--INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES ("GQ (USA) - November 2020", "gq-usa-november-2020", "The November 2020 issue of [GQ (USA) magazine](gq-usa) features [Timothée Chalamet](https://en.wikipedia.org/wiki/Timoth%C3%A9e_Chalamet) on the cover. The issue includes a long interview with Chalamet, who discusses his upcoming role in the sci-fi film [Dune](https://en.wikipedia.org/wiki/Dune_(2021_film)), his thoughts on fame, and his plans for the future. The issue also features profiles of skateboarder [Sean Pablo](https://en.wikipedia.org/wiki/Sean_Pablo), actor [Paul Mescal](https://en.wikipedia.org/wiki/Paul_Mescal), and producers [Timbaland](https://en.wikipedia.org/wiki/Timbaland) and [Swiss Beatz](https://en.wikipedia.org/wiki/Swizz_Beatz).{{Tag GQ (USA) magazine issues}}{{Tag GQ magazine issues}}{{Tag Magazine issues published in November 2020}}{{Tag Magazine issues published in 2020}}{{Tag Magazine issues in English}}{{Tag Magazine issues with covers featuring Timothée Chalamet}}{{Tag Magazine issues featuring Timothée Chalamet}}{{Tag Magazine issues featuring Timbaland}}{{Tag Magazine issues featuring Swizz Beats}}{{Tag Magazine issues featuring Sean Pablo}}{{Tag Magazine issues featuring Paul Mescal}}{{Tag Magazine issues featuring the movie Dune (2021)}}", "New article.", "Blahuser", 1, "en");
+
+
 CREATE TABLE AspNetRoles( Id nvarchar(450) NOT NULL PRIMARY KEY, ConcurrencyStamp nvarchar(max) NULL, [Name] nvarchar(256) NULL, NormalizedName nvarchar(256) NULL );
 CREATE TABLE AspNetRoleClaims( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, ClaimType nvarchar(max) NULL, ClaimValue nvarchar(max) NULL, RoleId nvarchar(450) NOT NULL );
 CREATE TABLE AspNetUsers( Id nvarchar(450) NOT NULL PRIMARY KEY, AccessFailedCount int NOT NULL, ConcurrencyStamp nvarchar(max) NULL, Email nvarchar(256) NULL, EmailConfirmed bit NOT NULL, LockoutEnabled bit NOT NULL, LockoutEnd datetimeoffset(7) NULL, NormalizedEmail nvarchar(256) NULL, NormalizedUserName nvarchar(256) NULL, PasswordHash nvarchar(max) NULL, PhoneNumber nvarchar(max) NULL, PhoneNumberConfirmed bit NOT NULL, SecurityStamp nvarchar(max) NULL, TwoFactorEnabled bit NOT NULL, UserName nvarchar(256) NULL );
@@ -142,7 +150,6 @@ GO
 
 UPDATE CRLF SET col1 = REPLACE(col1, '@', CHAR(13))
 
-INSERT Article (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES ("GQ (USA) - November 2020", "gq-usa-november-2020", "The November 2020 issue of [GQ (USA) magazine](gq-usa) features [Timothée Chalamet](https://en.wikipedia.org/wiki/Timoth%C3%A9e_Chalamet) on the cover. The issue includes a long interview with Chalamet, who discusses his upcoming role in the sci-fi film [Dune](https://en.wikipedia.org/wiki/Dune_(2021_film)), his thoughts on fame, and his plans for the future. The issue also features profiles of skateboarder [Sean Pablo](https://en.wikipedia.org/wiki/Sean_Pablo), actor [Paul Mescal](https://en.wikipedia.org/wiki/Paul_Mescal), and producers [Timbaland](https://en.wikipedia.org/wiki/Timbaland) and [Swiss Beatz](https://en.wikipedia.org/wiki/Swizz_Beatz).{{Tag GQ (USA) magazine issues}}{{Tag GQ magazine issues}}{{Tag Magazine issues published in November 2020}}{{Tag Magazine issues published in 2020}}{{Tag Magazine issues in English}}{{Tag Magazine issues with covers featuring Timothée Chalamet}}{{Tag Magazine issues featuring Timothée Chalamet}}{{Tag Magazine issues featuring Timbaland}}{{Tag Magazine issues featuring Swizz Beats}}{{Tag Magazine issues featuring Sean Pablo}}{{Tag Magazine issues featuring Paul Mescal}}{{Tag Magazine issues featuring the movie Dune (2021)}}", "New article.", "Blahuser", 1, "en");
 
 128.140.38.19
 mguiJLbasW3AifV4tCxN
@@ -150,9 +157,9 @@ mguiJLbasW3AifV4tCxN
 
 
 
-INSERT Article (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES ("GQ (USA)", "gq-usa", "GQ (formerly Gentlemen's Quarterly and Apparel Arts) is an American international monthly men's magazine based in New York City and founded in 1931. The publication focuses on fashion, style, and culture for men, though articles on food, movies, fitness, sex, music, travel, celebrities' sports, technology, and books are also featured.{{Tag GQ franchises}}{{Tag GQ magazines}}{{Tag Magazines in English}}{{Tag Magazines founded in 1931}}{{Tag Magazines founded in the 1900s}}{{Tag Magazines founded in the 1930s}}{{Tag Fashion magazines}}{{Tag Men’s magazines}}", "New article.", "Blahuser", 1, "en");
+INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES ("GQ (USA)", "gq-usa", "GQ (formerly Gentlemen's Quarterly and Apparel Arts) is an American international monthly men's magazine based in New York City and founded in 1931. The publication focuses on fashion, style, and culture for men, though articles on food, movies, fitness, sex, music, travel, celebrities' sports, technology, and books are also featured.{{Tag GQ franchises}}{{Tag GQ magazines}}{{Tag Magazines in English}}{{Tag Magazines founded in 1931}}{{Tag Magazines founded in the 1900s}}{{Tag Magazines founded in the 1930s}}{{Tag Fashion magazines}}{{Tag Men’s magazines}}", "New article.", "Blahuser", 1, "en");
 
-INSERT Article (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES ('GQ (USA)', 'gq-usa', 'GQ (formerly Gentlemen''s Quarterly and Apparel Arts) is an American international monthly men''s magazine based in New York City and founded in 1931. The publication focuses on fashion, style, and culture for men, though articles on food, movies, fitness, sex, music, travel, celebrities'' sports, technology, and books are also featured.{{Tag GQ franchises}}{{Tag GQ magazines}}{{Tag Magazines in English}}{{Tag Magazines founded in 1931}}{{Tag Magazines founded in the 1900s}}{{Tag Magazines founded in the 1930s}}{{Tag Fashion magazines}}{{Tag Men’s magazines}}', 'New article.', 'Blahuser', 1, 'en');
+INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES ('GQ (USA)', 'gq-usa', 'GQ (formerly Gentlemen''s Quarterly and Apparel Arts) is an American international monthly men''s magazine based in New York City and founded in 1931. The publication focuses on fashion, style, and culture for men, though articles on food, movies, fitness, sex, music, travel, celebrities'' sports, technology, and books are also featured.{{Tag GQ franchises}}{{Tag GQ magazines}}{{Tag Magazines in English}}{{Tag Magazines founded in 1931}}{{Tag Magazines founded in the 1900s}}{{Tag Magazines founded in the 1930s}}{{Tag Fashion magazines}}{{Tag Men’s magazines}}', 'New article.', 'Blahuser', 1, 'en');
 
 INSERT Article (Title, UrlSlug, [Text], CreatedByAspNetUserId, SiteId, Language) VALUES ("GQ (Japan)", "gq-japan", "GQ Japan", "Blahuser", 1, "en");
 
@@ -190,14 +197,10 @@ Fashion-forward: GQ is at the forefront of the conversation about men's fashion,
 
 GQ Style magazine is a spin-off publication of GQ magazine, which is focused specifically on men's fashion and style. It was first launched in the UK in 2005 and has since expanded to several other countries, including the US, Australia, and Germany.~GQ Style is published twice a year and features in-depth articles and photo shoots that showcase the latest trends and styles in men's fashion. It covers everything from high-end designer labels to streetwear and emerging fashion trends, as well as grooming and lifestyle topics. The magazine also includes interviews and profiles of fashion designers, models, and other influential figures in the fashion industry.~One of the key features of GQ Style is its emphasis on high-quality photography and art direction. The magazine often features visually striking photo shoots that are intended to inspire and inform readers about the latest fashion trends and styles.~Overall, GQ Style is a must-read publication for men who are interested in fashion and style, as well as those who work in the fashion industry. Its combination of high-quality photography, in-depth articles, and expert analysis make it a valuable resource for anyone looking to stay up-to-date on the latest trends and styles in men's fashion.
 
-INSERT Article (Title, UrlSlug, [Text], CreatedByAspNetUserId, SiteId, Language)
-VALUES ("GQ (USA) - November 2020", "gq-usa-november-2020", "The third issue of [GQ (USA)] published in 2020.", "Blahuser", 1, 1, "en");
+INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (N'GQ (USA) - November 2020', 'gq-usa-november-2020', N'The third issue of [GQ (USA)] published in 2020.', N'Article created', '7240be61-df81-46f9-8152-6a48b96abc40', 1, 'en');
 
 GO
 
-CREATE TABLE Articles( Id int IDENTITY(1,1) NOT NULL PRIMARY KEY, SiteId int NOT NULL, Language nvarchar(20) NOT NULL, Title nvarchar(1000) NOT NULL, UrlSlug nvarchar(1000) NOT NULL, [Text] nvarchar(max) NOT NULL, RevisionReason nvarchar(1000) NOT NULL, CreatedByAspNetUserId nvarchar(450) NOT NULL, DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(), DateDeleted datetime2(7) NULL );
- 
-GO 
  
  
 INSERT Article (Title, UrlSlug, [Text], CreatedByAspNetUserId, SiteId) VALUES ("GQ (USA) - November 2020", "gq-usa-november-2020", "The third issue of [GQ (USA)] published in 2020.", "Blahuser", 1);
