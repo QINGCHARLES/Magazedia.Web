@@ -1,7 +1,10 @@
 using Magazedia.Web.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +15,40 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 	.AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddViewLocalization();
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+	const string DefaultCulture = "en";
+
+	var SupportedCultures = new[]
+	{
+		new CultureInfo(DefaultCulture),
+		new CultureInfo("ja"),
+		new CultureInfo("ar")
+	};
+
+	options.DefaultRequestCulture = new RequestCulture(DefaultCulture);
+	options.SupportedCultures = SupportedCultures;
+	options.SupportedUICultures = SupportedCultures;
+
+    // Remove the QueryStringRequestCultureProvider, CookieRequestCultureProvider, and AcceptLanguageHeaderRequestCultureProvider
+    // as we force site culture based on hostname
+    options.RequestCultureProviders.Clear();
+
+	// Add a custom RequestCultureProvider that extracts the culture from the first two letters of the site hostname
+    options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async Context =>
+	{
+		string Hostname = Context.Request.Host.Host;
+		string Culture = Hostname.Substring(0, 2);
+
+		return await Task.FromResult(new ProviderCultureResult(Culture));
+	}));
+});
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -43,7 +77,7 @@ using (TextReader sr = new StringReader(@$"
 				<rule enabled=""true"">
 					<match url=""(.*)"" />
 					<conditions logicalGrouping=""MatchAll"" trackAllCaptures=""false"">
-						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magazedia\.site$|^ja\.magazedia\.site$|^en\.localhost|^ja\.localhost"" negate=""true"" />
+						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magazedia\.site$|^ja\.magazedia\.site$|^ar\.magazedia\.site$|^en\.localhost|^ja\.localhost|^ar\.localhost"" negate=""true"" />
 					</conditions>
 					<action type=""Redirect"" url=""https://en.magazedia.site/{{R:1}}"" redirectType=""308"" />
 				</rule>
@@ -73,16 +107,20 @@ using (TextReader sr = new StringReader(@$"
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/revision/(.+)"" />
-					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article?UrlSlug={{R:1}}&amp;Id={{R:2}}"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article?UrlSlug={{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
+				</rule>
+				<rule name=""Rewrite Rule"">
+					<match url=""^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)"" />
+					<action type=""Rewrite"" url=""Article?UrlSlug={{R:1}}"" appendQueryString=""true"" />
 				</rule>
 			</rules>
 		</rewrite>
 	"))
 {
 	var options = new RewriteOptions()
-			.AddIISUrlRewrite(sr)
-			.AddRewrite(@"^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1",
-						skipRemainingRules: true);
+			.AddIISUrlRewrite(sr);
+			//.AddRewrite(@"^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1",
+			//			skipRemainingRules: true);
 
 	app.UseRewriter(options);
 }
@@ -92,6 +130,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 app.MapRazorPages();
 

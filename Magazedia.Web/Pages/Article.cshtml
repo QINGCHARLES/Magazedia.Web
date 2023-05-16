@@ -1,10 +1,10 @@
 ﻿@page
 @model ArticleModel
 @{
-	ViewData["Title"] = Model.ArticleTitle;
+	ViewData["Title"] = Html.Raw(Model.ArticleTitle);
 }
 
-<h1>@Model.ArticleTitle</h1>
+<h1>@Html.Raw(Model.ArticleTitle)</h1>
 <p>@Html.Raw(Model.ArticleText)</p>
 
 @if (Model.ArticleLanguageLinks != null)

@@ -1,11 +1,16 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<IndexModel> stringLocalizer;
+@inject IHtmlLocalizer<IndexModel> htmlLocalizer;
+@inject IHttpContextAccessor HttpContextAccessor;
 @model IndexModel
 @{
 	ViewData["Title"] = "Home";
 }
 
 <div class="text-center">
-	<h1 class="display-4">Welcome</h1>
+	<h1 class="display-4">@HttpContextAccessor.HttpContext!.Request.QueryString -- @stringLocalizer["Login"]</h1>
 
 	@{
 		if (Model.Articles != null)

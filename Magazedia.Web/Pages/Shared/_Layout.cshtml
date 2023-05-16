@@ -1,5 +1,10 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Http;
+@using Magazedia;
+@inject IHttpContextAccessor HttpContextAccessor;
+@inject IStringLocalizer<SharedResource> stringLocalizer;
+@inject IHtmlLocalizer<SharedResource> htmlLocalizer;
+<!DOCTYPE html>
+<html lang="en" dir="@Helpers.GetTextDirection(HttpContextAccessor.HttpContext!.Request.Host.Host)">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,9 +15,7 @@
 	<link rel="stylesheet" href="~/Magazedia.Web.styles.css" asp-append-version="true" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 	<link href="https://fonts.googleapis.com/css2?family=Sora:wght@800&family=Ubuntu:ital,wght@1,700&display=swap" rel="stylesheet">
-
 </head>
 <body>
 	<header>
@@ -36,6 +39,9 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-dark" href="https://ja.localhost:7062/">ja</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" href="https://ar.localhost:7062/">ar</a>
 						</li>
 					</ul>
 					<partial name="_LoginPartial" />

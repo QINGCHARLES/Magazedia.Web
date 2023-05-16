@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WikiWikiWorld.Models;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using System.Globalization;
 
 namespace Magazedia.Web.Pages
 {
@@ -31,6 +32,8 @@ namespace Magazedia.Web.Pages
 
 		public IActionResult OnGet()
 		{
+			CultureInfo.CurrentCulture = new CultureInfo("ar");
+			CultureInfo.CurrentUICulture = new CultureInfo("ar");
 			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
 			string SqlQuery = "SELECT * FROM Articles WHERE Language = @Language ORDER BY DateCreated DESC";
