@@ -21,7 +21,7 @@ namespace Magazedia.Web.Pages
 		{
 			this.Config = Config;
 			this.HttpContextAccessor = HttpContextAccessor;
-			Language = Magazedia.Helpers.GetLanguage(HttpContextAccessor.HttpContext!.Request.Host.Host);
+			Language = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
 			//_logger = logger;
 		}
 

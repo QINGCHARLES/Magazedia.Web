@@ -1,3 +1,4 @@
+using Magazedia;
 using Magazedia.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -37,11 +38,11 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     // as we force site culture based on hostname
     options.RequestCultureProviders.Clear();
 
-	// Add a custom RequestCultureProvider that extracts the culture from the first two letters of the site hostname
+	// Add a custom RequestCultureProvider that extracts the culture from the subdomain of the site hostname
     options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async Context =>
 	{
 		string Hostname = Context.Request.Host.Host;
-		string Culture = Hostname.Substring(0, 2);
+		string Culture = Helpers.GetCultureFromHostname(Hostname, DefaultCulture);
 
 		return await Task.FromResult(new ProviderCultureResult(Culture));
 	}));

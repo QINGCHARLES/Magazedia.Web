@@ -29,7 +29,7 @@ public class ArticleModel : PageModel
 		this.Config = Config;
 		this.HttpContextAccessor = HttpContextAccessor;
 		Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
-		Language = Magazedia.Helpers.GetLanguage(HttpContextAccessor.HttpContext!.Request.Host.Host);
+		Language = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
 	}
 
 	public IActionResult OnGet()

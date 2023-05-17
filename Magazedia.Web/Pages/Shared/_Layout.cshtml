@@ -3,8 +3,11 @@
 @inject IHttpContextAccessor HttpContextAccessor;
 @inject IStringLocalizer<SharedResource> stringLocalizer;
 @inject IHtmlLocalizer<SharedResource> htmlLocalizer;
+@{
+	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
+}
 <!DOCTYPE html>
-<html lang="en" dir="@Helpers.GetTextDirection(HttpContextAccessor.HttpContext!.Request.Host.Host)">
+<html lang="en" dir="@Helpers.GetTextDirectionFromHostname(Hostname.Host, "en")">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,13 +38,13 @@
 							<a class="nav-link text-dark" href="/create-article:">Create Article</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" href="https://en.localhost:7062/">en</a>
+							<a class="nav-link text-dark" href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">en</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" href="https://ja.localhost:7062/">ja</a>
+							<a class="nav-link text-dark" href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ja</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" href="https://ar.localhost:7062/">ar</a>
+							<a class="nav-link text-dark" href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ar</a>
 						</li>
 					</ul>
 					<partial name="_LoginPartial" />
@@ -54,7 +57,7 @@
 			@RenderBody()
 		</main>
 	</div>
-
+	<div style="clear: both;"></div>
 	<footer class="border-top footer text-muted">
 		<div class="container">
 			<p>Content is available under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> unless otherwise noted.</p>

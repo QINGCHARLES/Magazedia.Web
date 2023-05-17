@@ -2,17 +2,25 @@
 
 public static class Helpers
 {
-	public static string GetLanguage(string HttpHost)
+	public static string GetCultureFromHostname(string Hostname, string DefaultCulture)
 	{
-		return HttpHost.Substring(0, 2);
+		int DotIndex = Hostname.IndexOf('.');
+
+		// If there is no subdomain use default culture, otherwise get the substring containing the subdomain
+		return DotIndex >= 0 ? Hostname[..DotIndex] : DefaultCulture;
 	}
 	
 	// List of all languages that read from right-to-left that we support
-	static readonly string[] RightToLeftTextDirectionLanguageCodes = { "ar" };
+	static readonly string[] RightToLeftTextDirectionCultureCodes = { "ar" };
 
-	public static string GetTextDirection(string HttpHost)
+	public static string GetTextDirectionFromHostname(string Hostname, string DefaultCulture)
 	{
-		string Language = GetLanguage(HttpHost);
-		return RightToLeftTextDirectionLanguageCodes.Contains(Language) ? "rtl" : "ltr";
+		string Culture = GetCultureFromHostname(Hostname, DefaultCulture);
+		return RightToLeftTextDirectionCultureCodes.Contains(Culture) ? "rtl" : "ltr";
+	}
+
+	public static string GetDomainAndPortFromHostname(string Hostname)
+	{
+		return Hostname.IndexOf('.') >= 0 ? Hostname.Substring(Hostname.IndexOf('.') + 1) : Hostname;
 	}
 }
