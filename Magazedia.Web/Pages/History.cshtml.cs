@@ -31,7 +31,9 @@ namespace Magazedia.Web.Pages
 			string SqlQuery = @"SELECT		Articles.*, AspNetUsers.UserName AS CreatedByAspNetUsername
 								FROM		Articles
 								INNER JOIN	AspNetUsers ON Articles.CreatedByAspNetUserId = AspNetUsers.Id
-								WHERE		Articles.DateDeleted IS NULL
+								WHERE		Articles.UrlSlug = @UrlSlug AND
+											Articles.Language = @Language AND
+											Articles.DateDeleted IS NULL
 								ORDER BY	Articles.DateCreated DESC";
 
 			Articles = Connection.Query<Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language }).ToList();
