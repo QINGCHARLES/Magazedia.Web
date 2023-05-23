@@ -1,5 +1,37 @@
 ﻿--
 --
+
+CREATE TABLE Articles
+(
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	SiteId int NOT NULL,
+	Culture nvarchar(20) NOT NULL,
+	Title nvarchar(1000) NOT NULL,
+	UrlSlug nvarchar(1000) NOT NULL,
+	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateDeleted datetime2(7) NULL
+)
+
+CREATE TABLE ArticleRevisions
+(
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	ArticleId int NOT NULL,
+	[Text] nvarchar(max) NOT NULL,
+	RevisionReason nvarchar(1000) NOT NULL,
+  	CreatedByAspNetUserId nvarchar(450) NOT NULL,
+	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateDeleted datetime2(7) NULL
+)
+
+CREATE TABLE ArticleCultureLinks 
+(
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	SiteId int NOT NULL,
+	ArticleId int NOT NULL,
+	ArticleCultureLinkGroupId int NOT NULL,
+	DateDeleted datetime2(7) NULL
+);
+
 SELECT		ArticleTalkSubjectPosts.*, AspNetUsers.UserName AS CreatedByAspNetUsername
 								FROM		ArticleTalkSubjectPosts
 								INNER JOIN	AspNetUsers ON ArticleTalkSubjectPosts.CreatedByAspNetUserId = AspNetUsers.Id
@@ -93,14 +125,7 @@ INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [
 INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [Text], CreatedByAspNetUserId ) VALUES ( 1, NULL, 'OK, I found the answer. It is the MOTY issue!', '7240be61-df81-46f9-8152-6a48b96abc40' );
 
 
-CREATE TABLE ArticleCultureLinks 
-(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	SiteId int NOT NULL,
-	ArticleId int NOT NULL,
-	ArticleCultureLinkGroupId int NOT NULL,
-	DateDeleted datetime2(7) NULL
-);
+
 
 DECLARE @ArticleId INT;
 
@@ -145,27 +170,7 @@ INNER JOIN Articles a ON ar.ArticleId = a.Id
 WHERE a.UrlSlug = 'gq-usa-november-2020';
 
 
-CREATE TABLE Articles
-(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	SiteId int NOT NULL,
-	Culture nvarchar(20) NOT NULL,
-	Title nvarchar(1000) NOT NULL,
-	UrlSlug nvarchar(1000) NOT NULL,
-	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
-	DateDeleted datetime2(7) NULL
-)
 
-CREATE TABLE ArticleRevisions
-(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	ArticleId int NOT NULL,
-	[Text] nvarchar(max) NOT NULL,
-	RevisionReason nvarchar(1000) NOT NULL,
-  	CreatedByAspNetUserId nvarchar(450) NOT NULL,
-	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
-	DateDeleted datetime2(7) NULL
-)
 
 
 
