@@ -9,6 +9,9 @@ using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Gives better integration with the systemd service on Linux
+builder.Host.UseSystemd();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
@@ -137,5 +140,10 @@ app.UseAuthorization();
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 app.MapRazorPages();
+
+app.Logger.LogInformation("Information - Hello World");
+app.Logger.LogWarning("Warning - Hello World");
+app.Logger.LogError("Error - Hello World");
+app.Logger.LogCritical("Critical - Hello World");
 
 app.Run();

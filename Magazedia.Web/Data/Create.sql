@@ -10,7 +10,7 @@ CREATE TABLE Articles
 	UrlSlug nvarchar(1000) NOT NULL,
 	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
 	DateDeleted datetime2(7) NULL
-)
+);
 
 CREATE TABLE ArticleRevisions
 (
@@ -21,7 +21,7 @@ CREATE TABLE ArticleRevisions
   	CreatedByAspNetUserId nvarchar(450) NOT NULL,
 	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
 	DateDeleted datetime2(7) NULL
-)
+);
 
 CREATE TABLE ArticleCultureLinks 
 (
