@@ -5,6 +5,8 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using WikiWikiWorld.Models;
 using System.Security.Claims;
+using System.Security.Policy;
+using System.Text.RegularExpressions;
 
 namespace Magazedia.Web.Pages;
 public class CreateModel : PageModel
@@ -43,7 +45,25 @@ public class CreateModel : PageModel
 		//                var sql = "SELECT * FROM Article WHERE UrlSlug=@UrlSlug AND Language='en'";
 		//              var Article = connection.QuerySingleOrDefault(sql, new { UrlSlug = UrlSlug });
 
+		//Connection.Open();
+		//string resout = "";
+		//using (var tran = Connection.BeginTransaction())
+		//{
+		//	// Execute your queries here
+		//	string SqlQuery = @"INSERT Articles (Title, UrlSlug, SiteId, Culture)
+		//						OUTPUT INSERTED.[Id]
+		//						VALUES (@Title, @UrlSlug, @SiteId, @Culture);
+		//						"
+		//	;
+		//	int ArticleId = Connection.QuerySingle<int>(SqlQuery, new { Title = ArticleTitle, UrlSlug = ArticleUrlSlug, SiteId, Culture }, tran);
 
+		//	SqlQuery = @"	INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+		//					VALUES (@ArticleId, @Text, @RevisionReason, @CreatedByAspNetUserId);
+		//				";
+		//	var res = Connection.Execute(SqlQuery, new { ArticleId, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username }, tran);
+		//	resout = res.ToString();
+		//	tran.Commit(); //Or rollback 
+		//}
 
 		return Page();
 	}

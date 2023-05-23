@@ -85,7 +85,7 @@ using (TextReader sr = new StringReader(@$"
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/edit"" />
-					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Edit?UrlSlug={{R:1}}"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Edit?UrlSlug={{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/talk$"" />
@@ -97,7 +97,7 @@ using (TextReader sr = new StringReader(@$"
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^firehose:(.*)"" />
-					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Firehose?UrlSlug={{R:1}}"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Firehose?UrlSlug={{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/history$"" />
@@ -108,7 +108,7 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug={{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
 				</rule>
 				<rule name=""Rewrite Rule"">
-					<match url=""^(?!Create)(?!Article/History)(?!Firehose)(?!Edit)(?!Talk)(?!Article/View)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)"" />
+					<match url=""^(?!Create)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Talk)(?!Article/View)(?!DbHelper)(?!Dmca)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)"" />
 					<action type=""Rewrite"" url=""Article/View?UrlSlug={{R:1}}"" appendQueryString=""true"" />
 				</rule>
 			</rules>

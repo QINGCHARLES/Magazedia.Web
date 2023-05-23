@@ -12,7 +12,6 @@ public class ArticleRevision
 	public DateTime DateCreated { get; set; }
 	public string? CreatorUsername { get; set; }
 
-
 	public ArticleRevision(int Id, string Title, string UrlSlug, string Text, string RevisionReason, DateTime DateCreated, string CreatorUsername)
 	{
 		this.Id = Id;

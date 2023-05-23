@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model FirehoseModel
 @{
-    ViewData["Title"] = "Revision history:" + Model.ArticleTitle;
+	ViewData["Title"] = "Revision history:" + Model.ArticleTitle;
 }
 
 <h1>Firehose</h1>
@@ -10,22 +10,24 @@
 
 <table class="table">
 	<thead>
-		<tr><th>Title</th><th>Slug</th><th>Created</th></tr> 
+		<tr><th>Title</th><th>Slug</th><th>Created</th></tr>
 	</thead>
 	<tbody>
-	@if (Model.Articles != null) {
-            foreach (var Article in Model.Articles)
-		{ 
-		<tr><td><a href="/@Article.UrlSlug">@Article.Title</a></td>
-<td>@Article.UrlSlug</td>
-<td>@Article.DateCreated</td>
-<td>
-<form method="post" asp-page-handler="Delete" asp-route-Id=@Article.Id>
-  <input type="submit" value="Delete" />
-</form>
-</td> 
-</tr>
-            }
-        }
-        </tbody>
-    </table>
+		@if (Model.ArticleRevisions != null)
+		{
+			foreach (var ArticleRevision in Model.ArticleRevisions)
+			{
+				<tr>
+					<td><a href="/@ArticleRevision.UrlSlug">@ArticleRevision.Title</a></td>
+					<td>@ArticleRevision.UrlSlug</td>
+					<td>@ArticleRevision.DateCreated</td>
+					<td>
+						<form method="post" asp-page-handler="Delete" asp-route-Id=@ArticleRevision.Id>
+							<input type="submit" value="Delete" />
+						</form>
+					</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
