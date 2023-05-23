@@ -39,9 +39,13 @@ namespace Magazedia.Web.Pages
 			}
 			else
 			{
+				string ArticleTextB = ArticleText.Replace("\r\n", "' + CHAR(13) + CHAR(10) + N'");
 
-				return Content(@$"	INSERT Articles ( Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language )
-									VALUES ( N'{ArticleTitle}', N'{ArticleUrlSlug}', N'{ArticleText}', N'Article created', '7240be61-df81-46f9-8152-6a48b96abc40', 1, 'en' );".Replace(")\r\n", ") ").Replace("\r\n", "' + CHAR(13) + CHAR(10) + N'").Replace("+ '' ", "").Replace("\t", ""));
+				return Content(@$"	INSERT Articles (Title, UrlSlug, SiteId, Culture)
+									VALUES ( N'{ArticleTitle}', N'{ArticleUrlSlug}', 1, 'en' );
+									INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+									VALUES (SCOPE_IDENTITY(), N'{ArticleTextB}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+								".Replace("+ N'' ", "").Replace("\t", ""));
 			}
 		}
     }
