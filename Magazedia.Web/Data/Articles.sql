@@ -44,8 +44,54 @@ INSERT Articles ( Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId,
 -- file:
 INSERT Articles ( Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language ) VALUES ( N'GQ (USA) - November 2020 Cover.webp', N'file:gq-usa-november-2020-cover.webp', N'Cover of the [November 2020 issue](gq-usa-november-2020) of [GQ (USA) magazine](gq-usa).', N'Article created', '7240be61-df81-46f9-8152-6a48b96abc40', 1, 'en' );
 
+-- GQ (USA) I18N TEST ARTICLES AND LINKS
+
+DECLARE @ArticleId INT;
+
+-- en
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES (N'GQ (USA)', N'gq-usa', 1, 'en');
+
+SET @ArticleId = SCOPE_IDENTITY();
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'GQ (formerly Gentlemen’s Quarterly and Apparel Arts) is an American international monthly men’s magazine based in New York City and founded in 1931. The publication focuses on fashion, style, and culture for men, though articles on food, movies, fitness, sex, music, travel, celebrities, sports, technology, and books are also featured.{{Tag GQ franchises}}{{Tag GQ magazines}}{{Tag Magazines in English}}{{Tag Magazines founded in 1931}}{{Tag Magazines founded in the 1900s}}{{Tag Magazines founded in the 1930s}}{{Tag Fashion magazines}}{{Tag Men’s magazines}}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+INSERT ArticleCultureLinks ( SiteId, ArticleCultureLinkGroupId, ArticleId )
+VALUES ( 1, 1, @ArticleId );
+
+-- xx-test
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES (N'GQ (美国)', N'gq-美国', 1, 'xx-test');
+
+SET @ArticleId = SCOPE_IDENTITY();
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'《''''''GQ''''''》（{{lang-en|''''Gentlemen''s Quarterly''''}}），亦即「紳士季刊」，是一本源自[[美國]]的國際男性[[雜誌|月刊]]，內容著重於男性的[[時尚]]、風格與文化，也包括關於[[食物|美食]]、[[電影]]、[[健身]]、[[人類性行為|性]]、[[音樂]]、[[旅遊]]、[[體育|運動]]、[[消費電子|科技]]與[[書籍]]的文章。', N'文章创建。', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+INSERT ArticleCultureLinks ( SiteId, ArticleCultureLinkGroupId, ArticleId )
+VALUES ( 1, 1, @ArticleId );
+
 -- ja
-INSERT Articles ( Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language ) VALUES ( N'GQ (アメリカ)', N'gq-アメリカ', N'GQは、ニューヨークに拠点を置き、1931年に創刊した国際的な月刊男性向け雑誌である。主な内容は男性のファッション、スタイル、文化であり、他に食べ物、映画、フィットネス、セックス、音楽、旅行、スポーツ、テクノロジー、書籍も取り上げられている。GQは"Gentlemen''s Quarterly"（男性向け季刊誌）の略で、元は季刊誌であったことに由来する。' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'GQは、1931年にアメリカ合衆国でApparel Artsとして創刊した[2]。Apparel Artsは、主に卸売のバイヤーや小売店の店員を対象とした、衣料品取引の男性向けファッション雑誌だった。当初は業界のインサイダーのみを対象として、顧客にアドバイスを提供できるようにするためのもので、発行部数が非常に限られていた。小売業者よりも小売店の顧客の間でこの雑誌が人気となったことから、1933年に世界初の男性向け雑誌『エスクァイア』が創刊した[3][4]。' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'Apparel Artsはエスクァイア社によって長年にわたって出版されてきたが、1957年に男性向け季刊誌に変わり[5]、1958年にタイトルがGentlemen''s Quarterlyに変更された[6]。' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'1967年にGentlemen''s QuarterlyはGQにタイトルが変更された。1983年にコンデナストが出版権を買収し、編集長アート・クーパー（英語版）は、雑誌の方向性をファッションを超えたものに変更し、GQをエスクァイア誌と競合する男性向け一般誌とした。その後、アメリカ版の編集方針に則った国際版が刊行された。', N'Article created', '7240be61-df81-46f9-8152-6a48b96abc40', 1, 'ja' );
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES (N'GQ (アメリカ)', N'gq-アメリカ', 1, 'ja');
+
+SET @ArticleId = SCOPE_IDENTITY();
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'GQは、ニューヨークに拠点を置き、1931年に創刊した国際的な月刊男性向け雑誌である。主な内容は男性のファッション、スタイル、文化であり、他に食べ物、映画、フィットネス、セックス、音楽、旅行、スポーツ、テクノロジー、書籍も取り上げられている。GQは"Gentlemen''s Quarterly"（男性向け季刊誌）の略で、元は季刊誌であったことに由来する。' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'GQは、1931年にアメリカ合衆国でApparel Artsとして創刊した[2]。Apparel Artsは、主に卸売のバイヤーや小売店の店員を対象とした、衣料品取引の男性向けファッション雑誌だった。当初は業界のインサイダーのみを対象として、顧客にアドバイスを提供できるようにするためのもので、発行部数が非常に限られていた。小売業者よりも小売店の顧客の間でこの雑誌が人気となったことから、1933年に世界初の男性向け雑誌『エスクァイア』が創刊した[3][4]。' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'Apparel Artsはエスクァイア社によって長年にわたって出版されてきたが、1957年に男性向け季刊誌に変わり[5]、1958年にタイトルがGentlemen''s Quarterlyに変更された[6]。' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'1967年にGentlemen''s QuarterlyはGQにタイトルが変更された。1983年にコンデナストが出版権を買収し、編集長アート・クーパー（英語版）は、雑誌の方向性をファッションを超えたものに変更し、GQをエスクァイア誌と競合する男性向け一般誌とした。その後、アメリカ版の編集方針に則った国際版が刊行された。', N'記事が作成されました。', '7240be61-df81-46f9-8152-6a48b96abc40' );
+
+INSERT ArticleCultureLinks ( SiteId, ArticleCultureLinkGroupId, ArticleId )
+VALUES ( 1, 1, @ArticleId );
 
 -- ar
-INSERT Articles ( Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language ) VALUES ( N'جي كيو (الأمريكي)', N'جي-كيو-الأمريكي', N'جي كيو (بالإنجليزية: GQ)‏ هي مجلة شهرية للرجل تركيز على ثقافة ونمط أزياء الرجال، من خلال مقالات عن الطعام، والأفلام، واللياقة البدنية، والموسيقى، والسفر، والرياضة، والتكنولوجيا، والكتب. وكل شى عن الرجال.' + CHAR(13) + CHAR(10) + N'' + CHAR(13) + CHAR(10) + N'# تاريخ' + CHAR(13) + CHAR(10) + N'' + CHAR(13) + CHAR(10) + N'أطلق أول نسخة من المجلة في 1931 في الولايات المتحدة وكانت البداية هي مجلة أزياء الرجال لتجارة الملابس، والتي تهدف في المقام الأول لبائعي الجملة وبائعي التجزئة. وكان في بادئ الأمر تطبع في نسخ محدودة جدا، زادة شعبية المجلة بين عملاء التجزئة، والذي أدى إلى إصدار نسخ أكثر من السابق', N'Article created', '7240be61-df81-46f9-8152-6a48b96abc40', 1, 'ar' );
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES ( N'جي كيو (الأمريكي)', N'جي-كيو-الأمريكي', 1, 'ar' );
+
+SET @ArticleId = SCOPE_IDENTITY();
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'جي كيو (بالإنجليزية: GQ)‏ هي مجلة شهرية للرجل تركيز على ثقافة ونمط أزياء الرجال، من خلال مقالات عن الطعام، والأفلام، واللياقة البدنية، والموسيقى، والسفر، والرياضة، والتكنولوجيا، والكتب. وكل شى عن الرجال.' + CHAR(13) + CHAR(10) + N'' + CHAR(13) + CHAR(10) + N'# تاريخ' + CHAR(13) + CHAR(10) + N'' + CHAR(13) + CHAR(10) + N'أطلق أول نسخة من المجلة في 1931 في الولايات المتحدة وكانت البداية هي مجلة أزياء الرجال لتجارة الملابس، والتي تهدف في المقام الأول لبائعي الجملة وبائعي التجزئة. وكان في بادئ الأمر تطبع في نسخ محدودة جدا، زادة شعبية المجلة بين عملاء التجزئة، والذي أدى إلى إصدار نسخ أكثر من السابق', N'تم إنشاء المقال.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+INSERT ArticleCultureLinks ( SiteId, ArticleCultureLinkGroupId, ArticleId )
+VALUES ( 1, 1, @ArticleId );

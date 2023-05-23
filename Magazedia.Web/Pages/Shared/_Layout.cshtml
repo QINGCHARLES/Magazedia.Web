@@ -14,7 +14,7 @@
 	<title>@ViewData["Title"] - Magazedia</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/css/en.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/{@Helpers.GetCultureFromHostname(Hostname.Host, "en")}.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/Magazedia.Web.styles.css" asp-append-version="true" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,6 +45,9 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-dark" href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ar</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" href="https://xx-test.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">xx</a>
 						</li>
 					</ul>
 					<partial name="_LoginPartial" />

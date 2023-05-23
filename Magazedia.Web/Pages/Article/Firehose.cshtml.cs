@@ -12,7 +12,7 @@ namespace Magazedia.Web.Pages
 		public string? ArticleTitle { get; set; }
 
 
-		public IList<Article>? Articles { get; set; }
+		public IList<WikiWikiWorld.Models.Article>? Articles { get; set; }
 
 		private readonly IConfiguration Config;
 		private readonly string Language;
@@ -27,7 +27,7 @@ namespace Magazedia.Web.Pages
 			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
 			string SqlQuery = "SELECT * FROM Articles WHERE Language = @Language ORDER BY DateCreated DESC";
-			Articles = Connection.Query<Article>(SqlQuery, new { Language = Language }).ToList();
+			Articles = Connection.Query<WikiWikiWorld.Models.Article>(SqlQuery, new { Language = Language }).ToList();
 			//Articles = ArticlesList;
 //			ArticleTitle = Articles[0].Title;
 

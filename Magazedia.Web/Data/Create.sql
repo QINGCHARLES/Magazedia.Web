@@ -1,8 +1,5 @@
-﻿SELECT
-law.plus
-law.online
-law.zone
-
+﻿--
+--
 SELECT		ArticleTalkSubjectPosts.*, AspNetUsers.UserName AS CreatedByAspNetUsername
 								FROM		ArticleTalkSubjectPosts
 								INNER JOIN	AspNetUsers ON ArticleTalkSubjectPosts.CreatedByAspNetUserId = AspNetUsers.Id
@@ -19,6 +16,7 @@ CREATE TABLE AspNetUserRoles( UserId nvarchar(450) NOT NULL, RoleId nvarchar(450
 CREATE TABLE AspNetUserTokens( UserId nvarchar(450) NOT NULL, LoginProvider nvarchar(450) NOT NULL, [Name] nvarchar(450) NOT NULL, [Value] nvarchar(max) NULL, CONSTRAINT PK_AspNetUsersToken PRIMARY KEY( UserId, LoginProvider, [Name] ) );
 GO
 
+INSERT  AspNetUsers ( Id, AccessFailedCount, ConcurrencyStamp, Email, EmailConfirmed, LockoutEnabled, LockoutEnd, NormalizedEmail, NormalizedUserName, PasswordHash, PhoneNumber, PhoneNumberConfirmed, SecurityStamp, TwoFactorEnabled, UserName) VALUES ('7240be61-df81-46f9-8152-6a48b96abc40', 0, '3050d1a5-9a2c-4d80-a1be-58d6a79191a6', 'hello@magazedia.site', 1, 1, NULL, 'HELLO@MAGAZEDIA.SITE', 'QINGCHARLES', 'AQAAAAIAAYagAAAAEBB+4D8cFi426Wgg8vfO/4cBgISBNJWZVfnWXwSSv5pq171AC3LGZgH6qlvFTj25Dw==', NULL, 0, 'PSJMEDAFBWDTOWQG7J4FYSGOJ7HM3M4I', 0, 'QINGCHARLES');
 
 CREATE TABLE DownloadUrls
 (
@@ -95,38 +93,81 @@ INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [
 INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [Text], CreatedByAspNetUserId ) VALUES ( 1, NULL, 'OK, I found the answer. It is the MOTY issue!', '7240be61-df81-46f9-8152-6a48b96abc40' );
 
 
-CREATE TABLE ArticleLanguageLinks 
+CREATE TABLE ArticleCultureLinks 
 (
-	Id int IDENTITY(1,1) NOT NULL,
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	SiteId int NOT NULL,
-	ArticleLanguageGroupId int NOT NULL,
-	[Language] nvarchar(20) NOT NULL,
-	ArticleTitle nvarchar(1000) NOT NULL,
+	ArticleId int NOT NULL,
+	ArticleCultureLinkGroupId int NOT NULL,
 	DateDeleted datetime2(7) NULL
 );
 
-CREATE TABLE ArticleLanguageLinks (Id int IDENTITY(1,1) NOT NULL, SiteId int NOT NULL, ArticleLanguageGroupId int NOT NULL, [Language] nvarchar(20) NOT NULL, ArticleTitle nvarchar(1000) NOT NULL, DateDeleted datetime2(7) NULL );
+DECLARE @ArticleId INT;
 
-INSERT INTO ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Language, ArticleTitle ) VALUES ( 1, 1, N'en', N'GQ (USA)' );
-INSERT INTO ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Language, ArticleTitle ) VALUES ( 1, 1, N'ja', N'GQ (アメリカ)' );
-INSERT INTO ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Language, ArticleTitle ) VALUES ( 1, 1, N'ar', N'جي كيو (الأمريكي)' );
+INSERT ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Culture, ArticleTitle )
+VALUES ( 1, 1, N'ja', N'GQ (アメリカ)' );
+
+INSERT ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, Culture, ArticleTitle )
+VALUES ( 1, 1, N'ar', N'جي كيو (الأمريكي)' );
+
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES (N'GQ (USA)', N'gq-usa', 1, 'en');
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'GQ (formerly Gentlemen’s Quarterly and Apparel Arts) is an American international monthly men’s magazine based in New York City and founded in 1931. The publication focuses on fashion, style, and culture for men, though articles on food, movies, fitness, sex, music, travel, celebrities, sports, technology, and books are also featured.{{Tag GQ franchises}}{{Tag GQ magazines}}{{Tag Magazines in English}}{{Tag Magazines founded in 1931}}{{Tag Magazines founded in the 1900s}}{{Tag Magazines founded in the 1930s}}{{Tag Fashion magazines}}{{Tag Men’s magazines}}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+INSERT ArticleLanguageLinks ( SiteId, ArticleLanguageGroupId, ArticleId )
+VALUES ( 1, 1, @ArticleId );
+
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES (N'GQ (USA) - November 2020', N'gq-usa-november-2020', 1, 'en');
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (SCOPE_IDENTITY(), N'The third issue of [GQ (USA)] published in 2020.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+DECLARE @ArticleId INT;
+
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES (N'GQ (USA) - November 2020', N'gq-usa-november-2020', 1, 'en');
+
+SET @ArticleId = SCOPE_IDENTITY();
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'The third issue of [GQ (USA)](gq-usa) publisshed in 2020.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'The third issue of [GQ (USA)](gq-usa) published in 2020.', N'Typo fixed.', '7240be61-df81-46f9-8152-6a48b96abc40');
 
 
+SELECT ar.*
+FROM ArticleRevisions ar
+INNER JOIN Articles a ON ar.ArticleId = a.Id
+WHERE a.UrlSlug = 'gq-usa-november-2020';
 
 
 CREATE TABLE Articles
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	SiteId int NOT NULL,
-	[Language] nvarchar(20) NOT NULL,
+	Culture nvarchar(20) NOT NULL,
 	Title nvarchar(1000) NOT NULL,
 	UrlSlug nvarchar(1000) NOT NULL,
+	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateDeleted datetime2(7) NULL
+)
+
+CREATE TABLE ArticleRevisions
+(
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	ArticleId int NOT NULL,
 	[Text] nvarchar(max) NOT NULL,
 	RevisionReason nvarchar(1000) NOT NULL,
   	CreatedByAspNetUserId nvarchar(450) NOT NULL,
 	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
 	DateDeleted datetime2(7) NULL
 )
+
+
 
 GO
 
@@ -157,7 +198,6 @@ mguiJLbasW3AifV4tCxN
 
 
 
-INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES ("GQ (USA)", "gq-usa", "GQ (formerly Gentlemen's Quarterly and Apparel Arts) is an American international monthly men's magazine based in New York City and founded in 1931. The publication focuses on fashion, style, and culture for men, though articles on food, movies, fitness, sex, music, travel, celebrities' sports, technology, and books are also featured.{{Tag GQ franchises}}{{Tag GQ magazines}}{{Tag Magazines in English}}{{Tag Magazines founded in 1931}}{{Tag Magazines founded in the 1900s}}{{Tag Magazines founded in the 1930s}}{{Tag Fashion magazines}}{{Tag Men’s magazines}}", "New article.", "Blahuser", 1, "en");
 
 INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES ('GQ (USA)', 'gq-usa', 'GQ (formerly Gentlemen''s Quarterly and Apparel Arts) is an American international monthly men''s magazine based in New York City and founded in 1931. The publication focuses on fashion, style, and culture for men, though articles on food, movies, fitness, sex, music, travel, celebrities'' sports, technology, and books are also featured.{{Tag GQ franchises}}{{Tag GQ magazines}}{{Tag Magazines in English}}{{Tag Magazines founded in 1931}}{{Tag Magazines founded in the 1900s}}{{Tag Magazines founded in the 1930s}}{{Tag Fashion magazines}}{{Tag Men’s magazines}}', 'New article.', 'Blahuser', 1, 'en');
 

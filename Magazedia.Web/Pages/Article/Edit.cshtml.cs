@@ -15,7 +15,7 @@ public class EditModel : PageModel
 	public string? ArticleRevisionReason { get; set; }
 	public string? ArticleText { get; set; }
 
-	public Article Article { get; set; }
+	public WikiWikiWorld.Models.Article Article { get; set; }
 
 	[BindProperty(SupportsGet = true)]
 	public string? UrlSlug { get; set; }
@@ -59,19 +59,19 @@ public class EditModel : PageModel
 							WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL
 							ORDER BY DateCreated DESC";
 
-		Article = Connection.QuerySingleOrDefault<Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
+		//Article = Connection.QuerySingleOrDefault<Article>(SqlQuery, new { UrlSlug = UrlSlug, Language = Language });
 
-		if (Article is null)
-		{
-			return NotFound();
-		}
+		//if (Article is null)
+		//{
+		//	return NotFound();
+		//}
 
-		var Pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+		//var Pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 
-		ArticleTitle = Article.Title;
-		ArticleUrlSlug = Article.UrlSlug;
-		ArticleText = Article.Text;
-		ArticleHtml = Markdown.ToHtml(Article.Text, Pipeline);
+		//ArticleTitle = Article.Title;
+		//ArticleUrlSlug = Article.UrlSlug;
+		//ArticleText = Article.Text;
+		//ArticleHtml = Markdown.ToHtml(Article.Text, Pipeline);
 
 		return Page();
 	}

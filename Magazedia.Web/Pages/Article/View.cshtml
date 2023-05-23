@@ -1,0 +1,31 @@
+﻿@page
+@using Microsoft.AspNetCore.Http;
+@using Magazedia;
+@inject IHttpContextAccessor HttpContextAccessor;
+@inject IStringLocalizer<SharedResource> stringLocalizer;
+@inject IHtmlLocalizer<SharedResource> htmlLocalizer;
+@model ArticleViewModel
+@{
+	ViewData["Title"] = Html.Raw(Model.ArticleTitle);
+	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
+}
+
+<h1>@Html.Raw(Model.ArticleTitle)</h1>
+<article>@Html.Raw(Model.ArticleText)</article>
+
+@if (Model.ArticleCultureLinks != null)
+{
+	foreach (var ArticleCultureLink in Model.ArticleCultureLinks)
+	{
+		string Url = $"https://{ArticleCultureLink.Culture}.{Helpers.GetDomainAndPortFromHostname(Hostname.ToString())}/{ArticleCultureLink.UrlSlug}";
+
+		if (ArticleCultureLink.Culture != Model.Culture)
+		{
+			<p><a href="@Url">@ArticleCultureLink.Title</a></p>
+		}
+	}
+}
+
+<p><a href="/@Model.UrlSlug/edit">Edit Article</a></p>
+<p><a href="/@Model.UrlSlug/history">View Edit History</a></p>
+<p><a href="/@Model.UrlSlug/talk">Talk</a></p>

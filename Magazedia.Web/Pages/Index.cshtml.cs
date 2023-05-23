@@ -27,18 +27,16 @@ namespace Magazedia.Web.Pages
 
 
 
-		public IList<Article>? Articles { get; set; }
+		public IList<WikiWikiWorld.Models.Article>? Articles { get; set; }
 
 
 		public IActionResult OnGet()
 		{
-			CultureInfo.CurrentCulture = new CultureInfo("ar");
-			CultureInfo.CurrentUICulture = new CultureInfo("ar");
 			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-			string SqlQuery = "SELECT * FROM Articles WHERE Language = @Language ORDER BY DateCreated DESC";
+			string SqlQuery = "SELECT * FROM Articles WHERE Culture = @Culture ORDER BY DateCreated DESC";
 
-			Articles = Connection.Query<Article>(SqlQuery, new { Language = Language }).ToList();
+			Articles = Connection.Query<WikiWikiWorld.Models.Article>(SqlQuery, new { Culture = Language }).ToList();
 
 
 			return Page();

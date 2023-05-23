@@ -12,15 +12,15 @@
 		<tr><th>When</th><th>Reason</th><th>Username</th></tr>
 	</thead>
 	<tbody>
-		@if (Model.Articles != null)
+		@if (Model.ArticleRevisions != null)
 		{
-			foreach (var Article in Model.Articles)
+			foreach (var ArticleRevision in Model.ArticleRevisions)
 			{
 				<tr>
-					<td><a href="/@Article.UrlSlug/revision/@Article.Id">@Article.DateCreated</a></td>
-					<td>@Article.RevisionReason</td>
+					<td><a href="/@ArticleRevision.UrlSlug/revision/@ArticleRevision.Id">@ArticleRevision.DateCreated</a></td>
+					<td>@ArticleRevision.RevisionReason</td>
 					<td>
-						<a href="/@@@Article.CreatedByAspNetUsername">@Article.CreatedByAspNetUsername</a>
+						<a href="/@@@ArticleRevision.CreatorUsername">@ArticleRevision.CreatorUsername</a>
 					</td>
 				</tr>
 			}

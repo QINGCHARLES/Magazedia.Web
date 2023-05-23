@@ -75,7 +75,7 @@ using (TextReader sr = new StringReader(@$"
 				<rule enabled=""true"">
 					<match url=""(.*)"" />
 					<conditions logicalGrouping=""MatchAll"" trackAllCaptures=""false"">
-						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magazedia\.site$|^ja\.magazedia\.site$|^ar\.magazedia\.site$|^en\.localhost|^ja\.localhost|^ar\.localhost"" negate=""true"" />
+						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magazedia\.site$|^xx-test\.magazedia\.site$|^ja\.magazedia\.site$|^ar\.magazedia\.site$|^en\.localhost|^xx-test\.localhost|^ja\.localhost|^ar\.localhost"" negate=""true"" />
 					</conditions>
 					<action type=""Redirect"" url=""https://en.magazedia.site/{{R:1}}"" redirectType=""308"" />
 				</rule>
@@ -101,15 +101,15 @@ using (TextReader sr = new StringReader(@$"
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/history$"" />
-					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/History?UrlSlug={{R:1}}"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/History?UrlSlug={{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/revision/(.+)"" />
-					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article?UrlSlug={{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug={{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
 				</rule>
 				<rule name=""Rewrite Rule"">
-					<match url=""^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)"" />
-					<action type=""Rewrite"" url=""Article?UrlSlug={{R:1}}"" appendQueryString=""true"" />
+					<match url=""^(?!Create)(?!Article/History)(?!Firehose)(?!Edit)(?!Talk)(?!Article/View)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)"" />
+					<action type=""Rewrite"" url=""Article/View?UrlSlug={{R:1}}"" appendQueryString=""true"" />
 				</rule>
 			</rules>
 		</rewrite>
