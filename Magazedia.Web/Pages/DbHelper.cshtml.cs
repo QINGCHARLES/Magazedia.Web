@@ -45,6 +45,7 @@ namespace Magazedia.Web.Pages
 									VALUES ( N'{ArticleTitle}', N'{ArticleUrlSlug}', 1, 'en' );
 									INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
 									VALUES (SCOPE_IDENTITY(), N'{ArticleTextB}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
 								".Replace("+ N'' ", "").Replace("\t", ""));
 			}
 		}
