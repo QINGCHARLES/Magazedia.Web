@@ -6,7 +6,7 @@ public class ArticleTalkSubject
 	[Key]
 	public int Id { get; set; }
 	public int SiteId { get; set; }
-	public string Language { get; set; }
+	public string Culture { get; set; }
 	public string ArticleTitle { get; set; }
 	public string Subject { get; set; }
 	public string UrlSlug { get; set; }
@@ -20,11 +20,11 @@ public class ArticleTalkSubject
 	public DateTime? DateModified { get; set; }
 	public DateTime? DateDeleted { get; set; }
 	
-	public ArticleTalkSubject(int Id, int SiteId, string Language, string ArticleTitle, string Subject, string UrlSlug, string Text, bool HasBeenEdited, string CreatedByAspNetUserId, DateTime DateCreated, DateTime DateModified, DateTime DateDeleted)
+	public ArticleTalkSubject(int Id, int SiteId, string Culture, string ArticleTitle, string Subject, string UrlSlug, string Text, bool HasBeenEdited, string CreatedByAspNetUserId, DateTime DateCreated, DateTime DateModified, DateTime DateDeleted)
 	{
 		this.Id = Id;
 		this.SiteId = SiteId;
-		this.Language = Language;
+		this.Culture = Culture;
 		this.ArticleTitle = ArticleTitle;
 		this.Subject = Subject;
 		this.UrlSlug = UrlSlug;
@@ -36,8 +36,8 @@ public class ArticleTalkSubject
 		this.DateDeleted = DateDeleted;
 	}
 
-	public ArticleTalkSubject(int Id, int SiteId, string Language, string ArticleTitle, string Subject, string UrlSlug, string Text, bool HasBeenEdited, string CreatedByAspNetUserId, DateTime DateCreated, DateTime DateModified, DateTime DateDeleted, string CreatedByAspNetUsername)
-					: this(Id, SiteId, Language, ArticleTitle, Subject, UrlSlug, Text, HasBeenEdited, CreatedByAspNetUserId, DateCreated, DateModified, DateDeleted)
+	public ArticleTalkSubject(int Id, int SiteId, string Culture, string ArticleTitle, string Subject, string UrlSlug, string Text, bool HasBeenEdited, string CreatedByAspNetUserId, DateTime DateCreated, DateTime DateModified, DateTime DateDeleted, string CreatedByAspNetUsername)
+					: this(Id, SiteId, Culture, ArticleTitle, Subject, UrlSlug, Text, HasBeenEdited, CreatedByAspNetUserId, DateCreated, DateModified, DateDeleted)
 	{
 		this.CreatedByAspNetUsername = CreatedByAspNetUsername;
 	}

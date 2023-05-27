@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\sitefiles\1\**" />
+    <Content Remove="wwwroot\sitefiles\1\**" />
+    <EmbeddedResource Remove="wwwroot\sitefiles\1\**" />
+    <None Remove="wwwroot\sitefiles\1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Markdig" Version="0.31.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.5" />
@@ -32,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Talk\" />
+    <Folder Include="wwwroot\sitefiles\" />
   </ItemGroup>
 
 </Project>

@@ -28,7 +28,6 @@ public class ArticleViewModel : PageModel
 	{
 		this.Config = Config;
 		this.HttpContextAccessor = HttpContextAccessor;
-		//Culture = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
 		Culture = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
 	}
 
@@ -44,7 +43,7 @@ public class ArticleViewModel : PageModel
 		// This page can be accessed by UrlSlug or by ID of Article
 		if (Id is not null)
 		{
-			// Article lookup by ID
+			// Article look-up by ID
 			SqlQuery = @"
 						SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
 						FROM		Articles a
@@ -58,7 +57,7 @@ public class ArticleViewModel : PageModel
 		}
 		else
 		{
-			// Article lookup by UrlSlug
+			// Article (most recent revision) look-up by UrlSlug
 			SqlQuery = @"
 						SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
 						FROM		Articles a
@@ -77,7 +76,6 @@ public class ArticleViewModel : PageModel
 									);
 						";
 
-			//SELECT TOP(1) * FROM Articles WHERE UrlSlug = @UrlSlug AND Language = @Language AND DateDeleted IS NULL ORDER BY DateCreated DESC";
 			ArticleRevision = Connection.QuerySingleOrDefault<ArticleRevision>(SqlQuery, new { UrlSlug, SiteId, Culture });
 		}
 
@@ -86,6 +84,8 @@ public class ArticleViewModel : PageModel
 		{
 			return NotFound();
 		}
+
+
 
 		ArticleTitle = ArticleRevision.Title;
 
@@ -111,9 +111,14 @@ public class ArticleViewModel : PageModel
 			.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
 			.Build();
 
-		
-		ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline);
-
+		if (ArticleRevision.UrlSlug.StartsWith("file:"))
+		{
+			ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/" + ArticleRevision.UrlSlug.Substring(5) + "' />";
+		}
+		else
+		{
+			ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline);
+		}
 		return Page();
 	}
 }

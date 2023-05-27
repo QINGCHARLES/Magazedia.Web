@@ -88,6 +88,14 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Dmca"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""^file:(.+)"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=file:{{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""^category:(.+)"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=category:{{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^create-article:"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Create"" />
 				</rule>

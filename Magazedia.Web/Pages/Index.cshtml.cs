@@ -13,7 +13,7 @@ namespace Magazedia.Web.Pages
 
 		private readonly IConfiguration Config;
 		private readonly IHttpContextAccessor HttpContextAccessor;
-		private readonly string Language;
+		private readonly string Culture;
 
 		//public IndexModel(ILogger<IndexModel> logger)
 
@@ -21,23 +21,28 @@ namespace Magazedia.Web.Pages
 		{
 			this.Config = Config;
 			this.HttpContextAccessor = HttpContextAccessor;
-			Language = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
+			Culture = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
 			//_logger = logger;
 		}
 
 
 
-		public IList<WikiWikiWorld.Models.Article>? Articles { get; set; }
+		public IEnumerable<WikiWikiWorld.Models.Article>? Articles { get; set; }
 
 
 		public IActionResult OnGet()
 		{
 			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+			int SiteId = 1;
+			string SqlQuery = @"SELECT		*
+								FROM		Articles
+								WHERE		SiteId = @SiteId AND
+											Culture = @Culture AND
+											DateDeleted IS NULL
+								ORDER BY	DateCreated DESC
+								";
 
-			string SqlQuery = "SELECT * FROM Articles WHERE Culture = @Culture ORDER BY DateCreated DESC";
-
-			Articles = Connection.Query<WikiWikiWorld.Models.Article>(SqlQuery, new { Culture = Language }).ToList();
-
+			Articles = Connection.Query<WikiWikiWorld.Models.Article>(SqlQuery, new { SiteId, Culture });
 
 			return Page();
 		}

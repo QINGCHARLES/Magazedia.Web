@@ -14,7 +14,7 @@ namespace Magazedia.Web.Pages
 		public string? ArticleTitle { get; set; }
 
 
-		public IList<WikiWikiWorld.Models.ArticleRevision>? ArticleRevisions { get; set; }
+		public IEnumerable<WikiWikiWorld.Models.ArticleRevision>? ArticleRevisions { get; set; }
 
 		private readonly IConfiguration Config;
 		private readonly string Culture;
@@ -38,12 +38,9 @@ namespace Magazedia.Web.Pages
 											a.DateDeleted IS NULL AND
 											ar.DateDeleted IS NULL
 								ORDER BY ar.DateCreated DESC
-								"
-			;
-			ArticleRevisions = Connection.Query<WikiWikiWorld.Models.ArticleRevision>(SqlQuery, new { SiteId, Culture }).ToList();
+								";
 
-			//Articles = ArticlesList;
-//			ArticleTitle = Articles[0].Title;
+			ArticleRevisions = Connection.Query<WikiWikiWorld.Models.ArticleRevision>(SqlQuery, new { SiteId, Culture });
 
 			return Page();
 		}
@@ -52,14 +49,19 @@ namespace Magazedia.Web.Pages
 		{
 			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
 
-			//Articles = ArticlesList;
-//			ArticleTitle = Articles[0].Title;
+			// Delete the Article revision. If it was the only remaining revision, then delete the Article row too.
+			string SqlQuery = @"UPDATE	ArticleRevisions SET DateDeleted = GETDATE() WHERE Id = @Id;
+								DECLARE	@ArticleIdToDelete int;
+								SET		@ArticleIdToDelete = (SELECT ArticleId FROM ArticleRevisions WHERE Id = @Id);
+								IF NOT EXISTS (SELECT 1 FROM ArticleRevisions WHERE ArticleId = @ArticleIdToDelete AND DateDeleted IS NULL)
+								BEGIN
+									UPDATE Articles SET DateDeleted = GETDATE() WHERE Id = @ArticleIdToDelete;
+								END
+								";
 
-string SqlQuery = "DELETE Articles WHERE Id = @Id;";
-var res = Connection.Execute( SqlQuery, new { Id = Id });
+			Connection.Execute(SqlQuery, new { Id = Id });
 
-	//		return Content(res.ToString());;
-	return LocalRedirect("/firehose:");
+			return LocalRedirect("/firehose:");
 		}
 	}
 }

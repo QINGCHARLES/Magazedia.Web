@@ -18,7 +18,7 @@
 			foreach (var ArticleRevision in Model.ArticleRevisions)
 			{
 				<tr>
-					<td><a href="/@ArticleRevision.UrlSlug">@ArticleRevision.Title</a></td>
+					<td><a href="/@ArticleRevision.UrlSlug/revision/@ArticleRevision.Id">@ArticleRevision.Title</a></td>
 					<td>@ArticleRevision.UrlSlug</td>
 					<td>@ArticleRevision.DateCreated</td>
 					<td>
