@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Policy;
+using Markdig.Parsers;
 
 namespace Magazedia.Web.Pages;
 public class EditModel : PageModel
@@ -93,14 +94,36 @@ public class EditModel : PageModel
 			return NotFound();
 		}
 
+
+		//	TestSpec("https://example.com", "Image: ![alt text](/image.jpg)", "https://example.com/image.jpg");
+		//	TestSpec("https://example.com", "Image: ![alt text](image.jpg \"title\")", "https://example.com/image.jpg");
+		//	TestSpec(null, "Image: ![alt text](/image.jpg)", "/image.jpg");
+		//}
+
+		//public static void TestSpec(string baseUrl, string markdown, string expectedLink)
+		//{
+
+		//	var pipeline = new MarkdownPipelineBuilder().Build();
+
 		var Pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+
+		var writer = new StringWriter();
+		var renderer = new Markdig.Renderers.HtmlRenderer(writer);
+		renderer.BaseUrl = new Uri("https://" + HttpContextAccessor.HttpContext!.Request.Host.Value + "/");
+		Pipeline.Setup(renderer);
 
 		ArticleTitle = ArticleRevision.Title;
 		ArticleUrlSlug = ArticleRevision.UrlSlug;
 		ArticleText = ArticleRevision.Text;
-		ArticleHtml = Markdown.ToHtml(ArticleRevision.Text, Pipeline);
+
+		var document = MarkdownParser.Parse(ArticleRevision.Text, Pipeline);
+		renderer.Render(document);
+		writer.Flush();
+		ArticleHtml = writer.ToString(); // Markdown.ToHtml(ArticleRevision.Text, Pipeline);
 
 		return Page();
 	}
+
+	
 }
 
