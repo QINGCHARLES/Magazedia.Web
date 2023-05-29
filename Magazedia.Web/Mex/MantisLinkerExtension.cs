@@ -42,8 +42,8 @@ namespace MarkdigMantisLink
 
     public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
     {
-      HtmlRenderer htmlRenderer;
-      ObjectRendererCollection renderers;
+      HtmlRenderer? htmlRenderer;
+      ObjectRendererCollection? renderers;
 
       htmlRenderer = renderer as HtmlRenderer;
       renderers = htmlRenderer?.ObjectRenderers;

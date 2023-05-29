@@ -29,3 +29,15 @@
 <p><a href="/@Model.UrlSlug/edit">Edit Article</a></p>
 <p><a href="/@Model.UrlSlug/history">View Edit History</a></p>
 <p><a href="/@Model.UrlSlug/talk">Talk</a></p>
+@section ArticleLanguageLinksLinkRelAlternates
+{
+	@if (Model.ArticleCultureLinks != null)
+	{
+		foreach (var ArticleCultureLink in Model.ArticleCultureLinks)
+		{
+			string Url = $"https://{ArticleCultureLink.Culture}.{Helpers.GetDomainAndPortFromHostname(Hostname.ToString())}/{ArticleCultureLink.UrlSlug}";
+
+			<link rel="alternate" href="@Url" hreflang="@ArticleCultureLink.Culture" />
+		}
+	}
+}

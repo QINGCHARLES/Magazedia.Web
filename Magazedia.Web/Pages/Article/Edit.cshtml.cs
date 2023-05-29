@@ -109,7 +109,7 @@ public class EditModel : PageModel
 
 		var writer = new StringWriter();
 		var renderer = new Markdig.Renderers.HtmlRenderer(writer);
-		renderer.BaseUrl = new Uri("https://" + HttpContextAccessor.HttpContext!.Request.Host.Value + "/");
+		renderer.BaseUrl = new Uri($"https://@HttpContextAccessor.HttpContext!.Request.Host.Value/");
 		Pipeline.Setup(renderer);
 
 		ArticleTitle = ArticleRevision.Title;

@@ -4,14 +4,6 @@ INSERT  AspNetUsers ( Id, AccessFailedCount, ConcurrencyStamp, Email, EmailConfi
 VALUES ('7240be61-df81-46f9-8152-6a48b96abc40', 0, '3050d1a5-9a2c-4d80-a1be-58d6a79191a6', 'hello@magazedia.site', 1, 1, NULL, 'HELLO@MAGAZEDIA.SITE', 'QINGCHARLES', 'AQAAAAIAAYagAAAAEBB+4D8cFi426Wgg8vfO/4cBgISBNJWZVfnWXwSSv5pq171AC3LGZgH6qlvFTj25Dw==', NULL, 0, 'PSJMEDAFBWDTOWQG7J4FYSGOJ7HM3M4I', 0, 'QINGCHARLES');
 --
 
-
-
-INSERT Articles (Title, UrlSlug, SiteId, Culture)
-VALUES ( N'GQ (USA) - November 2020', N'gq-usa-november-2020', 1, 'en' );
-INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
-VALUES (SCOPE_IDENTITY(), N'The November 2020 issue of [GQ (USA)](gq-usa), an American monthly men’s magazine, prominently featured the actor [Timothée Chalamet](timothée-chalamet) on its cover. The cover story was captured by fashion photographer [Renell Medrano](renell-medrano), with styling by [Mobolaji Dawodu](mobolaji-dawodu), tailoring from Ksenia Golub, and production by Wei-Li Wang at Hudson Hill Production​​.' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'In addition to Chalamet, who was soon to appear in [Denis Villeneuve’s](denis-villeneuve) film adaptation of the sci-fi classic [“Dune”](dune-2021), the issue also featured several other notable figures. Among them were young skateboarder and internet star [Sean Pablo](sean-pablo), [Paul Mescal](paul-mescal) (known for his role in [“Normal People”](normal-people)), and prominent music producers [Timbaland](timbaland) and [Swizz Beatz​](swizz-beatz)​.' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'The issue showcased a long, in-depth interview with Chalamet, further solidifying GQ Magazine’s reputation for delivering exclusive and engaging content that reaches a wide audience, ranging from fashion enthusiasts to followers of popular culture. The November 2020 issue is a testament to GQ’s commitment to keeping readers informed about leading figures in various fields, including film, music, and sports.{{Categories Magazine issues|GQ (USA) magazine issues|GQ magazine issues|English magazine issues|Fashion magazine issues|Men''s interest magazine issues}}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
-
-
 CREATE TABLE Articles
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,

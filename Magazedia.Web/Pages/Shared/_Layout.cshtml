@@ -7,15 +7,19 @@
 	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
 }
 <!DOCTYPE html>
-<html lang="en" dir="@Helpers.GetTextDirectionFromHostname(Hostname.Host, "en")">
+<html lang="@Helpers.GetCultureFromHostname(Hostname.Host, "en")" dir="@Helpers.GetTextDirectionFromHostname(Hostname.Host, "en")">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - Magazedia</title>
+	<title>@ViewBag.Title - Magazedia</title>
+	@await RenderSectionAsync("ArticleLanguageLinksLinkRelAlternates", required: false)
+	<link rel="apple-touch-icon" sizes="180x180" href="~/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="~/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="~/favicon-16x16.png">
+	<link rel="manifest" href="~/site.webmanifest">
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/{@Helpers.GetCultureFromHostname(Hostname.Host, "en")}.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/Magazedia.Web.styles.css" asp-append-version="true" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Sora:wght@800&family=Ubuntu:ital,wght@1,700&display=swap" rel="stylesheet">
@@ -37,18 +41,6 @@
 						<li class="nav-item">
 							<a class="nav-link text-dark" href="/create-article:">Create Article</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">en</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ja</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ar</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" href="https://xx-test.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">xx</a>
-						</li>
 					</ul>
 					<partial name="_LoginPartial" />
 				</div>
@@ -63,8 +55,14 @@
 	<div style="clear: both;"></div>
 	<footer class="border-top footer text-muted">
 		<div class="container">
-			<p>Content is available under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> unless otherwise noted.<br />
-			&copy; 2023 Magazedia - <a href="/dmca:">DMCA</a> - <a href="/terms:">Terms of Use</a> - <a href="/privacy-policy:">Privacy Policy</a></p>
+			<p>
+				Content is available under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> unless otherwise noted.<br />
+				&copy; 2023 Magazedia - <a href="/dmca:">DMCA</a> - <a href="/terms:">Terms of Use</a> - <a href="/privacy-policy:">Privacy Policy</a>
+					<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">en</a>
+					<a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ja</a>
+					<a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ar</a>
+					<a href="https://xx-test.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">xx</a>
+			</p>
 		</div>
 	</footer>
 
