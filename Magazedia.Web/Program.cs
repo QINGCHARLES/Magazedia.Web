@@ -26,13 +26,20 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
 	const string DefaultCulture = "en";
 
-	var SupportedCultures = new[]
-	{
-		new CultureInfo(DefaultCulture),
-		new CultureInfo("ja"),
-		new CultureInfo("ar"),
-		new CultureInfo("xx-test")
-	};
+	// Support all cultures
+	List<CultureInfo> SupportedCultures = CultureInfo.GetCultures(CultureTypes.AllCultures)// & ~CultureTypes.NeutralCultures)
+					.Where(Culture => !String.IsNullOrEmpty(Culture.Name))
+					.ToList();
+
+	SupportedCultures.Add(new CultureInfo("xx-test"));
+
+	//var SupportedCultures = new[]
+	//{
+	//	new CultureInfo(DefaultCulture),
+	//	new CultureInfo("ja"),
+	//	new CultureInfo("ar"),
+	//	new CultureInfo("xx-test")
+	//};
 
 	options.DefaultRequestCulture = new RequestCulture(DefaultCulture);
 	options.SupportedCultures = SupportedCultures;

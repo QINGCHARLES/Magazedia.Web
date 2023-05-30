@@ -49,6 +49,8 @@ CREATE TABLE DownloadUrls
 	Filesize int NOT NULL,
 	HashSha256 varbinary(64) NOT NULL,
 	DownloadUrls nvarchar(MAX) NULL,
+	NeedsOcr bit NULL,
+	IsComplete bit NULL,
 	CreatedByAspNetUserId nvarchar(450) NOT NULL,
 	DateCreated datetime2(7) NOT NULL,
 	DateModified datetime2(7) NOT NULL,

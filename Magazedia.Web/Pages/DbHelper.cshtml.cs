@@ -13,6 +13,7 @@ namespace Magazedia.Web.Pages
 		public string? ArticleTitle { get; set; }
 		public string? ArticleUrlSlug { get; set; }
 		public string? ArticleText { get; set; }
+		public bool IsMagazine { get; set; }
 
 		private readonly IConfiguration Config;
 		private readonly string Language;
@@ -23,10 +24,12 @@ namespace Magazedia.Web.Pages
 		}
 
 		public IActionResult OnPost()
-        {
+		{
 			ArticleTitle = Request.Form[nameof(ArticleTitle)].ToString().Replace("'", "''");
 			ArticleText = Request.Form[nameof(ArticleText)].ToString().Replace("'", "''");
 			ArticleUrlSlug = Request.Form[nameof(ArticleUrlSlug)];
+			//string helloo = Request.Form[nameof(IsMagazine)];
+			IsMagazine = Request.Form[nameof(IsMagazine)].Contains("true");
 
 			if(ArticleTitle=="x" && ArticleUrlSlug == "")
 			{
@@ -40,6 +43,7 @@ namespace Magazedia.Web.Pages
 			else
 			{
 				string ArticleTextB = ArticleText.Replace("\r\n", "' + CHAR(13) + CHAR(10) + N'");
+				if(IsMagazine) ArticleTextB += "{{Categories Magazines}}";
 
 				return Content(@$"	INSERT Articles (Title, UrlSlug, SiteId, Culture)
 									VALUES ( N'{ArticleTitle}', N'{ArticleUrlSlug}', 1, 'en' );
