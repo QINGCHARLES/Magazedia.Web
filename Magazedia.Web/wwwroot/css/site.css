@@ -24,9 +24,11 @@ body {
 h1{
 font-family: 'Ubuntu', sans-serif;
 font-family: 'Sora', sans-serif;
+font-family: 'Montserrat', sans-serif;
 font-size:250%;
 font-weight: 800;
 letter-spacing:-0.05em;
+text-transform: uppercase;
 }
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
@@ -93,3 +95,11 @@ body
     white-space: nowrap;
     line-height: 60px;
 }
+
+main
+{
+    font-family: Charter, Georgia, Times, Serif;
+    font-size: 1.1875rem;
+    line-height: 1.6;
+}
+

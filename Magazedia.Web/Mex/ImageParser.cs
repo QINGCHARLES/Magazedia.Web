@@ -77,7 +77,7 @@ public class ImageParser : InlineParser
                                },
 					Line = line,
 					Column = column,
-					IssueNumber = new StringSlice(slice.Text, start, end)
+					FileArticleName = new StringSlice(slice.Text, start, end)
 				};
 
 				matchFound = true;
