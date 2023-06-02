@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using WikiWikiWorld.Models;
+using System.Globalization;
 
 namespace Magazedia.Web.Pages;
 public class ArticleViewModel : PageModel
@@ -43,7 +44,7 @@ public class ArticleViewModel : PageModel
 		// This page can be accessed by UrlSlug or by ID of Article
 		if (Id is not null)
 		{
-			// Article look-up by ID
+			// Article revision look-up by ID
 			SqlQuery = @"
 						SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
 						FROM		Articles a
@@ -53,7 +54,7 @@ public class ArticleViewModel : PageModel
 									a.DateDeleted IS NULL AND
 									ar.DateDeleted IS NULL;
 						";
-			ArticleRevision = Connection.QuerySingleOrDefault<ArticleRevision>(SqlQuery, new { Id = Id, Language = Culture });
+			ArticleRevision = Connection.QuerySingleOrDefault<ArticleRevision>(SqlQuery, new { Id });
 		}
 		else
 		{
@@ -82,43 +83,62 @@ public class ArticleViewModel : PageModel
 
 		if (ArticleRevision is null)
 		{
-			return NotFound();
+			CultureInfo CultureInfo = new CultureInfo(Culture.Equals("xx-test") ? "zh" : Culture);
+			string TitleHint = CultureInfo.TextInfo.ToTitleCase(UrlSlug!.Replace('-', ' '));
+
+			if (UrlSlug!.StartsWith("category:"))
+			{
+				TitleHint = CultureInfo.TextInfo.ToTitleCase(UrlSlug!.Replace('-', ' '));
+				ArticleText = $"Article not found. <a href=\"create:{UrlSlug!}?titlehint={TitleHint}\">Create new article about “{TitleHint}”</a>.";
+			}
+			else
+			{
+				TitleHint = CultureInfo.TextInfo.ToTitleCase((UrlSlug!.Split(":")[1]).Replace('-', ' '));
+				ArticleText = $"Article not found. <a href=\"create:{UrlSlug!}?titlehint={TitleHint}\">Create new category article about “{TitleHint}”</a>.";
+			}
+
+			ArticleTitle = "Article not found";
 		}
+		else
+		{
 
+			ArticleTitle = ArticleRevision.Title;
 
-
-		ArticleTitle = ArticleRevision.Title;
-
-		SqlQuery = @"	SELECT		A.Title, A.UrlSlug, A.Culture
+			// Find and display any alternate versions of this article in other languages
+			SqlQuery = @"	SELECT		A.Title, A.UrlSlug, A.Culture
 						FROM		Articles A
 						JOIN		ArticleCultureLinks ACL ON A.Id = ACL.ArticleId
-						WHERE		ACL.ArticleCultureLinkGroupId
-									IN (
-									SELECT	ACLG.ArticleCultureLinkGroupId
-									FROM	Articles A
-									JOIN	ArticleCultureLinks ACLG ON A.Id = ACLG.ArticleId
-											WHERE	A.SiteId = @SiteId AND
-													A.Culture = @Culture AND
-													A.UrlSlug = @UrlSlug
+						WHERE		ACL.ArticleCultureLinkGroupId IN
+									(
+										SELECT	ACLG.ArticleCultureLinkGroupId
+										FROM	Articles A
+										JOIN	ArticleCultureLinks ACLG ON A.Id = ACLG.ArticleId
+										WHERE	A.SiteId = @SiteId AND
+												A.Culture = @Culture AND
+												A.UrlSlug = @UrlSlug
 									) AND
 									A.DateDeleted IS NULL AND
 									ACL.DateDeleted IS NULL;
 					";
-		ArticleCultureLinks = Connection.Query<WikiWikiWorld.Models.ArticleCultureLink>(SqlQuery, new { SiteId, Culture, UrlSlug }).ToList();
+			ArticleCultureLinks = Connection.Query<WikiWikiWorld.Models.ArticleCultureLink>(SqlQuery, new { SiteId, Culture, UrlSlug }).ToList();
 
 
-		var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
-			.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
-			.Build();
+			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
+				.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
+				.Build();
 
-		if (ArticleRevision.UrlSlug.StartsWith("file:"))
-		{
-			ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/" + ArticleRevision.UrlSlug.Substring(5) + "' />";
+			if (ArticleRevision.UrlSlug.StartsWith("file:"))
+			{
+				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/" + ArticleRevision.UrlSlug.Substring(5) + "' />";
+			}
+			else
+			{
+				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline);
+			}
 		}
-		else
-		{
-			ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline);
-		}
+
+
+
 		return Page();
 	}
 }
