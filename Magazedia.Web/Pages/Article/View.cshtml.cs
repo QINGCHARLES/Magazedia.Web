@@ -8,7 +8,7 @@ using WikiWikiWorld.Models;
 using System.Globalization;
 
 namespace Magazedia.Web.Pages;
-public class ArticleViewModel : PageModel
+public class ArticleViewModel : BasePageModel
 {
 	public string? ArticleTitle { get; set; }
 	public string? ArticleText { get; set; }
@@ -21,22 +21,14 @@ public class ArticleViewModel : PageModel
 
 	public IList<ArticleCultureLink>? ArticleCultureLinks { get; set; }
 
-	private readonly IConfiguration Config;
-	private readonly IHttpContextAccessor HttpContextAccessor;
-	public readonly string Culture;
+	public ArticleViewModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
-	public ArticleViewModel(IConfiguration Config, IHttpContextAccessor HttpContextAccessor)
-	{
-		this.Config = Config;
-		this.HttpContextAccessor = HttpContextAccessor;
-		Culture = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
-	}
 
 	public IActionResult OnGet()
 	{
 		int SiteId = 1;
 
-		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 		string SqlQuery = "";
 		ArticleRevision? ArticleRevision = null;

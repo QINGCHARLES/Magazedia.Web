@@ -11,7 +11,7 @@ using System.Security.Policy;
 using Markdig.Parsers;
 
 namespace Magazedia.Web.Pages;
-public class EditModel : PageModel
+public class EditModel : BasePageModel
 {
 	public string? ArticleTitle { get; set; }
 	public string? ArticleUrlSlug { get; set; }
@@ -24,16 +24,7 @@ public class EditModel : PageModel
 	[BindProperty(SupportsGet = true)]
 	public string? UrlSlug { get; set; }
 
-	private readonly IConfiguration Config;
-	private readonly IHttpContextAccessor HttpContextAccessor;
-	private readonly string Culture;
-
-	public EditModel(IConfiguration Config, IHttpContextAccessor HttpContextAccessor)
-	{
-		this.Config = Config;
-		this.HttpContextAccessor = HttpContextAccessor;
-		Culture = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
-	}
+	public EditModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
 	public IActionResult OnPost()
 	{
@@ -47,7 +38,7 @@ public class EditModel : PageModel
 		ClaimsPrincipal? User = HttpContextAccessor.HttpContext?.User;
 		string Username = User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "7240be61-df81-46f9-8152-6a48b96abc40";// "Anonymous";
 
-		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 		string SqlQuery = "SELECT * FROM Articles WHERE UrlSlug = @UrlSlug AND Culture = @Culture AND SiteId = @SiteId AND DateDeleted IS NULL";
 		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = ArticleUrlSlug, SiteId, Culture });
@@ -64,7 +55,7 @@ public class EditModel : PageModel
 	}
 	public IActionResult OnGet()
 	{
-		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 		int SiteId = 1;
 		string SqlQuery = @"
 							SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
@@ -109,7 +100,7 @@ public class EditModel : PageModel
 
 		var writer = new StringWriter();
 		var renderer = new Markdig.Renderers.HtmlRenderer(writer);
-		renderer.BaseUrl = new Uri($"https://@HttpContextAccessor.HttpContext!.Request.Host.Value/");
+		renderer.BaseUrl = new Uri($"https://{HttpContextAccessor.HttpContext!.Request.Host.Value}/");
 		Pipeline.Setup(renderer);
 
 		ArticleTitle = ArticleRevision.Title;
