@@ -88,7 +88,7 @@ using (TextReader sr = new StringReader(@$"
 					<conditions logicalGrouping=""MatchAll"" trackAllCaptures=""false"">
 						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magazedia\.site$|^xx-test\.magazedia\.site$|^ja\.magazedia\.site$|^ar\.magazedia\.site$|^en\.localhost|^xx-test\.localhost|^ja\.localhost|^ar\.localhost"" negate=""true"" />
 					</conditions>
-					<action type=""Redirect"" url=""https://en.magazedia.site/{{R:1}}"" redirectType=""308"" />
+					<action type=""Redirect"" url=""https://en.magspedia.com/{{R:1}}"" redirectType=""308"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^dmca:"" />
