@@ -88,13 +88,13 @@ public class ArticleViewModel : PageModel
 
 			if (UrlSlug!.StartsWith("category:"))
 			{
-				TitleHint = CultureInfo.TextInfo.ToTitleCase(UrlSlug!.Replace('-', ' '));
-				ArticleText = $"Article not found. <a href=\"create:{UrlSlug!}?titlehint={TitleHint}\">Create new article about “{TitleHint}”</a>.";
+				TitleHint = CultureInfo.TextInfo.ToTitleCase((UrlSlug!.Split(":")[1]).Replace('-', ' '));
+				ArticleText = $"Article not found. <a href=\"create:{UrlSlug!}?titlehint={TitleHint}\">Create new category article about “{TitleHint}”</a>.";
 			}
 			else
 			{
-				TitleHint = CultureInfo.TextInfo.ToTitleCase((UrlSlug!.Split(":")[1]).Replace('-', ' '));
-				ArticleText = $"Article not found. <a href=\"create:{UrlSlug!}?titlehint={TitleHint}\">Create new category article about “{TitleHint}”</a>.";
+				TitleHint = CultureInfo.TextInfo.ToTitleCase(UrlSlug!.Replace('-', ' '));
+				ArticleText = $"Article not found. <a href=\"create:{UrlSlug!}?titlehint={TitleHint}\">Create new article about “{TitleHint}”</a>.";
 			}
 
 			ArticleTitle = "Article not found";
