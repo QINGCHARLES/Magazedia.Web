@@ -61,20 +61,15 @@ CREATE TABLE ArticleTalkSubjects
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	SiteId int NOT NULL,
-	[Language] nvarchar(20) NOT NULL,
 	ArticleId int NOT NULL,
 	[Subject] nvarchar(300) NOT NULL,
 	UrlSlug nvarchar(300) NOT NULL,
-	[Text] nvarchar(2000) NOT NULL,
 	HasBeenEdited bit NOT NULL DEFAULT 0,
 	CreatedByAspNetUserId nvarchar(450) NOT NULL,
 	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
 	DateModified datetime2(7) NULL,
 	DateDeleted datetime2(7) NULL
 );
-
-INSERT ArticleTalkSubjects ( SiteId, [Language], ArticleTitle, [Subject], CreatedByAspNetUserId )
-VALUES ( 1, 'en', 'GQ (USA) - November 2020', 'Is this the Man of the Year issue?', '7240be61-df81-46f9-8152-6a48b96abc40' );
 
 CREATE TABLE ArticleTalkSubjectPosts
 (
@@ -89,10 +84,7 @@ CREATE TABLE ArticleTalkSubjectPosts
 	DateDeleted datetime2(7) NULL
 );
 
-INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [Text], CreatedByAspNetUserId )
-VALUES ( 1, NULL, 'Yes I think it is the MOTY issue. Can anyone confirm?', '7240be61-df81-46f9-8152-6a48b96abc40' );
-INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [Text], CreatedByAspNetUserId )
-VALUES ( 1, NULL, 'OK, I found the answer. It is *not* the MOTY issue!', '7240be61-df81-46f9-8152-6a48b96abc40' );
+
 
 
 -- UPDATE CRLF SET col1 = REPLACE(col1, '@', CHAR(13))

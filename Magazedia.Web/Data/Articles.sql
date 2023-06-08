@@ -217,10 +217,26 @@ INSERT Articles ( Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId,
 
 -- Magazine issues
 
+DECLARE @ArticleId int;
+DECLARE @ArticleTalkSubjectId int;
+
 INSERT Articles (Title, UrlSlug, SiteId, Culture)
 VALUES ( N'GQ (USA) - November 2020', N'gq-usa-november-2020', 1, 'en' );
+
+SET @ArticleId = SCOPE_IDENTITY();
+
 INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
-VALUES (SCOPE_IDENTITY(), N'The November 2020 issue of [GQ (USA)](gq-usa), an American monthly men’s magazine, prominently featured the actor [Timothée Chalamet](timothée-chalamet) on its cover. The cover story was captured by fashion photographer [Renell Medrano](renell-medrano), with styling by [Mobolaji Dawodu](mobolaji-dawodu), tailoring from Ksenia Golub, and production by Wei-Li Wang at Hudson Hill Production​​.' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'In addition to Chalamet, who was soon to appear in [Denis Villeneuve’s](denis-villeneuve) film adaptation of the sci-fi classic [“Dune”](dune-2021), the issue also featured several other notable figures. Among them were young skateboarder and internet star [Sean Pablo](sean-pablo), [Paul Mescal](paul-mescal) (known for his role in [“Normal People”](normal-people)), and prominent music producers [Timbaland](timbaland) and [Swizz Beatz​](swizz-beatz)​.' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'The issue showcased a long, in-depth interview with Chalamet, further solidifying GQ Magazine’s reputation for delivering exclusive and engaging content that reaches a wide audience, ranging from fashion enthusiasts to followers of popular culture. The November 2020 issue is a testament to GQ’s commitment to keeping readers informed about leading figures in various fields, including film, music, and sports.{{Categories Magazine issues|GQ (USA) magazine issues|GQ magazine issues|English magazine issues|Fashion magazine issues|Men''s interest magazine issues}}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+VALUES (@ArticleId, N'The November 2020 issue of [GQ (USA)](gq-usa), an American monthly men’s magazine, prominently featured the actor [Timothée Chalamet](timothée-chalamet) on its cover. The cover story was captured by fashion photographer [Renell Medrano](renell-medrano), with styling by [Mobolaji Dawodu](mobolaji-dawodu), tailoring from Ksenia Golub, and production by Wei-Li Wang at Hudson Hill Production​​.' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'In addition to Chalamet, who was soon to appear in [Denis Villeneuve’s](denis-villeneuve) film adaptation of the sci-fi classic [“Dune”](dune-2021), the issue also featured several other notable figures. Among them were young skateboarder and internet star [Sean Pablo](sean-pablo), [Paul Mescal](paul-mescal) (known for his role in [“Normal People”](normal-people)), and prominent music producers [Timbaland](timbaland) and [Swizz Beatz​](swizz-beatz)​.' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'The issue showcased a long, in-depth interview with Chalamet, further solidifying GQ Magazine’s reputation for delivering exclusive and engaging content that reaches a wide audience, ranging from fashion enthusiasts to followers of popular culture. The November 2020 issue is a testament to GQ’s commitment to keeping readers informed about leading figures in various fields, including film, music, and sports.{{Categories Magazine issues|GQ (USA) magazine issues|GQ magazine issues|English magazine issues|Fashion magazine issues|Men''s interest magazine issues}}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+INSERT ArticleTalkSubjects ( SiteId, ArticleId, [Subject], CreatedByAspNetUserId )
+VALUES ( 1, @ArticleId, 'Is this the Man of the Year issue?', '7240be61-df81-46f9-8152-' );
+
+SET @ArticleTalkSubjectId = SCOPE_IDENTITY();
+
+INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [Text], CreatedByAspNetUserId )
+VALUES ( @ArticleTalkSubjectId, NULL, 'Yes I think it is the MOTY issue. Can anyone confirm?', '7240be61-df81-46f9-8152-6a48b96abc40' );
+INSERT ArticleTalkSubjectPosts( ArticleTalkSubjectId, ParentTalkSubjectPostId, [Text], CreatedByAspNetUserId )
+VALUES ( @ArticleTalkSubjectId, NULL, 'OK, I found the answer. It is *not* the MOTY issue!', '7240be61-df81-46f9-8152-6a48b96abc40' );
 
 -- GQ (USA) I18N TEST ARTICLES AND LINKS
 

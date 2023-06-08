@@ -44,10 +44,10 @@ public class EditModel : BasePageModel
 		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = ArticleUrlSlug, SiteId, Culture });
 
 
-			SqlQuery = @"	INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+			SqlQuery = @"	INSERT ArticleRevisions ([ArticleId], [Text], [RevisionReason], [CreatedByAspNetUserId])
 							VALUES (@ArticleId, @Text, @RevisionReason, @CreatedByAspNetUserId);
 						";
-			var res = Connection.Execute(SqlQuery, new { @ArticleId = Article.Id, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username });
+			var res = Connection.Execute(SqlQuery, new { ArticleId = Article.Id, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username });
 
 
 

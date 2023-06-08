@@ -21,6 +21,8 @@ public class ArticleViewModel : BasePageModel
 
 	public IList<ArticleCultureLink>? ArticleCultureLinks { get; set; }
 
+	public IList<ArticleTalkSubject>? ArticleTalkSubjects { get; set; }
+
 	public ArticleViewModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
 
@@ -52,7 +54,7 @@ public class ArticleViewModel : BasePageModel
 		{
 			// Article (most recent revision) look-up by UrlSlug
 			SqlQuery = @"
-						SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
+						SELECT		ar.Id, ar.ArticleId, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.CreatedByAspNetUserId, u.UserName as CreatedByAspNetUsername, ar.DateCreated, ar.DateModified, ar.DateDeleted
 						FROM		Articles a
 						INNER JOIN	ArticleRevisions ar ON a.Id = ar.ArticleId
 						INNER JOIN	AspNetUsers u ON ar.CreatedByAspNetUserId = u.Id
@@ -72,9 +74,12 @@ public class ArticleViewModel : BasePageModel
 			ArticleRevision = Connection.QuerySingleOrDefault<ArticleRevision>(SqlQuery, new { UrlSlug, SiteId, Culture });
 		}
 
-
+		// Check if Article exists
 		if (ArticleRevision is null)
 		{
+			// Article does not exist in database
+
+			// Convert the current site Culture into a CultureInfo object; if we are on the test Culture then use zh (Chinese)
 			CultureInfo CultureInfo = new CultureInfo(Culture.Equals("xx-test") ? "zh" : Culture);
 			string TitleHint = CultureInfo.TextInfo.ToTitleCase(UrlSlug!.Replace('-', ' '));
 
@@ -93,11 +98,12 @@ public class ArticleViewModel : BasePageModel
 		}
 		else
 		{
-
+			// Article exists in database
 			ArticleTitle = ArticleRevision.Title;
 
-			// Find and display any alternate versions of this article in other languages
-			SqlQuery = @"	SELECT		A.Title, A.UrlSlug, A.Culture
+			// Find and display any alternate versions of this Article in other cultures
+			SqlQuery = @"	
+						SELECT		A.Title, A.UrlSlug, A.Culture
 						FROM		Articles A
 						JOIN		ArticleCultureLinks ACL ON A.Id = ACL.ArticleId
 						WHERE		ACL.ArticleCultureLinkGroupId IN
@@ -111,8 +117,17 @@ public class ArticleViewModel : BasePageModel
 									) AND
 									A.DateDeleted IS NULL AND
 									ACL.DateDeleted IS NULL;
-					";
+						";
 			ArticleCultureLinks = Connection.Query<WikiWikiWorld.Models.ArticleCultureLink>(SqlQuery, new { SiteId, Culture, UrlSlug }).ToList();
+
+			// Find and display any Talk subjects for this Article
+			SqlQuery = @"	
+						SELECT		*
+						FROM		ArticleTalkSubjects
+						WHERE		ArticleId = @ArticleId AND
+									SiteId = @SiteId;
+						";
+			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleId = ArticleRevision.ArticleId }).ToList();
 
 
 			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
