@@ -1,10 +1,10 @@
 ﻿@page
 @model Magazedia.Web.Pages.TalkSubjectModel
 @{
-	ViewData["Title"] = "Talk: " + Model.ArticleTitle;
+	ViewData["Title"] = Model.ArticleTitle + " Talk: " + Model.TalkSubject;
 }
 
-<h1>Talk subject: @Model.ArticleTitle</h1>
+<h1>@Model.ArticleTitle Talk subject: @Model.TalkSubject</h1>
 
 <table class="table">
 	<thead>

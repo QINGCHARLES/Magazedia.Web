@@ -1,4 +1,6 @@
-﻿namespace Magazedia;
+﻿using System.Globalization;
+
+namespace Magazedia;
 
 public static class Helpers
 {
@@ -11,12 +13,15 @@ public static class Helpers
 	}
 	
 	// List of all languages that read from right-to-left that we support
-	static readonly string[] RightToLeftTextDirectionCultureCodes = { "ar" };
+	//static readonly string[] RightToLeftTextDirectionCultureCodes = { "ar" };
 
 	public static string GetTextDirectionFromHostname(string Hostname, string DefaultCulture)
 	{
 		string Culture = GetCultureFromHostname(Hostname, DefaultCulture);
-		return RightToLeftTextDirectionCultureCodes.Contains(Culture) ? "rtl" : "ltr";
+		CultureInfo CultureInfo = new(Culture);
+
+		return CultureInfo.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+		//return RightToLeftTextDirectionCultureCodes.Contains(Culture) ? "rtl" : "ltr";
 	}
 
 	public static string GetDomainAndPortFromHostname(string Hostname)

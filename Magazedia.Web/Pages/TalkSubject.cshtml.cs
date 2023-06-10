@@ -1,83 +1,52 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using WikiWikiWorld.Models;
 
 namespace Magazedia.Web.Pages;
 
-public class TalkSubjectModel : PageModel
+public class TalkSubjectModel : BasePageModel
 {
 	public string? ArticleTitle { get; set; }
+	public string? TalkSubject { get; set; }
+	public IList<ArticleTalkSubjectPost>? ArticleTalkSubjectPosts { get; set; }
 
 	[BindProperty(SupportsGet = true)]
 	public string? ArticleUrlSlug { get; set; }
 
 	[BindProperty(SupportsGet = true)]
 	public string? ArticleTalkSubjectUrlSlug { get; set; }
-	public IList<ArticleTalkSubjectPost>? ArticleTalkSubjectPosts { get; set; }
 
-	private readonly IConfiguration Config;
-	private readonly string Language;
-	public TalkSubjectModel(IConfiguration Config)
-	{
-		this.Config = Config;
-		Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
-	}
+	public TalkSubjectModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
 	public IActionResult OnGet()
 	{
-		//using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
-
-		//// ????
-		//string SqlQuery = @"SELECT		ArticleTalkSubjectPosts.*, AspNetUsers.UserName AS CreatedByAspNetUsername
-		//						FROM		ArticleTalkSubjectPosts
-		//						INNER JOIN	AspNetUsers ON ArticleTalkSubjectPosts.CreatedByAspNetUserId = AspNetUsers.Id
-		//						WHERE		ArticleTalkSubjectPosts.ArticleTalkSubjectId = 1 AND
-		//									ArticleTalkSubjectPosts.DateDeleted IS NULL
-		//						ORDER BY	ArticleTalkSubjectPosts.DateCreated DESC";
-
-		//ArticleTitle = "GQ (USA) - November 2020";
-
-		//ArticleTalkSubjectPosts = Connection.Query<ArticleTalkSubject>(SqlQuery, new { ArticleTitle = ArticleTitle, SiteId = 1, Language = Language }).ToList();
-
-		//return Page();
-
-		using SqlConnection DbConnection = new(Config.GetConnectionString("DefaultConnection"));
+		using SqlConnection DbConnection = new(Configuration.GetConnectionString("DefaultConnection"));
 
 		string? SqlQuery;
 
-		SqlQuery = @"	SELECT		TOP(1) Title
-						FROM		Articles
-						WHERE		UrlSlug = @ArticleUrlSlug AND
-									SiteId = @SiteId AND
-									Language = @Language AND
-									DateDeleted IS NULL
-						ORDER BY	DateCreated DESC";
+		SqlQuery = @"	SELECT		ATP.*, A.Title AS ArticleTitle, ATS.Subject AS TalkSubject, AU.UserName AS CreatedByAspNetUsername
+						FROM		ArticleTalkSubjectPosts ATP
+						JOIN		ArticleTalkSubjects ATS ON ATP.ArticleTalkSubjectId = ATS.Id
+						JOIN		Articles A ON ATS.ArticleId = A.Id
+						JOIN		AspNetUsers AU ON ATP.CreatedByAspNetUserId = AU.Id
+						WHERE		ATS.UrlSlug = @ArticleTalkSubjectUrlSlug AND
+									A.UrlSlug = @ArticleUrlSlug;
+						ORDER BY	ATS.DateCreated ASC;
+					";
 
-		ArticleTitle = DbConnection.QuerySingle<string>(SqlQuery, new { ArticleUrlSlug, SiteId = 1, Language });
+		ArticleTalkSubjectPosts = DbConnection.Query<ArticleTalkSubjectPost>(SqlQuery, new { ArticleUrlSlug, ArticleTalkSubjectUrlSlug }).ToList();
 
-		//// ????
-		SqlQuery = @"	SELECT		Id
-						FROM		ArticleTalkSubjects
-						WHERE		ArticleTitle = @ArticleTitle AND
-									UrlSlug = @ArticleTalkSubjectUrlSlug AND
-									SiteId = @SiteId AND
-									Language = @Language AND
-									DateDeleted IS NULL";
+		if (ArticleTalkSubjectPosts.Count > 0)
+		{
+			ArticleTitle = ArticleTalkSubjectPosts[0].ArticleTitle;
+			TalkSubject = ArticleTalkSubjectPosts[0].TalkSubject;
+		}
+		else
+		{
+			// TODO
+		}
 
-		int ArticleTalkSubjectId = DbConnection.QuerySingle<int>(SqlQuery, new { ArticleTitle, ArticleTalkSubjectUrlSlug, SiteId = 1, Language });
-
-		SqlQuery = @"	SELECT		ArticleTalkSubjectPosts.*, AspNetUsers.UserName AS CreatedByAspNetUsername
-						FROM		ArticleTalkSubjectPosts
-						INNER JOIN	AspNetUsers ON ArticleTalkSubjectPosts.CreatedByAspNetUserId = AspNetUsers.Id
-						WHERE		ArticleTalkSubjectPosts.ArticleTalkSubjectId = @ArticleTalkSubjectId AND
-									ArticleTalkSubjectPosts.DateDeleted IS NULL
-						ORDER BY	ArticleTalkSubjectPosts.DateCreated ASC";
-
-		ArticleTalkSubjectPosts = DbConnection.Query<ArticleTalkSubjectPost>(SqlQuery, new { ArticleTalkSubjectId }).ToList();
-
-		//return Content($"output: {ArticleUrlSlug}###{ArticleTalkSubjectUrlSlug}");// --- {ArticleUrlSlug} --- {ArticleTalkSubjectUrlSlug}");
 		return Page();
 	}
 }

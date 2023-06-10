@@ -54,7 +54,7 @@ public class ArticleViewModel : BasePageModel
 		{
 			// Article (most recent revision) look-up by UrlSlug
 			SqlQuery = @"
-						SELECT		ar.Id, ar.ArticleId, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.CreatedByAspNetUserId, u.UserName as CreatedByAspNetUsername, ar.DateCreated, ar.DateModified, ar.DateDeleted
+						SELECT		ar.Id, ar.ArticleId, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.CreatedByAspNetUserId, u.UserName as CreatedByAspNetUsername, ar.DateCreated, ar.DateDeleted
 						FROM		Articles a
 						INNER JOIN	ArticleRevisions ar ON a.Id = ar.ArticleId
 						INNER JOIN	AspNetUsers u ON ar.CreatedByAspNetUserId = u.Id
@@ -127,7 +127,7 @@ public class ArticleViewModel : BasePageModel
 						WHERE		ArticleId = @ArticleId AND
 									SiteId = @SiteId;
 						";
-			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleId = ArticleRevision.ArticleId }).ToList();
+			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleRevision.ArticleId }).ToList();
 
 
 			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()

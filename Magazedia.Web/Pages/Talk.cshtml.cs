@@ -9,11 +9,10 @@ namespace Magazedia.Web.Pages;
 public class TalkModel : PageModel
 {
 	public string? ArticleTitle { get; set; }
+	public IList<ArticleTalkSubject>? ArticleTalkSubjects { get; set; }
 
 	[BindProperty(SupportsGet = true)]
 	public string? UrlSlug { get; set; }
-
-	public IList<ArticleTalkSubject>? ArticleTalkSubjects { get; set; }
 
 	private readonly IConfiguration Config;
 	private readonly string Language;
@@ -22,6 +21,8 @@ public class TalkModel : PageModel
 		this.Config = Config;
 		Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
 	}
+
+	public TalkModel(IConfiguration Configuration, )
 
 	public IActionResult OnGet()
 	{

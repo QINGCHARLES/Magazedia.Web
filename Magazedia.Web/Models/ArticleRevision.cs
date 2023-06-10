@@ -13,10 +13,9 @@ public class ArticleRevision
 	public string CreatedByAspNetUserId { get; set; }
 	public string? CreatedByAspNetUsername { get; set; }
 	public DateTime DateCreated { get; set; }
-	public DateTime? DateModified { get; set; }
 	public DateTime? DateDeleted { get; set; }
 
-	public ArticleRevision(int Id, int ArticleId, string Text, string RevisionReason, string CreatedByAspNetUserId, DateTime DateCreated, DateTime DateModified, DateTime DateDeleted)
+	public ArticleRevision(int Id, int ArticleId, string Text, string RevisionReason, string CreatedByAspNetUserId, DateTime DateCreated, DateTime DateDeleted)
 	{
 		this.Id = Id;
 		this.ArticleId = ArticleId;
@@ -24,12 +23,11 @@ public class ArticleRevision
 		this.RevisionReason = RevisionReason;
 		this.CreatedByAspNetUserId = CreatedByAspNetUserId;
 		this.DateCreated = DateCreated;
-		this.DateModified = DateModified;
 		this.DateDeleted = DateDeleted;
 	}
 
-	public ArticleRevision(int Id, int ArticleId, string Title, string UrlSlug, string Text, string RevisionReason, string CreatedByAspNetUserId, string CreatedByAspNetUsername, DateTime DateCreated, DateTime DateModified, DateTime DateDeleted)
-		: this( Id, ArticleId, Text, RevisionReason, CreatedByAspNetUserId, DateCreated, DateModified, DateDeleted)
+	public ArticleRevision(int Id, int ArticleId, string Title, string UrlSlug, string Text, string RevisionReason, string CreatedByAspNetUserId, string CreatedByAspNetUsername, DateTime DateCreated, DateTime DateDeleted)
+		: this( Id, ArticleId, Text, RevisionReason, CreatedByAspNetUserId, DateCreated, DateDeleted)
 	{
 		this.Title = Title;
 		this.UrlSlug = UrlSlug;
