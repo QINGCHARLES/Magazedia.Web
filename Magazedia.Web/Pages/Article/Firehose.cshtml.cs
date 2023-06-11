@@ -9,25 +9,18 @@ using System.Text.RegularExpressions;
 
 namespace Magazedia.Web.Pages
 {
-	public class FirehoseModel : PageModel
+	public class FirehoseModel : BasePageModel
 	{
 		public string? ArticleTitle { get; set; }
 
 
 		public IEnumerable<WikiWikiWorld.Models.ArticleRevision>? ArticleRevisions { get; set; }
 
-		private readonly IConfiguration Config;
-		private readonly string Culture;
-		public FirehoseModel(IConfiguration Config, IHttpContextAccessor HttpContextAccessor)
-		{
-			this.Config = Config;
-			Culture = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
-		}
+		public FirehoseModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
 		public IActionResult OnGet()
 		{
-			int SiteId = 1;
-			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+			using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 			string SqlQuery = @"SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
 								FROM		Articles a
@@ -47,7 +40,7 @@ namespace Magazedia.Web.Pages
 
 		public IActionResult OnPostDelete(string Id)
 		{
-			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+			using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 			// Delete the Article revision. If it was the only remaining revision, then delete the Article row too.
 			string SqlQuery = @"UPDATE	ArticleRevisions SET DateDeleted = GETDATE() WHERE Id = @Id;
@@ -59,7 +52,7 @@ namespace Magazedia.Web.Pages
 								END
 								";
 
-			Connection.Execute(SqlQuery, new { Id = Id });
+			Connection.Execute(SqlQuery, new { Id });
 
 			return LocalRedirect("/firehose:");
 		}

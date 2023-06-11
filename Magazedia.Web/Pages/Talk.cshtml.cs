@@ -1,55 +1,46 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using WikiWikiWorld.Models;
 
 namespace Magazedia.Web.Pages;
 
-public class TalkModel : PageModel
+public class TalkModel : BasePageModel
 {
-	public string? ArticleTitle { get; set; }
-
 	[BindProperty(SupportsGet = true)]
 	public string? UrlSlug { get; set; }
 
+	public WikiWikiWorld.Models.Article? Article { get; set; }
 	public IList<ArticleTalkSubject>? ArticleTalkSubjects { get; set; }
 
-	private readonly IConfiguration Config;
-	private readonly string Language;
-	public TalkModel(IConfiguration Config)
-	{
-		this.Config = Config;
-		Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
-	}
+	public TalkModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
 	public IActionResult OnGet()
 	{
-		using SqlConnection DbConnection = new( Config.GetConnectionString("DefaultConnection") );
+		using SqlConnection Connection = new(Configuration.GetConnectionString("DefaultConnection"));
 
 		string? SqlQuery;
 
-		SqlQuery = @"	SELECT		TOP(1) Title
+		SqlQuery = @"	SELECT		TOP(1) *
 						FROM		Articles
 						WHERE		UrlSlug = @UrlSlug AND
 									SiteId = @SiteId AND
-									Language = @Language AND
-									DateDeleted is null
-						ORDER BY	DateCreated DESC";
+									Culture = @Culture AND
+									DateDeleted IS NULL
+					";
 
-		ArticleTitle = DbConnection.QuerySingle<string>(SqlQuery, new { UrlSlug, SiteId = 1, Language });
+		Article = Connection.QuerySingle<WikiWikiWorld.Models.Article>(SqlQuery, new { UrlSlug, SiteId, Culture });
 
-		//// ????
-		SqlQuery = @"	SELECT		ArticleTalkSubjects.*, AspNetUsers.UserName AS CreatedByAspNetUsername
+		// Find and display any Talk subjects for this Article
+		SqlQuery = @"	
+						SELECT		*
 						FROM		ArticleTalkSubjects
-						INNER JOIN	AspNetUsers ON ArticleTalkSubjects.CreatedByAspNetUserId = AspNetUsers.Id
-						WHERE		ArticleTalkSubjects.ArticleTitle = @ArticleTitle AND
-									ArticleTalkSubjects.SiteId = @SiteId AND
-									ArticleTalkSubjects.Language = @Language AND
-									ArticleTalkSubjects.DateDeleted IS NULL
-						ORDER BY	ArticleTalkSubjects.DateCreated DESC";
-
-		ArticleTalkSubjects = DbConnection.Query<ArticleTalkSubject>(SqlQuery, new { ArticleTitle, SiteId = 1, Language }).ToList();
+						WHERE		ArticleId = @ArticleId AND
+									SiteId = @SiteId AND
+									DateDeleted IS NULL
+						ORDER BY	DateCreated ASC;
+					";
+		ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleId = Article.Id }).ToList();
 
 		return Page();
 	}

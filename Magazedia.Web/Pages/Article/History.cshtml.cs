@@ -6,7 +6,7 @@ using WikiWikiWorld.Models;
 
 namespace Magazedia.Web.Pages
 {
-	public class HistoryModel : PageModel
+	public class HistoryModel : BasePageModel
 	{
 		public string? ArticleTitle { get; set; }
 
@@ -15,19 +15,11 @@ namespace Magazedia.Web.Pages
 
 		public IList<WikiWikiWorld.Models.ArticleRevision>? ArticleRevisions { get; set; }
 
-		private readonly IConfiguration Config;
-		private readonly string Culture;
-		public HistoryModel(IConfiguration Config, IHttpContextAccessor HttpContextAccessor)
-		{
-			this.Config = Config;
-			Culture = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
-		}
+		public HistoryModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
 		public IActionResult OnGet()
 		{
-			using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
-
-			int SiteId = 1;
+			using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 			// Get a list of all the revisions of this Article and convert the UserId in the Article table to a Username for display
 			string SqlQuery = @"SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername

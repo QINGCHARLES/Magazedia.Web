@@ -8,14 +8,15 @@ public abstract class BasePageModel : PageModel
 	protected readonly IHttpContextAccessor HttpContextAccessor;
 
 	public string Culture { get; }
+	public int SiteId { get; }
 
 	protected BasePageModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor)
 	{
 		this.Configuration = Configuration;
 		this.HttpContextAccessor = HttpContextAccessor;
 
-		// Set Culture in the constructor
 		Culture = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
+		SiteId = 1;
 	}
 }
 
