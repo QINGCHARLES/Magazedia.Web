@@ -15,8 +15,6 @@ public class TalkModel : BasePageModel
 
 	public TalkModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
-	public TalkModel(IConfiguration Configuration, )
-
 	public IActionResult OnGet()
 	{
 		using SqlConnection Connection = new(Configuration.GetConnectionString("DefaultConnection"));

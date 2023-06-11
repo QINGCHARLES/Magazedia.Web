@@ -31,7 +31,7 @@ public class TalkSubjectModel : BasePageModel
 						JOIN		Articles A ON ATS.ArticleId = A.Id
 						JOIN		AspNetUsers AU ON ATP.CreatedByAspNetUserId = AU.Id
 						WHERE		ATS.UrlSlug = @ArticleTalkSubjectUrlSlug AND
-									A.UrlSlug = @ArticleUrlSlug;
+									A.UrlSlug = @ArticleUrlSlug
 						ORDER BY	ATS.DateCreated ASC;
 					";
 
