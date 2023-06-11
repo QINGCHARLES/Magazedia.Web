@@ -125,7 +125,7 @@ public class ArticleViewModel : BasePageModel
 						WHERE		ArticleId = @ArticleId AND
 									SiteId = @SiteId;
 						";
-			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleId = ArticleRevision.ArticleId }).ToList();
+			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleRevision.ArticleId }).ToList();
 
 
 			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()

@@ -1,5 +1,6 @@
 ﻿@page
 @using Microsoft.AspNetCore.Http;
+@using WikiWikiWorld.Models;
 @using Magazedia;
 @inject IHttpContextAccessor HttpContextAccessor;
 @inject IStringLocalizer<SharedResource> stringLocalizer;
@@ -23,6 +24,16 @@
 		{
 			<p><a href="@Url">@ArticleCultureLink.Title</a></p>
 		}
+	}
+}
+
+@if (Model.ArticleTalkSubjects != null)
+{
+	foreach (ArticleTalkSubject ArticleTalkSubject in Model.ArticleTalkSubjects)
+	{
+		string Url = $"/{Model.UrlSlug}/talk/{ArticleTalkSubject.UrlSlug}";
+
+		<p><a href="@Url">@ArticleTalkSubject.Subject</a></p>
 	}
 }
 
