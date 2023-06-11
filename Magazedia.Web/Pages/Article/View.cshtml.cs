@@ -28,8 +28,6 @@ public class ArticleViewModel : BasePageModel
 
 	public IActionResult OnGet()
 	{
-		int SiteId = 1;
-
 		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 		string SqlQuery = "";
@@ -134,7 +132,7 @@ public class ArticleViewModel : BasePageModel
 				.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
 				.Build();
 
-			if (ArticleRevision.UrlSlug.StartsWith("file:"))
+			if (ArticleRevision.UrlSlug!.StartsWith("file:"))
 			{
 				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/" + ArticleRevision.UrlSlug.Substring(5) + "' />";
 			}
