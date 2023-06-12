@@ -22,7 +22,7 @@ public class ImageRenderer : HtmlObjectRenderer<Image>
 		if (renderer.EnableHtmlForInline)
 		{
 			// write a full a tag
-			renderer.Write($"<img src=\"/files/{SiteId}/{Data.ToString().Split("file:", 2)[1]}\">");
+			renderer.Write($"<img style=\"float:left;\" src=\"/sitefiles/{SiteId}/{Data.ToString().Split("file:", 2)[1]}\">");
 
 		}
 		else

@@ -128,10 +128,10 @@ public class ArticleViewModel : BasePageModel
 						";
 			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleRevision.ArticleId }).ToList();
 
-
+			ImageExtension ImageExtension = new ImageExtension(SiteId);
 			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
 				.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
-				.Use<ImageExtension>()
+				.Use(ImageExtension)
 				.Build();
 
 			if (ArticleRevision.UrlSlug!.StartsWith("file:"))

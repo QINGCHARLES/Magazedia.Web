@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using WikiWikiWorld.Models;
 
 namespace Magazedia.Web.Pages
@@ -13,6 +14,7 @@ namespace Magazedia.Web.Pages
 		public string? ArticleTitle { get; set; }
 		public string? ArticleUrlSlug { get; set; }
 		public string? ArticleText { get; set; }
+		public string? ArticleMetaDesc { get; set; }
 		public bool IsMagazine { get; set; }
 
 		private readonly IConfiguration Config;
@@ -44,6 +46,7 @@ namespace Magazedia.Web.Pages
 			{
 				string ArticleTextB = ArticleText.Replace("\r\n", "' + CHAR(13) + CHAR(10) + N'");
 				if(IsMagazine) ArticleTextB += "{{Categories Magazines}}";
+				if (!String.IsNullOrWhiteSpace(ArticleMetaDesc)) ArticleTextB = "{{ShortDescription " + ArticleMetaDesc + "}}' + CHAR(13) + CHAR(10) + N'" + ArticleTextB;
 
 				return Content(@$"	INSERT Articles (Title, UrlSlug, SiteId, Culture)
 									VALUES ( N'{ArticleTitle}', N'{ArticleUrlSlug}', 1, 'en' );
