@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Policy;
 using Markdig.Parsers;
+using WikiWikiWorld.MarkdigExtensions;
 
 namespace Magazedia.Web.Pages;
 public class EditModel : BasePageModel
@@ -58,7 +59,7 @@ public class EditModel : BasePageModel
 		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 		int SiteId = 1;
 		string SqlQuery = @"
-							SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
+							SELECT		ar.Id, ar.ArticleId, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.CreatedByAspNetUserId, u.UserName as CreatedByAspNetUsername, ar.DateCreated, ar.DateDeleted
 							FROM		Articles a
 							INNER JOIN	ArticleRevisions ar ON a.Id = ar.ArticleId
 							INNER JOIN	AspNetUsers u ON ar.CreatedByAspNetUserId = u.Id
@@ -95,8 +96,8 @@ public class EditModel : BasePageModel
 		//{
 
 		//	var pipeline = new MarkdownPipelineBuilder().Build();
-
-		var Pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+		ImageExtension ImageExtension = new ImageExtension(SiteId);
+		MarkdownPipeline Pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Use(ImageExtension).Build();
 
 		var writer = new StringWriter();
 		var renderer = new Markdig.Renderers.HtmlRenderer(writer);

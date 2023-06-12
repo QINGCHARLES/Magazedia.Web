@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using WikiWikiWorld.Models;
 using System.Globalization;
+using WikiWikiWorld.MarkdigExtensions;
 
 namespace Magazedia.Web.Pages;
 public class ArticleViewModel : BasePageModel
@@ -130,6 +131,7 @@ public class ArticleViewModel : BasePageModel
 
 			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
 				.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
+				.Use<ImageExtension>()
 				.Build();
 
 			if (ArticleRevision.UrlSlug!.StartsWith("file:"))

@@ -8,6 +8,13 @@ namespace WikiWikiWorld.MarkdigExtensions;
 
 public class ImageExtension : IMarkdownExtension
 {
+	private readonly int SiteId;
+
+	public ImageExtension(int SiteId)
+	{
+		this.SiteId = SiteId;
+	}
+
 	public void Setup(MarkdownPipelineBuilder pipeline)
 	{
 		OrderedList<InlineParser> parsers;
@@ -30,7 +37,7 @@ public class ImageExtension : IMarkdownExtension
 
 		if (renderers != null && !renderers.Contains<ImageRenderer>())
 		{
-			renderers!.Add(new ImageRenderer());
+			renderers!.Add(new ImageRenderer(SiteId));
 		}
 	}
 }
