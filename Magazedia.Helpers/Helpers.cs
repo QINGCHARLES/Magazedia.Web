@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Magazedia;
 
@@ -23,5 +24,13 @@ public static class Helpers
 	public static string GetDomainAndPortFromHostname(string Hostname)
 	{
 		return Hostname.IndexOf('.') >= 0 ? Hostname.Substring(Hostname.IndexOf('.') + 1) : Hostname;
+	}
+
+	public static string Slugify(string Text)
+	{
+		string output = Regex.Replace(Text, @"[^A-Za-z0-9\s-]", "");
+		output = Regex.Replace(output, @"\s+", " ").Trim();
+		output = Regex.Replace(output, @"\s", "-");
+		return output.ToLower();
 	}
 }

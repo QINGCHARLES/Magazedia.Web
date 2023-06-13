@@ -47,7 +47,7 @@ namespace MarkdigMantisLink
         slice.NextChar(); // skip the # starting character
         current = slice.CurrentChar;
 if( current != '{') return false;
-if( slice.NextChar() != 'C' ) return false;
+if( slice.NextChar() != 'F' ) return false;
 if( slice.NextChar() != 'a' ) return false;
 if( slice.NextChar() != 't' ) return false;
 if( slice.NextChar() != 'e' ) return false;
