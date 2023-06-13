@@ -130,10 +130,16 @@ public class ArticleViewModel : BasePageModel
 
 			ImageExtension ImageExtension = new(SiteId);
 			ShortDescriptionExtension ShortDescriptionExtension = new(this);
+
+			List<WikiWikiWorld.Models.Citation> CitationList = new ();
+			CitationExtension CitationExtension = new(CitationList);
+			CitationsExtension CitationsExtension = new(CitationList);
+
 			List<WikiWikiWorld.Models.Category> CategoryList = new ();
-			CategoryExtension CategoryExtension = new (CategoryList);
+			CategoryExtension CategoryExtension = new(CategoryList);
 			CategoriesExtension CategoriesExtension = new(CategoryList);
 			StubExtension StubExtension = new(CategoryList);
+
 			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
 				.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
 				.Use(ImageExtension)
@@ -141,6 +147,8 @@ public class ArticleViewModel : BasePageModel
 				.Use(CategoryExtension)
 				.Use(CategoriesExtension)
 				.Use(StubExtension)
+				.Use(CitationExtension)
+				.Use(CitationsExtension)
 				.Build();
 
 			if (ArticleRevision.UrlSlug!.StartsWith("file:"))
