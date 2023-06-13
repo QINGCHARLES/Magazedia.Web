@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using Magazedia;
+@using Magazedia.Web.Pages;
 @inject IHttpContextAccessor HttpContextAccessor;
 @inject IStringLocalizer<SharedResource> stringLocalizer;
 @inject IHtmlLocalizer<SharedResource> htmlLocalizer;
@@ -10,6 +11,12 @@
 <html lang="@Helpers.GetCultureFromHostname(Hostname.Host, "en")" dir="@Helpers.GetTextDirectionFromHostname(Hostname.Host, "en")">
 <head>
 	<meta charset="utf-8" />
+	@{
+		if (!String.IsNullOrWhiteSpace((Model as BasePageModel)?.MetaDescription))
+		{
+			<meta name="description" content="@((Model as BasePageModel)?.MetaDescription)" />
+		}
+	}
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewBag.Title - Magazedia</title>
 	@await RenderSectionAsync("ArticleLanguageLinksLinkRelAlternates", required: false)

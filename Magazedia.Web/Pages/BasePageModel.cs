@@ -9,6 +9,7 @@ public abstract class BasePageModel : PageModel
 
 	public string Culture { get; }
 	public int SiteId { get; }
+	public string? MetaDescription { get; set; }
 
 	protected BasePageModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor)
 	{
