@@ -85,12 +85,16 @@ public class ArticleViewModel : BasePageModel
 			if (UrlSlug!.StartsWith("category:"))
 			{
 				TitleHint = CultureInfo.TextInfo.ToTitleCase((UrlSlug!.Split(":")[1]).Replace('-', ' '));
-				ArticleText = $"<p>Article not found. <a href=\"create:{UrlSlug!}?titlehint={TitleHint}\">Create new category article about &ldquo;{TitleHint}&rdquo;</a>.</p>";
+				ArticleText = $"<p>Article not found. <a href=\"/create:{UrlSlug!}?titlehint={TitleHint}\">Create new category article about &ldquo;{TitleHint}&rdquo;</a>.</p>";
+			}
+			else if (UrlSlug!.StartsWith("@"))
+			{
+				ArticleText = $"<p>User {UrlSlug!} not found.</p>";
 			}
 			else
 			{
 				TitleHint = CultureInfo.TextInfo.ToTitleCase(UrlSlug!.Replace('-', ' '));
-				ArticleText = $"<p>Article not found. <a href=\"create:{UrlSlug!}?titlehint={TitleHint}\">Create new article about &ldquo;{TitleHint}&rdquo;</a>.</p>";
+				ArticleText = $"<p>Article not found. <a href=\"/create:{UrlSlug!}?titlehint={TitleHint}\">Create new article about &ldquo;{TitleHint}&rdquo;</a>.</p>";
 			}
 
 			ArticleTitle = "Article not found";
@@ -131,11 +135,15 @@ public class ArticleViewModel : BasePageModel
 			ImageExtension ImageExtension = new(SiteId);
 			ShortDescriptionExtension ShortDescriptionExtension = new(this);
 
-			List<WikiWikiWorld.Models.Citation> CitationList = new ();
+			List<WikiWikiWorld.Models.Citation> CitationList = new();
 			CitationExtension CitationExtension = new(CitationList);
 			CitationsExtension CitationsExtension = new(CitationList);
 
-			List<WikiWikiWorld.Models.Category> CategoryList = new ();
+			List<WikiWikiWorld.Models.Footnote> FootnoteList = new();
+			FootnoteExtension FootnoteExtension = new(FootnoteList);
+			FootnotesExtension FootnotesExtension = new(FootnoteList);
+
+			List<WikiWikiWorld.Models.Category> CategoryList = new();
 			CategoryExtension CategoryExtension = new(CategoryList);
 			CategoriesExtension CategoriesExtension = new(CategoryList);
 			StubExtension StubExtension = new(CategoryList);
@@ -149,6 +157,8 @@ public class ArticleViewModel : BasePageModel
 				.Use(StubExtension)
 				.Use(CitationExtension)
 				.Use(CitationsExtension)
+				.Use(FootnoteExtension)
+				.Use(FootnotesExtension)
 				.Build();
 
 			if (ArticleRevision.UrlSlug!.StartsWith("file:"))

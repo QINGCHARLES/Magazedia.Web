@@ -18,12 +18,13 @@ public class CitationsRenderer : HtmlObjectRenderer<Citations>
 		{
 			renderer.Write("<ol type=\"1\" class=\"citations\">");
 
+			int CitationNumber = 1;
 			foreach (Models.Citation Citation in Citations)
 			{
-				renderer.Write($"<li>{Citation.Text}</li>");
+				renderer.Write($"<li><a name=\"citation{CitationNumber++}\"></a>{Citation.Text}</li>");
 			}
 
-			renderer.Write("</ul>");
+			renderer.Write("</ol>");
 		}
 	}
 }

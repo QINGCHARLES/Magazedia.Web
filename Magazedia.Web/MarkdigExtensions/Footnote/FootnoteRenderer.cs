@@ -15,5 +15,9 @@ public class FootnoteRenderer : HtmlObjectRenderer<Footnote>
 	protected override void Write(HtmlRenderer renderer, Footnote obj)
 	{
 		Footnotes.Add(new Models.Footnote(obj.Data.ToString()));
+		renderer.Write($"<sup><a href=\"#footnote{Magazedia.Helpers.ConvertNumberToLetters(Footnotes.Count)}\">{Magazedia.Helpers.ConvertNumberToLetters(Footnotes.Count)}</a></sup>");
 	}
+
+
+
 }

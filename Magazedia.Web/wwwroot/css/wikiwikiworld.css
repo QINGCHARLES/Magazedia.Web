@@ -8,6 +8,24 @@ html {
   }
 }
 
+a
+{
+    color: #0077cc;
+}
+
+.categories li
+{
+    padding: 5px 8px;
+    border: 2px solid #222;
+    border-radius: 3px;
+    line-height: 20px;
+    background-color: #eef;
+    margin: 4px 4px;
+    list-style: none;
+    display: inline-block;
+    border-left: 9px solid #222;
+}
+
 @media (prefers-color-scheme: dark)
 {
     body, a
@@ -15,7 +33,15 @@ html {
         background: #000;
         color: #fff;
     }
+
+    .categories li
+    {
+        background-color: #666;
+        border-left: 9px solid #ddd;
+    }
 }
+
+
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -50,10 +76,7 @@ a.navbar-brand
     word-break: break-all;
 }
 
-a
-{
-    color: #0077cc;
-}
+
 
 .btn-primary
 {

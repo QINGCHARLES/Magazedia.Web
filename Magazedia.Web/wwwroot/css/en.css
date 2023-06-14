@@ -1,15 +1,4 @@
-.categories li
-{
-	padding: 5px 8px;
-	border: 2px solid #222;
-	border-radius: 3px;
-	line-height: 20px;
-	background-color: #eef;
-	margin: 4px 4px;
-	list-style: none;
-	display: inline-block;
-	border-left: 9px solid #222;
-}
+
 
 .maglist
 {

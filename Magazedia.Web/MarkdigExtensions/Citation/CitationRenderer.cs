@@ -14,8 +14,7 @@ public class CitationRenderer : HtmlObjectRenderer<Citation>
 
 	protected override void Write(HtmlRenderer renderer, Citation obj)
 	{
-		// TODO: Handle {{Category}} tags with custom UrlSlugs
 		Citations.Add(new Models.Citation(obj.Data.ToString()));
-		renderer.Write($"<sup>{Citations.Count}</sup>");
+		renderer.Write($"<sup><a href=\"#citation{Citations.Count}\">{Citations.Count}</a></sup>");
 	}
 }
