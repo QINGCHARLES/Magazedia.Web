@@ -32,8 +32,8 @@ a
     display: inline-block;
     background: #aff;
     border-radius: 0.3125rem;
-    box-shadow: inset 0 -1px 2px rgba(0,0,0,.3), inset 0 1px 1px hsla(0,0%,100%,.2);
-    color: #039;
+/*    box-shadow: inset 0 -1px 2px rgba(0,0,0,.3), inset 0 1px 1px hsla(0,0%,100%,.2);
+*/    color: #039;
     flex: auto;
     font-family: var(--font-brand);
     font-size: 1.125rem;
@@ -41,6 +41,8 @@ a
     margin: 0.3rem;
     padding: .75rem .3rem;
     text-align: center;
+    /* https://smoothshadows.com/#djEsMiw1LDAuMDgsMjQsMzIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
+    box-shadow: 0px 1px 1px rgba(3, 7, 18, 0.08), 0px 5px 4px rgba(3, 7, 18, 0.06), 0px 12px 9px rgba(3, 7, 18, 0.05), 0px 20px 15px rgba(3, 7, 18, 0.03), 0px 32px 24px rgba(3, 7, 18, 0.02);
 }
 
 .categories li a
@@ -157,3 +159,26 @@ main
     line-height: 1.6;
 }
 
+.container .title
+{
+    font-size: 25px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 15px;
+}
+
+.container .image-container
+{
+    columns: 3 250px;
+    gap: 15px;
+}
+
+    .container .image-container img
+    {
+        margin-bottom: 10px;
+        border-radius: 5px;
+        width: 100%;
+    }
