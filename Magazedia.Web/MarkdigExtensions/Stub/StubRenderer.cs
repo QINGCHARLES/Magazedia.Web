@@ -14,7 +14,7 @@ public class StubRenderer : HtmlObjectRenderer<Stub>
 
 	protected override void Write(HtmlRenderer renderer, Stub obj)
 	{
-		renderer.Write("<p>This article is a <a href=\"/wiki:stubs\">stub</a>. Help us by expanding it.</p>");
+		renderer.Write("<p>This article is a <a href=\"/help:stub-articles\">stub</a>. Help us by expanding it.</p>");
 		if (Categories != null)
 		{
 			Categories.Add(new Models.Category("All stub articles", Models.Category.PriorityOptions.Secondary));
