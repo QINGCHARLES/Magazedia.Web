@@ -1,12 +1,5 @@
 ﻿-- userid: 7240be61-df81-46f9-8152-6a48b96abc40
 
--- wiki:
-
-INSERT Articles (Title, UrlSlug, SiteId, Culture)
-VALUES ( N'Help: Stub Articles', N'help:stub-articles', 1, 'en' );
-INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
-VALUES (SCOPE_IDENTITY(), N'All about stub articles and how to expand them.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
-
 -- Categories
 
 INSERT Articles (Title, UrlSlug, SiteId, Culture)
