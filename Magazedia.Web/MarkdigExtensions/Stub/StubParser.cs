@@ -38,7 +38,7 @@ public class StubParser : InlineParser
 		start = slice.Start;
 		end = start;
 
-		if (current == '}') current = slice.NextChar();
+
 
 		// read as many digits as we can find, incrementing the slice length as we go
 		while (current != '}')
@@ -47,8 +47,7 @@ public class StubParser : InlineParser
 			current = slice.NextChar();
 		}
 		if (slice.NextChar() != '}') return false;
-		end--;
-		//slice.NextChar();
+		slice.NextChar();
 		// once we've ran out of digits, check to see what the next character is
 		// to make sure this is a valid issue and nothing something random like #001Alpha
 		if (current.IsWhiteSpaceOrZero() || current == ')' || current == '}')

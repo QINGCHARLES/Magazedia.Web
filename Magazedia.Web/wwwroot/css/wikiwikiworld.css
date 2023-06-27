@@ -56,6 +56,7 @@ a
     {
         fbackground: #000;
         fcolor: #fff;
+        font-family: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
     }
 
 /*    .categories li
@@ -80,14 +81,16 @@ body {
   margin-bottom: 60px;
 }
 
-h1{
-font-family: 'Ubuntu', sans-serif;
-font-family: 'Sora', sans-serif;
-font-family: 'Montserrat', sans-serif;
-font-size:250%;
-font-weight: 800;
-letter-spacing:-0.05em;
-text-transform: uppercase;
+h1
+{
+    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Sora', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+    font-size: 250%;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
 }
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
@@ -176,9 +179,36 @@ main
     gap: 15px;
 }
 
+    .container .image-container .img-wrapper
+    {
+        overflow: hidden; /* Prevents the image from spilling over when scaled */
+        margin-bottom: 10px; /* Moved from the img element */
+    }
+
     .container .image-container img
     {
-        margin-bottom: 10px;
         border-radius: 5px;
         width: 100%;
+        transition: transform 0.3s ease;
     }
+
+        .container .image-container img:hover
+        {
+            transform: scale(1.05);
+        }
+
+        .img-wrapper {
+    position: relative;
+}
+
+.img-title {
+    position: absolute;
+    bottom: 0;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center;
+}
