@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="MarkdigExtensions\NewFolder\" />
     <Folder Include="Pages\Talk\" />
     <Folder Include="wwwroot\sitefiles\" />
   </ItemGroup>

@@ -18,6 +18,8 @@ public class StubRenderer : HtmlObjectRenderer<Stub>
 		if (Categories != null)
 		{
 			Categories.Add(new Models.Category("All stub articles", Models.Category.PriorityOptions.Secondary));
+			
+			// If the tag isn't empty then use the supplied Data to add an additional custom Category tag to the page
 			if (obj.Data.Length > 0)
 			{
 				Categories.Add(new Models.Category(obj.Data.ToString(), Models.Category.PriorityOptions.Secondary));

@@ -132,11 +132,18 @@ public class ArticleViewModel : BasePageModel
 						";
 			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleRevision.ArticleId }).ToList();
 
-			ImageExtension ImageExtension = new(SiteId);
+			ImageExtension ImageExtension = new(SiteId, Connection);
 			ShortDescriptionExtension ShortDescriptionExtension = new(this);
 
+			// Create an empty list of Citations
 			List<WikiWikiWorld.Models.Citation> CitationList = new();
+
+			// Send the empty list into the CitationExtension - if the parser finds any citations in the Article
+			// it will not render them, but will simply add them to the CitationList
 			CitationExtension CitationExtension = new(CitationList);
+
+			// Send the CitationList into the CitationsExtension - if the parser finds a citations block in the Article
+			// it will render out a list of all the citations
 			CitationsExtension CitationsExtension = new(CitationList);
 
 			List<WikiWikiWorld.Models.Footnote> FootnoteList = new();
