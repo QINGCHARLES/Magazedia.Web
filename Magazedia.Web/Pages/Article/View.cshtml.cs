@@ -132,7 +132,7 @@ public class ArticleViewModel : BasePageModel
 						";
 			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleRevision.ArticleId }).ToList();
 
-			ImageExtension ImageExtension = new(SiteId, Connection);
+			ImageExtension ImageExtension = new(SiteId);
 			ShortDescriptionExtension ShortDescriptionExtension = new(this);
 
 			// Create an empty list of Citations

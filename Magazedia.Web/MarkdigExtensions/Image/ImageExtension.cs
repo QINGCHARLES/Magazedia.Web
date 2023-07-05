@@ -37,7 +37,7 @@ public class ImageExtension : IMarkdownExtension
 
 		if (renderers != null && !renderers.Contains<ImageRenderer>())
 		{
-			renderers!.Add(new ImageRenderer(SiteId));
+			renderers!.Add(new ImageRenderer(SiteId, null));
 		}
 	}
 }
