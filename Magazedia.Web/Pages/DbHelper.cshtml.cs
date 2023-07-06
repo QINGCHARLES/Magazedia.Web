@@ -30,6 +30,7 @@ namespace Magazedia.Web.Pages
 			ArticleTitle = Request.Form[nameof(ArticleTitle)].ToString().Replace("'", "''");
 			ArticleText = Request.Form[nameof(ArticleText)].ToString().Replace("'", "''");
 			ArticleUrlSlug = Request.Form[nameof(ArticleUrlSlug)];
+			ArticleMetaDesc = Request.Form[nameof(ArticleMetaDesc)];
 			//string helloo = Request.Form[nameof(IsMagazine)];
 			IsMagazine = Request.Form[nameof(IsMagazine)].Contains("true");
 
@@ -48,7 +49,8 @@ namespace Magazedia.Web.Pages
 				if(IsMagazine) ArticleTextB += "{{Categories Magazines}}";
 				if (!String.IsNullOrWhiteSpace(ArticleMetaDesc)) ArticleTextB = "{{ShortDescription " + ArticleMetaDesc + "}}' + CHAR(13) + CHAR(10) + N'" + ArticleTextB;
 
-				return Content(@$"	INSERT Articles (Title, UrlSlug, SiteId, Culture)
+				return Content(@$"	-- {ArticleTitle}
+									INSERT Articles (Title, UrlSlug, SiteId, Culture)
 									VALUES ( N'{ArticleTitle}', N'{ArticleUrlSlug}', 1, 'en' );
 									INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
 									VALUES (SCOPE_IDENTITY(), N'{ArticleTextB}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
