@@ -27,10 +27,10 @@ namespace Magazedia.Web.Pages
 
 		public IActionResult OnPost()
 		{
-			ArticleTitle = Request.Form[nameof(ArticleTitle)].ToString().Replace("'", "''");
-			ArticleText = Request.Form[nameof(ArticleText)].ToString().Replace("'", "''");
-			ArticleUrlSlug = Request.Form[nameof(ArticleUrlSlug)];
-			ArticleMetaDesc = Request.Form[nameof(ArticleMetaDesc)];
+			ArticleTitle = Request.Form[nameof(ArticleTitle)].ToString().Replace("'", "''").Trim();
+			ArticleText = Request.Form[nameof(ArticleText)].ToString().Replace("'", "''").Trim();
+			ArticleUrlSlug = Request.Form[nameof(ArticleUrlSlug)].ToString().Trim();
+			ArticleMetaDesc = Request.Form[nameof(ArticleMetaDesc)].ToString().Replace("'", "''").Trim();
 			//string helloo = Request.Form[nameof(IsMagazine)];
 			IsMagazine = Request.Form[nameof(IsMagazine)].Contains("true");
 
