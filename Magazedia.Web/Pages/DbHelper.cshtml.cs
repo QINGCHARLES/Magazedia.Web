@@ -30,7 +30,10 @@ namespace Magazedia.Web.Pages
 			ArticleTitle = Request.Form[nameof(ArticleTitle)].ToString().Replace("'", "''").Trim();
 			ArticleText = Request.Form[nameof(ArticleText)].ToString().Replace("'", "''").Trim();
 			ArticleUrlSlug = Request.Form[nameof(ArticleUrlSlug)].ToString().Trim();
-			ArticleMetaDesc = Request.Form[nameof(ArticleMetaDesc)].ToString().Replace("'", "''").Trim();
+			ArticleMetaDesc = RemoveQuotes(Request.Form[nameof(ArticleMetaDesc)].ToString().Replace("'", "''").Trim());
+
+			
+
 			//string helloo = Request.Form[nameof(IsMagazine)];
 			IsMagazine = Request.Form[nameof(IsMagazine)].Contains("true");
 
@@ -58,5 +61,27 @@ namespace Magazedia.Web.Pages
 								".Replace("+ N'' ", "").Replace("\t", ""));
 			}
 		}
-    }
+
+		public static string RemoveQuotes(string input)
+		{
+			if (string.IsNullOrEmpty(input))
+				return input;
+
+			char firstChar = input[0];
+			char lastChar = input[input.Length - 1];
+
+			if (firstChar == '"' || firstChar == '“' || firstChar == '”')
+			{
+				input = input.Substring(1);
+			}
+
+			if (lastChar == '"' || lastChar == '“' || lastChar == '”')
+			{
+				input = input.Substring(0, input.Length - 1);
+			}
+
+			return input;
+		}
+
+	}
 }
