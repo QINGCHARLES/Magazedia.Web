@@ -29,6 +29,14 @@ public class EditModel : BasePageModel
 
 	public IActionResult OnPost()
 	{
+		var specificUsername = "QINGCHARLES";
+
+		if (this.User == null || this.User.Identity == null || !this.User.Identity.IsAuthenticated || (this.User.Identity.IsAuthenticated && this.User.Identity.Name != specificUsername))
+		{
+
+			return BadRequest();
+		}
+
 		ArticleTitle = Request.Form[nameof(ArticleTitle)];
 		ArticleText = Request.Form[nameof(ArticleText)];
 		ArticleUrlSlug = Request.Form[nameof(ArticleUrlSlug)];
@@ -45,10 +53,10 @@ public class EditModel : BasePageModel
 		var Article = Connection.QuerySingleOrDefault(SqlQuery, new { UrlSlug = ArticleUrlSlug, SiteId, Culture });
 
 
-			SqlQuery = @"	INSERT ArticleRevisions ([ArticleId], [Text], [RevisionReason], [CreatedByAspNetUserId])
+		SqlQuery = @"	INSERT ArticleRevisions ([ArticleId], [Text], [RevisionReason], [CreatedByAspNetUserId])
 							VALUES (@ArticleId, @Text, @RevisionReason, @CreatedByAspNetUserId);
 						";
-			var res = Connection.Execute(SqlQuery, new { ArticleId = Article.Id, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username });
+		var res = Connection.Execute(SqlQuery, new { ArticleId = Article.Id, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username });
 
 
 
@@ -56,6 +64,11 @@ public class EditModel : BasePageModel
 	}
 	public IActionResult OnGet()
 	{
+		//if (this.User != null && this.User.Identity != null)
+		//{
+		//	return Content(this.User!.Identity!.Name!);
+		//}
+
 		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 		int SiteId = 1;
 		string SqlQuery = @"
@@ -116,6 +129,6 @@ public class EditModel : BasePageModel
 		return Page();
 	}
 
-	
+
 }
 
