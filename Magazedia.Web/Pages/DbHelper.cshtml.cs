@@ -52,7 +52,7 @@ namespace Magazedia.Web.Pages
 				if(IsMagazine) ArticleTextB += "{{Categories Magazines}}";
 				if (!String.IsNullOrWhiteSpace(ArticleMetaDesc)) ArticleTextB = "{{ShortDescription " + ArticleMetaDesc + "}}' + CHAR(13) + CHAR(10) + N'" + ArticleTextB;
 
-				return Content(@$"	-- {ArticleTitle}
+				return Content(@$"	-- {ArticleTitle.Replace("''","'")}
 									INSERT Articles (Title, UrlSlug, SiteId, Culture)
 									VALUES ( N'{ArticleTitle}', N'{ArticleUrlSlug}', 1, 'en' );
 									INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
