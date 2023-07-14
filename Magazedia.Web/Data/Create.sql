@@ -8,7 +8,9 @@ CREATE TABLE Articles
 	Title nvarchar(1000) NOT NULL,
 	UrlSlug nvarchar(1000) NOT NULL,
 	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
-	DateDeleted datetime2(7) NULL
+	DateDeleted datetime2(7) NULL,
+	CONSTRAINT UQ_Articles_Title UNIQUE (Title),
+	CONSTRAINT UQ_Articles_UrlSlug UNIQUE (UrlSlug)
 );
 
 CREATE INDEX IX_Articles_UrlSlug
