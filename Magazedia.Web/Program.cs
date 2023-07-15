@@ -14,49 +14,49 @@ builder.Host.UseSystemd();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages().AddViewLocalization();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-	const string DefaultCulture = "en";
+    const string DefaultCulture = "en";
 
-	// Support all cultures
-	List<CultureInfo> SupportedCultures = CultureInfo.GetCultures(CultureTypes.AllCultures)// & ~CultureTypes.NeutralCultures)
-					.Where(Culture => !String.IsNullOrEmpty(Culture.Name))
-					.ToList();
+    // Support all cultures
+    List<CultureInfo> SupportedCultures = CultureInfo.GetCultures(CultureTypes.AllCultures)// & ~CultureTypes.NeutralCultures)
+                    .Where(Culture => !String.IsNullOrEmpty(Culture.Name))
+                    .ToList();
 
-	SupportedCultures.Add(new CultureInfo("xx-test"));
+    SupportedCultures.Add(new CultureInfo("xx-test"));
 
-	//var SupportedCultures = new[]
-	//{
-	//	new CultureInfo(DefaultCulture),
-	//	new CultureInfo("ja"),
-	//	new CultureInfo("ar"),
-	//	new CultureInfo("xx-test")
-	//};
+    //var SupportedCultures = new[]
+    //{
+    //	new CultureInfo(DefaultCulture),
+    //	new CultureInfo("ja"),
+    //	new CultureInfo("ar"),
+    //	new CultureInfo("xx-test")
+    //};
 
-	options.DefaultRequestCulture = new RequestCulture(DefaultCulture);
-	options.SupportedCultures = SupportedCultures;
-	options.SupportedUICultures = SupportedCultures;
+    options.DefaultRequestCulture = new RequestCulture(DefaultCulture);
+    options.SupportedCultures = SupportedCultures;
+    options.SupportedUICultures = SupportedCultures;
 
     // Remove the QueryStringRequestCultureProvider, CookieRequestCultureProvider, and AcceptLanguageHeaderRequestCultureProvider
     // as we force site culture based on hostname
     options.RequestCultureProviders.Clear();
 
-	// Add a custom RequestCultureProvider that extracts the culture from the subdomain of the site hostname
+    // Add a custom RequestCultureProvider that extracts the culture from the subdomain of the site hostname
     options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async Context =>
-	{
-		string Hostname = Context.Request.Host.Host;
-		string Culture = Helpers.GetCultureFromHostname(Hostname, DefaultCulture);
+    {
+        string Hostname = Context.Request.Host.Host;
+        string Culture = Helpers.GetCultureFromHostname(Hostname, DefaultCulture);
 
-		return await Task.FromResult(new ProviderCultureResult(Culture));
-	}));
+        return await Task.FromResult(new ProviderCultureResult(Culture));
+    }));
 });
 
 var app = builder.Build();
@@ -64,13 +64,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseMigrationsEndPoint();
+    app.UseMigrationsEndPoint();
 }
 else
 {
-	app.UseExceptionHandler("/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 using (TextReader sr = new StringReader(@$"
 		<rewrite>
@@ -86,9 +86,9 @@ using (TextReader sr = new StringReader(@$"
 				<rule enabled=""true"">
 					<match url=""(.*)"" />
 					<conditions logicalGrouping=""MatchAll"" trackAllCaptures=""false"">
-						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magspedia\.com$|^xx-test\.magspedia\.com$|^ja\.magspedia\.com$|^ar\.magspedia\.com$|^en\.localhost|^xx-test\.localhost|^ja\.localhost|^ar\.localhost"" negate=""true"" />
+						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magazedia\.wiki$|^xx-test\.magazedia\.wiki$|^ja\.magazedia\.wiki$|^ar\.magazedia\.wiki$|^en\.localhost|^xx-test\.localhost|^ja\.localhost|^ar\.localhost"" negate=""true"" />
 					</conditions>
-					<action type=""Redirect"" url=""https://en.magspedia.com/{{R:1}}"" redirectType=""308"" />
+					<action type=""Redirect"" url=""https://en.magazedia.wiki/{{R:1}}"" redirectType=""308"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^dmca:"" />
@@ -138,12 +138,12 @@ using (TextReader sr = new StringReader(@$"
 		</rewrite>
 	"))
 {
-	var options = new RewriteOptions()
-			.AddIISUrlRewrite(sr);
-			//.AddRewrite(@"^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1",
-			//			skipRemainingRules: true);
+    var options = new RewriteOptions()
+            .AddIISUrlRewrite(sr);
+    //.AddRewrite(@"^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1",
+    //			skipRemainingRules: true);
 
-	app.UseRewriter(options);
+    app.UseRewriter(options);
 }
 
 app.UseStaticFiles();
