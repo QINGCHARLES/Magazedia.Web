@@ -20,11 +20,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages(options =>
-{
-	options.Conventions.AddPageRoute("/Sitemap", "sitemap.xml");
-})
-.AddViewLocalization();
+builder.Services.AddRazorPages().AddViewLocalization();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
