@@ -1,5 +1,6 @@
 using Magazedia;
 using Magazedia.Web.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Rewrite;
@@ -19,7 +20,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages().AddViewLocalization();
+builder.Services.AddRazorPages(options =>
+{
+	options.Conventions.AddPageRoute("/Sitemap", "sitemap.xml");
+})
+.AddViewLocalization();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -82,6 +87,10 @@ using (TextReader sr = new StringReader(@$"
 						<add input=""{{HTTPS}}"" pattern=""^OFF$"" />
 					</conditions>
 					<action type=""Redirect"" url=""https://{{HTTP_HOST}}{{REQUEST_URI}}"" appendQueryString=""false"" redirectType=""308"" />
+				</rule>
+				<rule enabled=""true"" stopProcessing=""true"">
+					<match url=""^sitemap\.xml$"" />
+					<action type=""Rewrite"" url=""Sitemap"" />
 				</rule>
 				<rule enabled=""true"" stopProcessing=""true"">
 					<match url=""^$"" />
