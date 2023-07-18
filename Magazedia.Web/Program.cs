@@ -83,6 +83,13 @@ using (TextReader sr = new StringReader(@$"
 					</conditions>
 					<action type=""Redirect"" url=""https://{{HTTP_HOST}}{{REQUEST_URI}}"" appendQueryString=""false"" redirectType=""308"" />
 				</rule>
+				<rule enabled=""true"" stopProcessing=""true"">
+					<match url=""^$"" />
+					<conditions logicalGrouping=""MatchAll"" trackAllCaptures=""false"">
+						<add input=""{{HTTP_HOST}}"" pattern=""^magazedia\.wiki$|^localhost(:[0-9]+)?$"" />
+					</conditions>
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/CultureSelect"" />
+				</rule>
 				<rule enabled=""true"">
 					<match url=""(.*)"" />
 					<conditions logicalGrouping=""MatchAll"" trackAllCaptures=""false"">
@@ -140,8 +147,6 @@ using (TextReader sr = new StringReader(@$"
 {
     var options = new RewriteOptions()
             .AddIISUrlRewrite(sr);
-    //.AddRewrite(@"^(?!Create)(?!History)(?!Firehose)(?!Edit)(?!Talk)(?!Article)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|bmp|css|js)$)(.*)", "Article?UrlSlug=$1",
-    //			skipRemainingRules: true);
 
     app.UseRewriter(options);
 }
