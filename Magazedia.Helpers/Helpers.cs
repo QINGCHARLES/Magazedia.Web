@@ -23,7 +23,17 @@ public static class Helpers
 
 	public static string GetDomainAndPortFromHostname(string Hostname)
 	{
-		return Hostname.IndexOf('.') >= 0 ? Hostname.Substring(Hostname.IndexOf('.') + 1) : Hostname;
+		var Parts = Hostname.Split('.');
+		if (Parts.Length >= 3)
+		{
+			// return the last two parts of the hostname
+			return Parts[Parts.Length - 2] + "." + Parts[Parts.Length - 1];
+		}
+		else
+		{
+			// if there are not enough parts, return the hostname as is
+			return Hostname;
+		}
 	}
 
 	public static string Slugify(string Text)
