@@ -11,8 +11,8 @@
 	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
 }
 
-<h1>@Html.Raw(Model.ArticleTitle)</h1>
-<article>@Html.Raw(Model.ArticleText)</article>
+
+<article class="container-xl"><h1>@Html.Raw(Model.ArticleTitle)</h1>@Html.Raw(Model.ArticleText)</article>
 
 @if (Model.ArticleCultureLinks != null)
 {

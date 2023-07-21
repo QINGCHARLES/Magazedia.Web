@@ -98,7 +98,7 @@ using (TextReader sr = new StringReader(@$"
 				<rule enabled=""true"">
 					<match url=""(.*)"" />
 					<conditions logicalGrouping=""MatchAll"" trackAllCaptures=""false"">
-						<add input=""{{HTTP_HOST}}"" pattern=""^en\.magazedia\.wiki$|^xx-test\.magazedia\.wiki$|^ja\.magazedia\.wiki$|^ar\.magazedia\.wiki$|^en\.localhost|^xx-test\.localhost|^ja\.localhost|^ar\.localhost"" negate=""true"" />
+						<add input=""{{HTTP_HOST}}"" pattern=""^magazedia\.wiki$|^en\.magazedia\.wiki$|^xx-test\.magazedia\.wiki$|^ja\.magazedia\.wiki$|^ar\.magazedia\.wiki$|^localhost|^en\.localhost|^xx-test\.localhost|^ja\.localhost|^ar\.localhost"" negate=""true"" />
 					</conditions>
 					<action type=""Redirect"" url=""https://en.magazedia.wiki/{{R:1}}"" redirectType=""308"" />
 				</rule>
