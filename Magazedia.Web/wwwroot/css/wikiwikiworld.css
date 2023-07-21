@@ -2,6 +2,85 @@ html {
   font-size: 14px;
 }
 
+/* general */
+body
+{
+    font-family: 'PT Sans Caption', "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    font-size: 3vh;
+    margin: 0;
+    padding: 0;
+}
+
+header, h1
+{
+    paddingf: 1rem;
+}
+
+h1{
+padding: 20vh 10rem 4rem;
+
+}
+/* header */
+header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    background: transparent;
+    z-index: 2;
+}
+
+    header a:first-child
+    {
+        text-decoration: none;
+        color: white;
+        font-size: 5vh;
+        font-weight: bold;
+    }
+
+    header a:last-child
+    {
+        font-family: Geneva, sans-serif;
+        font-size: 6vh;
+    }
+
+
+/* hero title */
+article h1
+{
+    margin: 0 auto;
+    text-align: center;
+    max-width: 16em;
+    mfargin: 0;
+    font-size: 12vh;
+    font-weight: bold;
+    line-height: .9;
+    color: white;
+    background: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
+    background: linear-gradient(to bottom, #0000, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
+    background: linear-gradient(to bottom, #0000, #0007), url(/sitefiles/1/gqusa.webp) center center no-repeat;
+    background-size: cover;
+    padding-top: 40vh;
+    margin-bottom: 4rem;
+}
+
+article > *:not(h1)
+{
+    padding: 0 10rem;
+}
+
+@media only screen and (min-width: 32em)
+{
+    article h1
+    {
+        font-size: 16vh;
+    }
+}
+
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
