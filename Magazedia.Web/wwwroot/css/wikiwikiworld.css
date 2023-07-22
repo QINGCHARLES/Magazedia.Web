@@ -1,95 +1,124 @@
-html {
-  font-size: 14px;
+html
+{
+	font-size: 14px;
 }
 
 /* general */
 body
 {
-    font-family: 'PT Sans Caption', "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-    font-size: 3vh;
-    margin: 0;
-    padding: 0;
+	font-family: 'PT Sans Caption', "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	font-size: 3vh;
+	margin: 0;
+	padding: 0;
+	background-color: #fbfbf8;
 }
 
 header, h1
 {
-    paddingf: 1rem;
+	paddingf: 1rem;
 }
 
-h1{
-padding: 20vh 10rem 4rem;
-
+h1
+{
+	padding: 20vh 10rem 4rem;
 }
 /* header */
 header
 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    position: absolute;
-    width: 100%;
-    background: transparent;
-    z-index: 2;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	position: absolute;
+	width: 100%;
+	background: transparent;
+	z-index: 2;
 }
 
-    header a:first-child
-    {
-        text-decoration: none;
-        color: white;
-        font-size: 5vh;
-        font-weight: bold;
-    }
+	header a:first-child
+	{
+		text-decoration: none;
+		color: white;
+		font-size: 5vh;
+		font-weight: bold;
+	}
 
-    header a:last-child
-    {
-        font-family: Geneva, sans-serif;
-        font-size: 6vh;
-    }
+	header a:last-child
+	{
+		font-family: Geneva, sans-serif;
+		font-size: 6vh;
+	}
 
+.p10
+{
+	padding-left: 10rem;
+}
+
+	.p10 svg
+	{
+		filter: drop-shadow(0 4px 1px rgb(4 4 4 / 0.4));
+	}
+
+	article{
+
+	}
+
+article p
+{
+	line-height: 2rem;
+	font-size: 1.3rem;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	margin-bottom: 2rem;
+}
 
 /* hero title */
 article h1
 {
-    margin: 0 auto;
-    text-align: center;
-    max-width: 16em;
-    mfargin: 0;
-    font-size: 12vh;
-    font-weight: bold;
-    line-height: .9;
-    color: white;
-    background: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
-    background: linear-gradient(to bottom, #0000, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
-    background: linear-gradient(to bottom, #0000, #0007), url(/sitefiles/1/gqusa.webp) center center no-repeat;
-    background-size: cover;
-    padding-top: 40vh;
-    margin-bottom: 4rem;
+	margin: 0 auto;
+	text-align: center;
+	max-width: 16em;
+	font-size: 12vh;
+	font-weight: bold;
+	line-height: .9;
+	color: #fbfbf8;
+	background: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
+	background: linear-gradient(to bottom, #0000, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0) 10%, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.6) 100%), url(/sitefiles/1/gqusa.webp) center center no-repeat;
+	background-size: cover;
+	padding-top: 30vh;
+	margin-bottom: 4rem;
+	text-shadow: 0 3px 1px #444;
 }
 
 article > *:not(h1)
 {
-    padding: 0 10rem;
+	padding: 0 10rem;
+	max-width: 70rem;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 @media only screen and (min-width: 32em)
 {
-    article h1
-    {
-        font-size: 16vh;
-    }
+	article h1
+	{
+		font-size: 20vh;
+	}
 }
 
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+@media (min-width: 768px)
+{
+	html
+	{
+		font-size: 16px;
+	}
 }
 
 a
 {
-    color: #0077cc;
+	color: #0077cc;
 }
 
 /*.categories li
@@ -107,38 +136,38 @@ a
 
 .categories li
 {
-    list-style: none;
-    display: inline-block;
-    background: #aff;
-    border-radius: 0.3125rem;
-/*    box-shadow: inset 0 -1px 2px rgba(0,0,0,.3), inset 0 1px 1px hsla(0,0%,100%,.2);
-*/    color: #039;
-    flex: auto;
-    font-family: var(--font-brand);
-    font-size: 1.125rem;
-    font-weight: bold;
-    margin: 0.3rem;
-    padding: .75rem .3rem;
-    text-align: center;
-    /* https://smoothshadows.com/#djEsMiw1LDAuMDgsMjQsMzIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
-    box-shadow: 0px 1px 1px rgba(3, 7, 18, 0.08), 0px 5px 4px rgba(3, 7, 18, 0.06), 0px 12px 9px rgba(3, 7, 18, 0.05), 0px 20px 15px rgba(3, 7, 18, 0.03), 0px 32px 24px rgba(3, 7, 18, 0.02);
+	list-style: none;
+	display: inline-block;
+	background: #aff;
+	border-radius: 0.3125rem;
+	/*    box-shadow: inset 0 -1px 2px rgba(0,0,0,.3), inset 0 1px 1px hsla(0,0%,100%,.2);
+*/ color: #039;
+	flex: auto;
+	font-family: var(--font-brand);
+	font-size: 1.125rem;
+	font-weight: bold;
+	margin: 0.3rem;
+	padding: .75rem .3rem;
+	text-align: center;
+	/* https://smoothshadows.com/#djEsMiw1LDAuMDgsMjQsMzIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
+	box-shadow: 0px 1px 1px rgba(3, 7, 18, 0.08), 0px 5px 4px rgba(3, 7, 18, 0.06), 0px 12px 9px rgba(3, 7, 18, 0.05), 0px 20px 15px rgba(3, 7, 18, 0.03), 0px 32px 24px rgba(3, 7, 18, 0.02);
 }
 
-.categories li a
-{
-    text-decoration: none;
-}
+	.categories li a
+	{
+		text-decoration: none;
+	}
 
 @media (prefers-color-scheme: dark)
 {
-    body
-    {
-        fbackground: #000;
-        fcolor: #fff;
-        font-family: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-    }
+	body
+	{
+		fbackground: #000;
+		fcolor: #fff;
+		font-family: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+	}
 
-/*    .categories li
+	/*    .categories li
     {
         background-color: #666;
         border-left: 9px solid #ddd;
@@ -147,29 +176,32 @@ a
 
 
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus
+{
+	box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+html
+{
+	position: relative;
+	min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+body
+{
+	margin-bottom: 60px;
 }
 
 h1
 {
-    font-family: 'Ubuntu', sans-serif;
-    font-family: 'Sora', sans-serif;
-    font-family: 'Montserrat', sans-serif;
-    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
-    font-size: 250%;
-    font-weight: 800;
-    letter-spacing: -0.05em;
-    text-transform: uppercase;
+	font-family: 'Ubuntu', sans-serif;
+	font-family: 'Sora', sans-serif;
+	font-family: 'Montserrat', sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+	font-size: 250%;
+	font-weight: 800;
+	letter-spacing: -0.05em;
+	text-transform: uppercase;
 }
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
@@ -177,117 +209,119 @@ for details on configuring this project to bundle and minify static web assets. 
 
 a.navbar-brand
 {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
+	white-space: normal;
+	text-align: center;
+	word-break: break-all;
 }
 
 
 
 .btn-primary
 {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+	color: #fff;
+	background-color: #1b6ec2;
+	border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link
 {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+	color: #fff;
+	background-color: #1b6ec2;
+	border-color: #1861ac;
 }
 
 .border-top
 {
-    border-top: 1px solid #e5e5e5;
+	border-top: 1px solid #e5e5e5;
 }
 
 .border-bottom
 {
-    border-bottom: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow
 {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy
 {
-    font-size: 1rem;
-    line-height: inherit;
+	font-size: 1rem;
+	line-height: inherit;
 }
 
 body
 {
-    margin-bottom: 12rem;
+	margin-bottom: 12rem;
 }
 
 .footer
 {
-    position: absolute;
-    bottom: 0;
-    height: 10rem;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 60px;
+	position: absolute;
+	bottom: 0;
+	height: 10rem;
+	width: 100%;
+	white-space: nowrap;
+	line-height: 60px;
 }
 
 main
 {
-    font-family: Charter, Georgia, Times, Serif;
-    font-size: 1.1875rem;
-    line-height: 1.6;
+	font-family: Charter, Georgia, Times, Serif;
+	font-size: 1.1875rem;
+	line-height: 1.6;
 }
 
 .container .title
 {
-    font-size: 25px;
-    background-color: #000;
-    color: #fff;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    text-align: center;
-    padding: 15px;
+	font-size: 25px;
+	background-color: #000;
+	color: #fff;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+	padding: 15px;
 }
 
 .container .image-container
 {
-    columns: 3 250px;
-    gap: 15px;
+	columns: 3 250px;
+	gap: 15px;
 }
 
-    .container .image-container .img-wrapper
-    {
-        overflow: hidden; /* Prevents the image from spilling over when scaled */
-        margin-bottom: 10px; /* Moved from the img element */
-    }
+	.container .image-container .img-wrapper
+	{
+		overflow: hidden; /* Prevents the image from spilling over when scaled */
+		margin-bottom: 10px; /* Moved from the img element */
+	}
 
-    .container .image-container img
-    {
-        border-radius: 5px;
-        width: 100%;
-        transition: transform 0.3s ease;
-    }
+	.container .image-container img
+	{
+		border-radius: 5px;
+		width: 100%;
+		transition: transform 0.3s ease;
+	}
 
-        .container .image-container img:hover
-        {
-            transform: scale(1.05);
-        }
+		.container .image-container img:hover
+		{
+			transform: scale(1.05);
+		}
 
-        .img-wrapper {
-    position: relative;
+.img-wrapper
+{
+	position: relative;
 }
 
-.img-title {
-    position: absolute;
-    bottom: 0;
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: 16px;
-    text-align: center;
+.img-title
+{
+	position: absolute;
+	bottom: 0;
+	color: #ffffff;
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	font-size: 16px;
+	text-align: center;
 }

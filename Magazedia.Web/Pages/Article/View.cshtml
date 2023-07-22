@@ -12,43 +12,48 @@
 }
 
 
-<article><h1>@Html.Raw(Model.ArticleTitle)</h1>@Html.Raw(Model.ArticleText)</article>
+<article>
+	<h1>@Html.Raw(Model.ArticleTitle)</h1>
+	
+	@Html.Raw(Model.ArticleText)
 
-@if (Model.ArticleCultureLinks != null)
-{
-	foreach (var ArticleCultureLink in Model.ArticleCultureLinks)
-	{
-		string Url = $"https://{ArticleCultureLink.Culture}.{Helpers.GetDomainAndPortFromHostname(Hostname.ToString())}/{ArticleCultureLink.UrlSlug}";
-
-		if (ArticleCultureLink.Culture != Model.Culture)
-		{
-			<p><a href="@Url">@ArticleCultureLink.Title</a></p>
-		}
-	}
-}
-
-@if (Model.ArticleTalkSubjects != null)
-{
-	foreach (ArticleTalkSubject ArticleTalkSubject in Model.ArticleTalkSubjects)
-	{
-		string Url = $"/{Model.UrlSlug}/talk/{ArticleTalkSubject.UrlSlug}";
-
-		<p><a href="@Url">@ArticleTalkSubject.Subject</a></p>
-	}
-}
-
-<p><a href="/@Model.UrlSlug/edit">Edit Article</a></p>
-<p><a href="/@Model.UrlSlug/history">View Edit History</a></p>
-<p><a href="/@Model.UrlSlug/talk">Talk</a></p>
-@section ArticleLanguageLinksLinkRelAlternates
-{
 	@if (Model.ArticleCultureLinks != null)
 	{
 		foreach (var ArticleCultureLink in Model.ArticleCultureLinks)
 		{
 			string Url = $"https://{ArticleCultureLink.Culture}.{Helpers.GetDomainAndPortFromHostname(Hostname.ToString())}/{ArticleCultureLink.UrlSlug}";
 
-			<link rel="alternate" href="@Url" hreflang="@ArticleCultureLink.Culture" />
+			if (ArticleCultureLink.Culture != Model.Culture)
+			{
+				<p><a href="@Url">@ArticleCultureLink.Title</a></p>
+			}
 		}
 	}
-}
+
+	@if (Model.ArticleTalkSubjects != null)
+	{
+		foreach (ArticleTalkSubject ArticleTalkSubject in Model.ArticleTalkSubjects)
+		{
+			string Url = $"/{Model.UrlSlug}/talk/{ArticleTalkSubject.UrlSlug}";
+
+			<p><a href="@Url">@ArticleTalkSubject.Subject</a></p>
+		}
+	}
+
+	<p><a href="/@Model.UrlSlug/edit">Edit Article</a></p>
+	<p><a href="/@Model.UrlSlug/history">View Edit History</a></p>
+	<p><a href="/@Model.UrlSlug/talk">Talk</a></p>
+
+	@section ArticleLanguageLinksLinkRelAlternates
+	{
+		@if (Model.ArticleCultureLinks != null)
+		{
+			foreach (var ArticleCultureLink in Model.ArticleCultureLinks)
+			{
+				string Url = $"https://{ArticleCultureLink.Culture}.{Helpers.GetDomainAndPortFromHostname(Hostname.ToString())}/{ArticleCultureLink.UrlSlug}";
+
+				<link rel="alternate" href="@Url" hreflang="@ArticleCultureLink.Culture" />
+			}
+		}
+	}
+</article>
