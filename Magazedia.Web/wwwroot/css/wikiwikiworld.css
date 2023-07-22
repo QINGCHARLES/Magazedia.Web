@@ -52,11 +52,14 @@ header
 .p10
 {
 	padding-left: 10rem;
+	color: #3f1 !important;
+	filter: drop-shadow(0 .15rem 1px rgb(4 4 4 / 0.4));
 }
 
 	.p10 svg
 	{
-		filter: drop-shadow(0 4px 1px rgb(4 4 4 / 0.4));
+		
+		margin-top: -10px;
 	}
 
 	article{
@@ -84,7 +87,7 @@ article h1
 	color: #fbfbf8;
 	background: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
 	background: linear-gradient(to bottom, #0000, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
-	background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0) 10%, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.6) 100%), url(/sitefiles/1/gqusa.webp) center center no-repeat;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0) 15%, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.6) 100%), url(/sitefiles/1/gqusa.webp) center center no-repeat;
 	background-size: cover;
 	padding-top: 30vh;
 	margin-bottom: 4rem;
