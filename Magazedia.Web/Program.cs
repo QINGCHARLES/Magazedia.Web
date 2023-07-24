@@ -107,6 +107,10 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Dmca"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""^privacy-policy:"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Privacy"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^file:(.+)"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=file:{{R:1}}"" />
 				</rule>

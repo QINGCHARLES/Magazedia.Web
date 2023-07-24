@@ -37,24 +37,25 @@ header
 
 	header a:first-child
 	{
-		text-decoration: none;
-		color: white;
-		font-size: 5vh;
-		font-weight: bold;
+		
 	}
 
 	header a:last-child
 	{
-		font-family: Geneva, sans-serif;
-		font-size: 6vh;
+	
 	}
 
 .p10
 {
-	padding-left: 10rem;
-	color: #3f1 !important;
+	fpadding-left: 10rem;
+	color: #3f1;
 	filter: drop-shadow(0 .15rem 1px rgb(4 4 4 / 0.4));
 	letter-spacing: -0.18rem;
+	text-decoration: none;
+	font-size: 5vh;
+	font-weight: bold;
+	font-family: Geneva, sans-serif;
+	font-size: 6vh;
 }
 
 	.p10 svg
@@ -168,7 +169,7 @@ a
 	{
 		fbackground: #000;
 		fcolor: #fff;
-		font-family: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+		ffont-family: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 	}
 
 	/*    .categories li
@@ -222,10 +223,43 @@ a.navbar-brand
 
 .btn-primary
 {
-	color: #fff;
-	background-color: #1b6ec2;
-	border-color: #1861ac;
+	margin-right: 0;
+	color: #ccc;
+	background-color: #030a;
+	border-color: #070;
+	border-width: 1px;
+	border-style: solid !important;
+	padding: .2rem .5rem;
+	ftext-transform: uppercase;
+	font-weight: bold;
+	font-size: .9rem;
+	ffloat: right;
+	margin-right: 0;
+	margin-left: auto;
+	display: inline !important;
 }
+
+	.btn-primary#login
+	{
+		color: #fff;
+		background-color: #0c0f;
+		border-color: #3f3;
+	}
+
+	.btn-primary#login:hover
+	{
+		color: #000;
+		background-color: #ffff;
+		border-color: #3f3;
+	}
+
+		.btn-primary#register:hover
+		{
+			color: #000;
+			background-color: #ffff;
+			border-color: #3f3;
+		}
+
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link
 {
@@ -233,6 +267,34 @@ a.navbar-brand
 	background-color: #1b6ec2;
 	border-color: #1861ac;
 }
+
+.beee
+{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.navbar-nav
+{
+	width: 15rem;
+	fheight: 100%;
+	fdisplay: inline;
+	ffloat: right;
+	fjustify-content: flex-end;
+	fwidth: 100%;
+	list-style-type: none;
+	foverflow: hidden;
+	white-space: nowrap;
+	flex-direction: unset;
+}
+
+	.navbar-nav li
+	{
+		display: inline-block;
+		margin-left: .4rem;
+		
+	}
 
 .border-top
 {
