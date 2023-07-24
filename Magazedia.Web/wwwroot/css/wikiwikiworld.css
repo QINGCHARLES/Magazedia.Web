@@ -3,6 +3,18 @@ html
 	font-size: 14px;
 }
 
+hr
+{
+	border: none;
+	height: 10px;
+	width: 10px;
+	background: black;
+	border-radius: 50%;
+	margin: auto;
+	display: block;
+	opacity: 1 !important;
+}
+
 /* general */
 body
 {
@@ -96,13 +108,13 @@ article h1
 	text-shadow: 0 3px 1px #444;
 }
 
-article > *:not(h1)
-{
-	padding: 0 10rem;
-	max-width: 70rem;
-	margin-left: auto;
-	margin-right: auto;
-}
+		article > *:not(h1):not(hr)
+		{
+			padding: 0 10rem;
+			max-width: 70rem;
+			margin-left: auto;
+			margin-right: auto;
+		}
 
 @media only screen and (min-width: 32em)
 {
@@ -237,28 +249,33 @@ a.navbar-brand
 	margin-right: 0;
 	margin-left: auto;
 	display: inline !important;
+	
 }
 
-	.btn-primary#login
+	.btn-primary#register
 	{
 		color: #fff;
 		background-color: #0c0f;
 		border-color: #3f3;
-	}
-
-	.btn-primary#login:hover
-	{
-		color: #000;
-		background-color: #ffff;
-		border-color: #3f3;
+		transition: all 0.25s ease;
+		border-color: #0c0f;
 	}
 
 		.btn-primary#register:hover
 		{
 			color: #000;
 			background-color: #ffff;
-			border-color: #3f3;
+			border-color: #fff;
+			transition: all 0.25s ease;
 		}
+
+	.btn-primary#login:hover
+	{
+		color: #000;
+		background-color: #ffff;
+		border-color: #3f3;
+		transition: all 0.25s ease;
+	}
 
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link
