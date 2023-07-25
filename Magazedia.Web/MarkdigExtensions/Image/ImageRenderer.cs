@@ -40,7 +40,6 @@ public class ImageRenderer : HtmlObjectRenderer<Image>
             // SqlConnection
             // write a full a tag
             renderer.Write($"<img style=\"width: 15rem; float:left;\" src=\"/sitefiles/{SiteId}/{ImageAttributes["Filename"].Split("file:", 2)[1]}\">");
-
 		}
 		else
 		{

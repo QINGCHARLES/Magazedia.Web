@@ -1,6 +1,5 @@
 ﻿using Markdig.Helpers;
 using Markdig.Parsers;
-using MarkdigMantisLink;
 
 namespace WikiWikiWorld.MarkdigExtensions;
 

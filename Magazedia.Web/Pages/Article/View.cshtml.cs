@@ -135,25 +135,33 @@ public class ArticleViewModel : BasePageModel
 			ImageExtension ImageExtension = new(SiteId);
 			ShortDescriptionExtension ShortDescriptionExtension = new(this);
 
-			// Create an empty list of Citations
-			List<WikiWikiWorld.Models.Citation> CitationList = new();
+			// There are some types of tags which do not render at the point they are inserted but
+			// are collected for rendering in blocks, such as Alerts, Citations, Footnotes and Categories
+
+			// Empty lists for collecting the non-rendering tags' data
+			List<WikiWikiWorld.Models.Alert> Alerts = new();
+			List<WikiWikiWorld.Models.Citation> Citations = new();
+			List<WikiWikiWorld.Models.Footnote> Footnotes = new();
+			List<WikiWikiWorld.Models.Category> Categories = new();
 
 			// Send the empty list into the CitationExtension - if the parser finds any citations in the Article
-			// it will not render them, but will simply add them to the CitationList
-			CitationExtension CitationExtension = new(CitationList);
+			// it will not render them, but will simply add them to the Citations List
+			CitationExtension CitationExtension = new(Citations);
 
-			// Send the CitationList into the CitationsExtension - if the parser finds a citations block in the Article
+			// Send the Citations List into the CitationsExtension - if the parser finds a {{Citations}} in the Article
 			// it will render out a list of all the citations
-			CitationsExtension CitationsExtension = new(CitationList);
+			CitationsExtension CitationsExtension = new(Citations);
 
-			List<WikiWikiWorld.Models.Footnote> FootnoteList = new();
-			FootnoteExtension FootnoteExtension = new(FootnoteList);
-			FootnotesExtension FootnotesExtension = new(FootnoteList);
+			FootnoteExtension FootnoteExtension = new(Footnotes);
+			FootnotesExtension FootnotesExtension = new(Footnotes);
 
-			List<WikiWikiWorld.Models.Category> CategoryList = new();
-			CategoryExtension CategoryExtension = new(CategoryList);
-			CategoriesExtension CategoriesExtension = new(CategoryList);
-			StubExtension StubExtension = new(CategoryList);
+			CategoryExtension CategoryExtension = new(Categories);
+			CategoriesExtension CategoriesExtension = new(Categories);
+
+			// Stubs can add an Alert at the top of the page and a Category at the foot of the page
+			StubExtension StubExtension = new(Alerts, Categories);
+
+			AlertsExtension AlertsExtension = new(Alerts);
 
 			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
 				.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
@@ -166,6 +174,7 @@ public class ArticleViewModel : BasePageModel
 				.Use(CitationsExtension)
 				.Use(FootnoteExtension)
 				.Use(FootnotesExtension)
+				.Use(AlertsExtension)
 				.Build();
 
 			if (ArticleRevision.UrlSlug!.StartsWith("file:"))

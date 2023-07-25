@@ -5,26 +5,24 @@ using Markdig.Renderers;
 
 namespace WikiWikiWorld.MarkdigExtensions;
 
-public class StubExtension : IMarkdownExtension
+public class AlertsExtension : IMarkdownExtension
 {
 	private readonly List<WikiWikiWorld.Models.Alert> Alerts;
-	private readonly List<WikiWikiWorld.Models.Category> Categories;
 
-	public StubExtension(List<WikiWikiWorld.Models.Alert> Alerts, List<WikiWikiWorld.Models.Category> Categories)
+	public AlertsExtension(List<WikiWikiWorld.Models.Alert> Alerts)
 	{
 		this.Alerts = Alerts;
-		this.Categories = Categories;
 	}
 
 	public void Setup(MarkdownPipelineBuilder pipeline)
 	{
-		OrderedList<InlineParser> parsers;
+		OrderedList<BlockParser> parsers;
 
-		parsers = pipeline.InlineParsers;
+		parsers = pipeline.BlockParsers;
 
-		if (!parsers.Contains<StubParser>())
+		if (!parsers.Contains<AlertsParser>())
 		{
-			parsers.Add(new StubParser());
+			parsers.Add(new AlertsParser());
 		}
 	}
 
@@ -36,9 +34,9 @@ public class StubExtension : IMarkdownExtension
 		htmlRenderer = renderer as HtmlRenderer;
 		renderers = htmlRenderer?.ObjectRenderers;
 
-		if (renderers != null && !renderers.Contains<StubRenderer>())
+		if (renderers != null && !renderers.Contains<AlertsRenderer>())
 		{
-			renderers!.Add(new StubRenderer(Alerts, Categories));
+			renderers!.Add(new AlertsRenderer(Alerts));
 		}
 	}
 }
