@@ -21,19 +21,31 @@ public static class Helpers
 		return CultureInfo.TextInfo.IsRightToLeft ? "rtl" : "ltr";
 	}
 
+	// Note: this function only works for localhost and domains with two levels, e.g.
+	// magazedia.wiki, or mysite.com. It will not work for sites like site.co.uk
 	public static string GetDomainAndPortFromHostname(string Hostname)
 	{
-		var Parts = Hostname.Split('.');
-		if (Parts.Length >= 3)
+		// Check if port is present
+		string Port = string.Empty;
+		if (Hostname.Contains(":"))
 		{
-			// return the last two parts of the hostname
-			return Parts[Parts.Length - 2] + "." + Parts[Parts.Length - 1];
+			string[] Split = Hostname.Split(":");
+			Hostname = Split[0];
+			Port = ":" + Split[1];
 		}
-		else
+
+		// Remove subdomains
+		string[] SplitHostname = Hostname.Split('.');
+		if (SplitHostname.Length > 2)
 		{
-			// if there are not enough parts, return the hostname as is
-			return Hostname;
+			Hostname = string.Join(".", SplitHostname[^2], SplitHostname[^1]);
 		}
+		else if (SplitHostname.Length == 2)
+		{
+			Hostname = SplitHostname[^1];
+		}
+
+		return Hostname + Port;
 	}
 
 	public static string Slugify(string Text)
