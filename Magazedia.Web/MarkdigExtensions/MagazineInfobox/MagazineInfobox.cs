@@ -1,19 +1,21 @@
 ﻿using Markdig.Parsers;
 using Markdig.Syntax;
+using Markdig.Renderers;
+using Markdig.Renderers.Html;
 using Markdig;
 
-namespace WikiWikiWorld.MarkdigExtensions.MagazineInfoBox;
-
-public class MagazineInfobox : ContainerBlock
+// Define your custom MagazineInfobox
+public class MagazineInfobox : LeafBlock
 {
-	public Dictionary<string, string> Attributes { get; set; }
-
-	public MagazineInfobox(BlockParser Parser) : base(Parser)
+	public MagazineInfobox(BlockParser Parser, Dictionary<string, string> Data) : base(Parser)
 	{
-		Attributes = new Dictionary<string, string>();
+		this.Data = Data;
 	}
+
+	public Dictionary<string, string> Data { get; }
 }
 
+// Define your custom MagazineInfoboxParser
 public class MagazineInfoboxParser : BlockParser
 {
 	public MagazineInfoboxParser()
@@ -21,65 +23,62 @@ public class MagazineInfoboxParser : BlockParser
 		OpeningCharacters = new[] { '{' };
 	}
 
-	public override bool TryOpen(BlockProcessor Processor)
+	public override BlockState TryOpen(BlockProcessor Processor)
 	{
-		if (Processor.Line.Length < 19 || Processor.Line.CurrentChar != '{' || !Processor.Line.Match("{{MagazineInfobox "))
+		// Check if current line starts with "{{MagazineInfobox"
+		if (!Processor.Line.Match("{{MagazineInfobox "))
 		{
-			return false;
+			return BlockState.None;
 		}
 
-		Processor.Line.Advance(18);
+		// Extract data
+		int DirectiveStart = Processor.Line.Start;
+		int DataStart = DirectiveStart + "{{MagazineInfobox ".Length;
+		int DataEnd = Processor.Line.IndexOf("}}");
+		string DataString = Processor.Line.Text.Substring(DataStart, DataEnd - DataStart);
 
-		string RemainingLine = Processor.Line.ToString();
-
-		string[] Parameters = RemainingLine.TrimEnd('}', ' ').Split('|');
-
-		MagazineInfobox MagazineInfoboxBlock = new MagazineInfobox(this);
-
-		for (int ParameterIndex = 0; ParameterIndex < Parameters.Length; ParameterIndex += 2)
+		// Parse data into pairs
+		string[] Pairs = DataString.Split(new[] { "|~|" }, StringSplitOptions.None);
+		Dictionary<string, string> Data = Pairs.Select(pair =>
 		{
-			if (ParameterIndex + 1 < Parameters.Length && Parameters[ParameterIndex + 1] != "~")
-			{
-				MagazineInfoboxBlock.Attributes.Add(Parameters[ParameterIndex], Parameters[ParameterIndex + 1]);
-			}
-		}
+			string[] parts = pair.Split('|');
+			return new { Var = parts[0], Text = parts[1] };
+		}).ToDictionary(x => x.Var, x => x.Text);
 
-		Processor.NewBlocks.Push(MagazineInfoboxBlock);
+		MagazineInfobox MagazineInfobox = new MagazineInfobox(this, Data);
+		Processor.NewBlocks.Push(MagazineInfobox);
 
-		return true;
+		return BlockState.ContinueDiscard;
 	}
 }
 
-public class MagazineInfoboxRenderer : Markdig.Renderers.Html.HtmlObjectRenderer<MagazineInfobox>
+// Define your custom MagazineInfoboxHtmlRenderer
+public class MagazineInfoboxHtmlRenderer : HtmlObjectRenderer<MagazineInfobox>
 {
-	protected override void Write(Markdig.Renderers.HtmlRenderer Renderer, MagazineInfobox Obj)
+	protected override void Write(HtmlRenderer Renderer, MagazineInfobox Obj)
 	{
-		Renderer.Write("<ul>");
-		foreach (KeyValuePair<string, string> Attribute in Obj.Attributes)
+		Renderer.Write("<aside class=\"infobox\"><ul>");
+		foreach (KeyValuePair<string, string> pair in Obj.Data)
 		{
-			Renderer
-				.Write("<li>")
-				.Write(Attribute.Key.ToLower() + ": ")
-				.Write(Attribute.Value)
-				.WriteLine("</li>");
+			Renderer.Write("<li>").Write(pair.Key).Write(": ").Write(pair.Value).Write("</li>");
 		}
-		Renderer.WriteLine("</ul>");
+		Renderer.Write("</ul></aside>");
 	}
 }
 
+// Add your custom extension
 public class MagazineInfoboxExtension : IMarkdownExtension
 {
 	public void Setup(MarkdownPipelineBuilder Pipeline)
 	{
-		Pipeline.BlockParsers.Insert(0, new MagazineInfoboxParser());
-
-		if (!Pipeline.ObjectRenderers.Contains<MagazineInfoboxRenderer>())
-		{
-			Pipeline.ObjectRenderers.AddIfNotAlready<MagazineInfoboxRenderer>();
-		}
+		Pipeline.BlockParsers.InsertBefore<ParagraphBlockParser>(new MagazineInfoboxParser());
 	}
 
-	public void Extend(MarkdownPipeline Pipeline, MarkdownDocument Document)
+	public void Setup(MarkdownPipeline Pipeline, IMarkdownRenderer Renderer)
 	{
+		if (Renderer is HtmlRenderer HtmlRenderer)
+		{
+			HtmlRenderer.ObjectRenderers.Add(new MagazineInfoboxHtmlRenderer());
+		}
 	}
 }

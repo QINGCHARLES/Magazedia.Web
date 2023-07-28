@@ -163,6 +163,8 @@ public class ArticleViewModel : BasePageModel
 
 			AlertsExtension AlertsExtension = new(Alerts);
 
+			MagazineInfoboxExtension MagazineInfoboxExtension = new();
+
 			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
 				.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
 				.Use(ImageExtension)
@@ -175,6 +177,7 @@ public class ArticleViewModel : BasePageModel
 				.Use(FootnoteExtension)
 				.Use(FootnotesExtension)
 				.Use(AlertsExtension)
+				.Use(MagazineInfoboxExtension)
 				.Build();
 
 			if (ArticleRevision.UrlSlug!.StartsWith("file:"))

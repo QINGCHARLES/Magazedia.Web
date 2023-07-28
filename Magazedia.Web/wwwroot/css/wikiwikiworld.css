@@ -1,4 +1,335 @@
+/*#region CSS Reset*/
+
+/***
+    The new CSS reset - version 1.9 (last updated 19.6.2023)
+    GitHub page: https://github.com/elad2412/the-new-css-reset
+***/
+
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+    - The "html" element is excluded, otherwise a bug in Chrome breaks the CSS hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
+ */
+*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))
+{
+	all: unset;
+	display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after
+{
+	box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a, button
+{
+	cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol, ul, menu
+{
+	list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img
+{
+	max-inline-size: 100%;
+	max-block-size: 100%;
+}
+
+/* removes spacing between cells in tables */
+table
+{
+	border-collapse: collapse;
+}
+
+/* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+input, textarea
+{
+	-webkit-user-select: auto;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea
+{
+	white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter
+{
+	-webkit-appearance: revert;
+	appearance: revert;
+}
+
+/* preformatted text - use only for this feature */
+:where(pre)
+{
+	all: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder
+{
+	color: unset;
+}
+
+/* remove default dot (•) sign */
+::marker
+{
+	content: initial;
+}
+
+/* fix the feature of 'hidden' attribute.
+   display:revert; revert to element instead of attribute */
+:where([hidden])
+{
+	display: none;
+}
+
+/* revert for bug in Chromium browsers
+   - fix for the content editable attribute will work properly.
+   - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
+:where([contenteditable]:not([contenteditable="false"]))
+{
+	-moz-user-modify: read-write;
+	-webkit-user-modify: read-write;
+	overflow-wrap: break-word;
+	-webkit-line-break: after-white-space;
+	-webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"])
+{
+	-webkit-user-drag: element;
+}
+
+/* Revert Modal native behavior */
+:where(dialog:modal)
+{
+	all: revert;
+}
+
+/*#endregion CSS Reset*/
+
 html
+{
+	font-size: 14px;
+}
+
+h1
+{
+	font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+	font-size: 250%;
+	font-weight: 800;
+	letter-spacing: -0.05em;
+	text-transform: uppercase;
+}
+
+article aside
+{
+	float: unset;
+	width: unset;
+	padding: 20px;
+	background-color: #f9f9f9;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	margin-left: 20px;
+}
+
+article aside, article p
+{
+	margin-right: 2rem;
+}
+
+article p
+{
+	margin-left: 2rem;
+}
+
+/* Clear the float for elements after the article */
+article::after
+{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+
+
+
+article h1
+{
+	margin: 0 auto;
+	text-align: center;
+	max-width: 16em;
+	font-size: 6vh;
+	font-weight: bold;
+	line-height: .9;
+	color: #fbfbf8;
+	background: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
+	background: linear-gradient(to bottom, #0000, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0) 15%, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.6) 100%), url(/sitefiles/1/gqusa.webp) center center no-repeat;
+	background-size: cover;
+	padding-top: 30vh;
+	margin-bottom: 4rem;
+	text-shadow: 0 3px 1px #444;
+	padding-bottom: 3rem;
+}
+
+.logo
+{
+	fpadding-left: 10rem;
+	color: #3f1;
+	filter: drop-shadow(0 .15rem 1px rgb(4 4 4 / 0.4));
+	letter-spacing: -0.18rem;
+	text-decoration: none;
+	font-size: 5vh;
+	font-weight: bold;
+	font-family: Geneva, sans-serif;
+	font-size: 6vh;
+}
+
+	.logo svg
+	{
+		margin-top: -10px;
+	}
+
+	.logo span
+	{
+		visibility: hidden;
+		display: none;
+	}
+
+/* Apply float on larger screens */
+@media (min-width: 768px)
+{ /* Adjust the breakpoint as needed */
+	/*.infobox
+	{
+		float: right;
+		width: 25%;
+		margin-left: 20px;
+	}
+
+	article > p
+	{
+		margin-right: 30%;*/ /* Adjust as needed */
+	/*}*/
+
+	article aside, article p
+	{
+		margin-right: 5rem;
+	}
+
+	article p
+	{
+		margin-left: 5rem;
+	}
+
+	article aside
+	{
+		float: right;
+		width: 25%;
+	}
+
+	article h1
+	{
+		font-size: 12vh;
+		padding-bottom: 3rem;
+	}
+
+	.logo span
+	{
+		visibility: visible;
+		display: unset;
+	}
+
+	html
+	{
+		font-size: 17px;
+	}
+}
+
+article > p
+{
+	font-family: Charter, Georgia, Times, Serif;
+	font-size: 1.1875rem;
+	line-height: 1.6;
+}
+
+header
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	position: absolute;
+	width: 100%;
+	background: transparent;
+	z-index: 2;
+}
+
+
+
+a.navbar-brand
+{
+	white-space: normal;
+	text-align: center;
+	word-break: break-all;
+}
+
+
+
+.btn-primary
+{
+	margin-right: 0;
+	color: #ccc;
+	background-color: #030a;
+	border-color: #070;
+	border-width: 1px;
+	border-style: solid !important;
+	padding: .2rem .5rem;
+	font-weight: bold;
+	font-size: .9rem;
+	margin-right: 0;
+	margin-left: auto;
+	display: inline !important;
+}
+
+	.btn-primary#register
+	{
+		color: #fff;
+		background-color: #0c0f;
+		border-color: #3f3;
+		transition: all 0.25s ease;
+		border-color: #0c0f;
+	}
+
+		.btn-primary#register:hover
+		{
+			color: #000;
+			background-color: #ffff;
+			border-color: #fff;
+			transition: all 0.25s ease;
+		}
+
+	.btn-primary#login:hover
+	{
+		color: #000;
+		background-color: #ffff;
+		border-color: #3f3;
+		transition: all 0.25s ease;
+	}
+
+
+/*html
 {
 	font-size: 14px;
 }
@@ -13,10 +344,10 @@ hr
 	margin: auto;
 	display: block;
 	opacity: 1 !important;
-}
+}*/
 
 /* general */
-body
+/*body
 {
 	font-family: 'PT Sans Caption', "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 	font-size: 3vh;
@@ -33,19 +364,9 @@ header, h1
 h1
 {
 	padding: 20vh 10rem 4rem;
-}
+}*/
 /* header */
-header
-{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	box-sizing: border-box;
-	position: absolute;
-	width: 100%;
-	background: transparent;
-	z-index: 2;
-}
+/*
 
 	header a:first-child
 	{
@@ -57,66 +378,48 @@ header
 	
 	}
 
-.p10
-{
-	fpadding-left: 10rem;
-	color: #3f1;
-	filter: drop-shadow(0 .15rem 1px rgb(4 4 4 / 0.4));
-	letter-spacing: -0.18rem;
-	text-decoration: none;
-	font-size: 5vh;
-	font-weight: bold;
-	font-family: Geneva, sans-serif;
-	font-size: 6vh;
-}
 
-	.p10 svg
-	{
-		
-		margin-top: -10px;
-	}
 
 	article{
 
 	}
 
-article p
+article
+{
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	grid-gap: 20px;
+}*/
+
+/*.infobox
+{
+	padding: 20px;
+	background-color: #f9f9f9;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+}*/
+
+/*article p
 {
 	line-height: 2rem;
 	font-size: 1.3rem;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	margin-bottom: 2rem;
-}
+}*/
 
 /* hero title */
-article h1
-{
-	margin: 0 auto;
-	text-align: center;
-	max-width: 16em;
-	font-size: 12vh;
-	font-weight: bold;
-	line-height: .9;
-	color: #fbfbf8;
-	background: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
-	background: linear-gradient(to bottom, #0000, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
-	background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0) 15%, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.6) 100%), url(/sitefiles/1/gqusa.webp) center center no-repeat;
-	background-size: cover;
-	padding-top: 30vh;
-	margin-bottom: 4rem;
-	text-shadow: 0 3px 1px #444;
-}
+/**/
 
-		article > *:not(h1):not(hr)
+/*		article > *:not(h1):not(hr):not(aside):not(ul):not(li)
 		{
 			padding: 0 10rem;
 			max-width: 70rem;
 			margin-left: auto;
 			margin-right: auto;
-		}
+		}*/
 
-@media only screen and (min-width: 32em)
+/*@media only screen and (min-width: 32em)
 {
 	article h1
 	{
@@ -136,7 +439,7 @@ article h1
 a
 {
 	color: #0077cc;
-}
+}*/
 
 /*.categories li
 {
@@ -151,23 +454,23 @@ a
     border-left: 9px solid #222;
 }*/
 
-.categories li
+/*.categories li
 {
 	list-style: none;
 	display: inline-block;
 	background: #aff;
-	border-radius: 0.3125rem;
+	border-radius: 0.3125rem;*/
 	/*    box-shadow: inset 0 -1px 2px rgba(0,0,0,.3), inset 0 1px 1px hsla(0,0%,100%,.2);
-*/ color: #039;
+*/ /*color: #039;
 	flex: auto;
 	font-family: var(--font-brand);
 	font-size: 1.125rem;
 	font-weight: bold;
 	margin: 0.3rem;
 	padding: .75rem .3rem;
-	text-align: center;
+	text-align: center;*/
 	/* https://smoothshadows.com/#djEsMiw1LDAuMDgsMjQsMzIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
-	box-shadow: 0px 1px 1px rgba(3, 7, 18, 0.08), 0px 5px 4px rgba(3, 7, 18, 0.06), 0px 12px 9px rgba(3, 7, 18, 0.05), 0px 20px 15px rgba(3, 7, 18, 0.03), 0px 32px 24px rgba(3, 7, 18, 0.02);
+	/*box-shadow: 0px 1px 1px rgba(3, 7, 18, 0.08), 0px 5px 4px rgba(3, 7, 18, 0.06), 0px 12px 9px rgba(3, 7, 18, 0.05), 0px 20px 15px rgba(3, 7, 18, 0.03), 0px 32px 24px rgba(3, 7, 18, 0.02);
 }
 
 	.categories li a
@@ -182,14 +485,14 @@ a
 		fbackground: #000;
 		fcolor: #fff;
 		ffont-family: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-	}
+	}*/
 
 	/*    .categories li
     {
         background-color: #666;
         border-left: 9px solid #ddd;
     }*/
-}
+/*}
 
 
 
@@ -219,63 +522,12 @@ h1
 	font-weight: 800;
 	letter-spacing: -0.05em;
 	text-transform: uppercase;
-}
+}*/
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand
-{
-	white-space: normal;
-	text-align: center;
-	word-break: break-all;
-}
-
-
-
-.btn-primary
-{
-	margin-right: 0;
-	color: #ccc;
-	background-color: #030a;
-	border-color: #070;
-	border-width: 1px;
-	border-style: solid !important;
-	padding: .2rem .5rem;
-	ftext-transform: uppercase;
-	font-weight: bold;
-	font-size: .9rem;
-	ffloat: right;
-	margin-right: 0;
-	margin-left: auto;
-	display: inline !important;
-	
-}
-
-	.btn-primary#register
-	{
-		color: #fff;
-		background-color: #0c0f;
-		border-color: #3f3;
-		transition: all 0.25s ease;
-		border-color: #0c0f;
-	}
-
-		.btn-primary#register:hover
-		{
-			color: #000;
-			background-color: #ffff;
-			border-color: #fff;
-			transition: all 0.25s ease;
-		}
-
-	.btn-primary#login:hover
-	{
-		color: #000;
-		background-color: #ffff;
-		border-color: #3f3;
-		transition: all 0.25s ease;
-	}
+/*
 
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link
@@ -375,9 +627,9 @@ main
 
 	.container .image-container .img-wrapper
 	{
-		overflow: hidden; /* Prevents the image from spilling over when scaled */
-		margin-bottom: 10px; /* Moved from the img element */
-	}
+		overflow: hidden;*/ /* Prevents the image from spilling over when scaled */
+		/*margin-bottom: 10px;*/ /* Moved from the img element */
+	/*}
 
 	.container .image-container img
 	{
@@ -407,4 +659,4 @@ main
 	box-sizing: border-box;
 	font-size: 16px;
 	text-align: center;
-}
+}*/
