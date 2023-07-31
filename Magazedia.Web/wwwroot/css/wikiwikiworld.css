@@ -149,7 +149,7 @@ article aside, article p
 	margin-right: 2rem;
 }
 
-article p
+article p, article h2, article h3, article h4, article h5, article h6
 {
 	margin-left: 2rem;
 }
@@ -162,14 +162,27 @@ article::after
 	clear: both;
 }
 
+#dbhelper
+{
+	margin-top: 10rem;
+}
 
+#dbhelper input, #dbhelper textarea
+{
+	border: 1px solid #777;
+}
 
+input[type="checkbox"]
+{
+	background-color: initial !important;
+	cursor: default !important;
+	appearance: auto !important;
+}
 
 article h1
 {
 	margin: 0 auto;
 	text-align: center;
-	max-width: 16em;
 	font-size: 6vh;
 	font-weight: bold;
 	line-height: .9;
@@ -228,7 +241,7 @@ article h1
 		margin-right: 5rem;
 	}
 
-	article p
+	article p, article h2, article h3, article h4, article h5, article h6
 	{
 		margin-left: 5rem;
 	}
