@@ -179,6 +179,10 @@ input[type="checkbox"]
 	appearance: auto !important;
 }
 
+/*@media screen and (prefers-color-scheme: dark)
+html:not(.force-light-mode) */
+
+
 article h1
 {
 	margin: 0 auto;
