@@ -36,14 +36,14 @@ public static class Helpers
 
 		// Remove subdomains
 		string[] SplitHostname = Hostname.Split('.');
-		if (SplitHostname.Length > 2)
+		if (SplitHostname.Length > 1)
 		{
 			Hostname = string.Join(".", SplitHostname[^2], SplitHostname[^1]);
 		}
-		else if (SplitHostname.Length == 2)
-		{
-			Hostname = SplitHostname[^1];
-		}
+		//else if (SplitHostname.Length == 2)
+		//{
+		//	Hostname = string.Join(".", SplitHostname[^2], SplitHostname[^1]);
+		//}
 
 		return Hostname + Port;
 	}
