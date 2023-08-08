@@ -162,20 +162,72 @@ article::after
 	clear: both;
 }
 
+.container .image-container img
+{
+	border-radius: 15px;
+	width: 100%;
+	transition: transform 0.3s ease;
+	ftransition: transform .4s cubic-bezier(.165,.84,.44,1);
+	object-fit: cover;
+}
+
+
+.image-title
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	color: #ffffff;
+	margin: 0;
+	border: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	font-size: 16px;
+	text-align: center;
+	fheight: 40px;
+	fmargin-top: -3rem;
+	border-radius: 15px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.container .image-container .img-wrapper
+{
+	overflow: hidden;
+	border-radius: 15px;
+	position: relative;
+}
+
+.container .title
+{
+	font-size: 25px;
+	background-color: #000;
+	color: #fff;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+	padding: 15px;
+}
+
+.container .image-container img:hover
+{
+	transform: scale(1.05);
+}
+
+	.container .image-container img:hover + div.image-title
+	{
+		opacity: 1;
+	}
+
 @supports not (grid-template-rows: masonry)
 {
 	/* CSS rules to be applied if the browser does not support the masonry layout */
 
-	.container .title
-	{
-		font-size: 25px;
-		background-color: #000;
-		color: #fff;
-		border-radius: 5px;
-		margin-bottom: 10px;
-		text-align: center;
-		padding: 15px;
-	}
+
 
 	.container .image-container
 	{
@@ -183,41 +235,20 @@ article::after
 		gap: 15px;
 	}
 
-		.container .image-container .img-wrapper
-		{
-			overflow: hidden;
-		}
 
-		.container .image-container img
-		{
-			border-radius: 5px;
-			width: 100%;
-			transition: transform 0.3s ease;
-		}
 
-			.container .image-container img:hover
-			{
-				transform: scale(1.05);
-			}
+		
+
+
 
 	.img-wrapper
 	{
 		position: relative;
 	}
 
-	.img-title
-	{
-		position: absolute;
-		bottom: 0;
-		color: #ffffff;
-		background-color: rgba(0, 0, 0, 0.5);
-		width: 100%;
-		padding: 10px;
-		box-sizing: border-box;
-		font-size: 16px;
-		text-align: center;
-	}
+
 }
+
 
 @supports (grid-template-rows: masonry)
 {
