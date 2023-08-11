@@ -16,6 +16,25 @@ CREATE TABLE Articles
 CREATE INDEX IX_Articles_UrlSlug
 ON Articles (UrlSlug);
 
+CREATE TABLE FileRevisions
+(
+	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	ArticleId int NOT NULL,
+	[FileName] nvarchar(max) NOT NULL,
+	FileSizeBytes bigint NOT NULL,
+	MimeType nvarchar(100) NOT NULL,
+	Is2dImage bit NOT NULL,
+	IsVideo bit NOT NULL,
+	IsAudio bit NOT NULL,
+	RevisionReason nvarchar(1000) NOT NULL,
+  	CreatedByAspNetUserId nvarchar(450) NOT NULL,
+	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateDeleted datetime2(7) NULL
+);
+
+CREATE INDEX IX_FileRevisions_ArticleId
+ON FileRevisions (ArticleId);
+
 CREATE TABLE ArticleRevisions
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
