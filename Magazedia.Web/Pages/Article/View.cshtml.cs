@@ -132,7 +132,7 @@ public class ArticleViewModel : BasePageModel
 						";
 			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleRevision.ArticleId }).ToList();
 
-			ImageExtension ImageExtension = new(SiteId);
+			ImageExtension ImageExtension = new(SiteId, Connection);
 			ShortDescriptionExtension ShortDescriptionExtension = new(this);
 
 			// There are some types of tags which do not render at the point they are inserted but
@@ -180,7 +180,7 @@ public class ArticleViewModel : BasePageModel
 				.Use(MagazineInfoboxExtension)
 				.Build();
 
-			if (ArticleRevision.UrlSlug!.StartsWith("file:"))
+			if (ArticleRevision.UrlSlug!.StartsWith("image:"))
 			{
 				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/" + ArticleRevision.UrlSlug.Substring(5) + "' />";
 			}

@@ -1,5 +1,7 @@
 ﻿-- userid: 7240be61-df81-46f9-8152-6a48b96abc40
 
+DECLARE @ArticleId int;
+
 -- wiki:
 
 INSERT Articles (Title, UrlSlug, SiteId, Culture)
@@ -17,9 +19,14 @@ VALUES (SCOPE_IDENTITY(), N'A category containing all known magazines.{{Categori
 -- Files
 
 INSERT Articles (Title, UrlSlug, SiteId, Culture)
-VALUES ( N'File: CoverImage.jpg', N'file:coverimage.jpg', 1, 'en' );
+VALUES ( N'Image:CoverImage.jpg', N'image:coverimage.jpg', 1, 'en' );
+
+SET @ArticleId = SCOPE_IDENTITY();
+
 INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
-VALUES (SCOPE_IDENTITY(), N'The cover image of a magazine.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+VALUES (@ArticleId, N'The cover image of a magazine.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+INSERT INTO FileRevisions (ArticleId, [FileName], FileSizeBytes, MimeType, Is2dImage, IsVideo, IsAudio, RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'CoverImage.jpg', 56789, N'image/jpeg', 1, 0, 0, N'Initial upload', N'7240be61-df81-46f9-8152-6a48b96abc40');
 
 ---- Magazines
 
@@ -307,7 +314,7 @@ INSERT Articles ( Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId,
 
 -- Magazine issues
 
-DECLARE @ArticleId int;
+--DECLARE @ArticleId int;
 DECLARE @ArticleTalkSubjectId int;
 
 INSERT Articles (Title, UrlSlug, SiteId, Culture)

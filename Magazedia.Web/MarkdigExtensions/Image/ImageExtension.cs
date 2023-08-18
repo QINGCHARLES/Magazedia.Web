@@ -2,17 +2,19 @@
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Renderers;
-using MarkdigMantisLink;
+using Microsoft.Data.SqlClient;
 
 namespace WikiWikiWorld.MarkdigExtensions;
 
 public class ImageExtension : IMarkdownExtension
 {
 	private readonly int SiteId;
+	private readonly SqlConnection Connection;
 
-	public ImageExtension(int SiteId)
+	public ImageExtension(int SiteId, SqlConnection Connection)
 	{
 		this.SiteId = SiteId;
+		this.Connection = Connection;
 	}
 
 	public void Setup(MarkdownPipelineBuilder pipeline)
@@ -37,7 +39,7 @@ public class ImageExtension : IMarkdownExtension
 
 		if (renderers != null && !renderers.Contains<ImageRenderer>())
 		{
-			renderers!.Add(new ImageRenderer(SiteId, null));
+			renderers!.Add(new ImageRenderer(SiteId, Connection));
 		}
 	}
 }

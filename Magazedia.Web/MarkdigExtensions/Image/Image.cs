@@ -1,4 +1,5 @@
 ﻿using Markdig.Helpers;
+using Markdig.Parsers;
 using Markdig.Syntax.Inlines;
 
 namespace WikiWikiWorld.MarkdigExtensions;
@@ -7,5 +8,6 @@ namespace WikiWikiWorld.MarkdigExtensions;
 
 public class Image : LeafInline
 {
-	public StringSlice Data { get; set; }
+    public string? UrlSlug { get; set; }
+    public Dictionary<string, string>? Attributes { get; set; }
 }

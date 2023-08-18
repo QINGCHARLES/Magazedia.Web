@@ -1,10 +1,26 @@
-﻿using System.Globalization;
+﻿using Microsoft.Data.SqlClient;
+using System.Globalization;
 using System.Text.RegularExpressions;
+using Dapper;
 
 namespace Magazedia;
 
 public static class Helpers
 {
+	public static string GetImageFilenameFromArticleUrlSlug(string ArticleUrlSlug, SqlConnection Connection)
+	{
+        string SqlQuery = @"SELECT TOP 1 fr.*
+							FROM Articles a
+							JOIN FileRevisions fr ON a.Id = fr.ArticleId
+							WHERE a.UrlSlug = @ArticleUrlSlug
+							AND fr.DateDeleted IS NULL
+							ORDER BY fr.DateCreated DESC;";
+
+        WikiWikiWorld.Models.FileRevision FileRevision = Connection.QuerySingle<WikiWikiWorld.Models.FileRevision>(SqlQuery, new { ArticleUrlSlug });
+
+        return FileRevision.FileName;
+	}
+
 	public static string GetCultureFromHostname(string Hostname, string DefaultCulture)
 	{
 		int DotIndex = Hostname.IndexOf('.');

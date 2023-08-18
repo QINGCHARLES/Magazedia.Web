@@ -7,44 +7,56 @@ namespace WikiWikiWorld.MarkdigExtensions;
 
 public class ImageRenderer : HtmlObjectRenderer<Image>
 {
-	private int SiteId;
-	private SqlConnection SqlConnection;
+    private int SiteId;
+    private SqlConnection Connection;
 
-	public ImageRenderer(int SiteId, SqlConnection SqlConnection)
-	{
-		this.SiteId = SiteId;
-		this.SqlConnection = SqlConnection;
-	}
+    public ImageRenderer(int SiteId, SqlConnection Connection)
+    {
+        this.SiteId = SiteId;
+        this.Connection = Connection;
+    }
 
-	protected override void Write(HtmlRenderer renderer, Image obj)
-	{
-		StringSlice Data;
+    protected override void Write(HtmlRenderer renderer, Image obj)
+    {
+        //StringSlice Data;
 
-		Data = obj.Data;
+        //Data = obj.Data;
 
-		string[] DataParts = obj.Data.ToString().Split("|");
-		Dictionary<string,string> ImageAttributes = new();
+        //string[] DataParts = obj.Data.ToString().Split("|");
+        //Dictionary<string,string> ImageAttributes = new();
 
-		ImageAttributes.Add("Filename", DataParts[0]);
+        //ImageAttributes.Add("Filename", DataParts[0]);
 
-		for(int DataPart = 1; DataPart < DataParts.Length; DataPart++)
-		{
-			string AttributeName = DataParts[DataPart].Split("=")[0];
-			string AttributeValue = DataParts[DataPart].Split("=")[1];
-			ImageAttributes.Add(AttributeName, AttributeValue);
-		}
+        //for(int DataPart = 1; DataPart < DataParts.Length; DataPart++)
+        //{
+        //	string AttributeName = DataParts[DataPart].Split("=")[0];
+        //	string AttributeValue = DataParts[DataPart].Split("=")[1];
+        //	ImageAttributes.Add(AttributeName, AttributeValue);
+        //}
 
-		if (renderer.EnableHtmlForInline)
-		{
-			string SqlQuery = $"";
-            // SqlConnection
-            // write a full a tag
-            renderer.Write($"<img style=\"width: 15rem; float:left;\" src=\"/sitefiles/{SiteId}/{ImageAttributes["Filename"].Split("file:", 2)[1]}\">");
-		}
-		else
-		{
-			// inline HTML is disabled, so write the raw value
-			renderer.Write('#').Write(obj.Data);
-		}
-	}
+        //if (renderer.EnableHtmlForInline)
+        //{
+        //	string SqlQuery = $"";
+        //          // SqlConnection
+        //          // write a full a tag
+        //          //renderer.Write($"<img style=\"width: 15rem; float:left;\" src=\"/sitefiles/{SiteId}/{ImageAttributes["Filename"].Split("file:", 2)[1]}\">");
+        //}
+        //else
+        //{
+        //	// inline HTML is disabled, so write the raw value
+        //	renderer.Write('#').Write(obj.Data);
+        //}
+
+        string FileName = Magazedia.Helpers.GetImageFilenameFromArticleUrlSlug(obj.UrlSlug!, Connection);
+
+        renderer.Write("<img src=\"/sitefiles/1/").Write(FileName).Write("\" ");
+        if (obj.Attributes  != null)
+        {
+            foreach (var attribute in obj.Attributes)
+            {
+                renderer.Write(attribute.Key).Write("=\"").Write(attribute.Value).Write("\" ");
+            }
+        }
+        renderer.Write("/>");
+    }
 }

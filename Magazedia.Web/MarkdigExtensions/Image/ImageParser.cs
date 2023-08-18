@@ -1,5 +1,6 @@
 ﻿using Markdig.Helpers;
 using Markdig.Parsers;
+using Microsoft.AspNetCore.Http;
 
 namespace WikiWikiWorld.MarkdigExtensions;
 
@@ -22,12 +23,39 @@ public class ImageParser : InlineParser
 		int End = Slice.IndexOf("}}");
 		if (End == -1) return false;
 
-		Processor.Inline = new Image { Data = new StringSlice(Slice.Text, Start, End) };
+        int barPosition = Slice.Text.IndexOf('|', Slice.Start);
 
-		// Make the parser jump over the {{Tag ..}} when it continues parsing its data stream
-		Slice.Start = End + 2;
+        string urlSlug;
+        Dictionary<string, string> attributes = new Dictionary<string, string>();
 
-		return true;
-	}
+        if (barPosition > 0 && barPosition < End)
+        {
+            urlSlug = Slice.Text.Substring(Slice.Start, barPosition - Slice.Start);
+            string attributesText = Slice.Text.Substring(barPosition + 1, End - barPosition - 1);
+            string[] attributePairs = attributesText.Split('|');
+            foreach (string attribute in attributePairs)
+            {
+                string[] parts = attribute.Split('=');
+                if (parts.Length == 2)
+                {
+                    attributes[parts[0]] = parts[1];
+                }
+            }
+        }
+        else
+        {
+            urlSlug = Slice.Text.Substring(Slice.Start, End - Slice.Start);
+        }
+
+        Image imageInline = new Image
+        {
+            UrlSlug = urlSlug,
+            Attributes = attributes
+        };
+
+        Processor.Inline = imageInline;
+        Slice.Start = End + "}}".Length;
+
+        return true;
+    }
 }
-

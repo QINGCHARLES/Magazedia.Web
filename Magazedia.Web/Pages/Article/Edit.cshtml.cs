@@ -109,7 +109,7 @@ public class EditModel : BasePageModel
 		//{
 
 		//	var pipeline = new MarkdownPipelineBuilder().Build();
-		ImageExtension ImageExtension = new ImageExtension(SiteId);
+		ImageExtension ImageExtension = new ImageExtension(SiteId, Connection);
 		MarkdownPipeline Pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Use(ImageExtension).Build();
 
 		var writer = new StringWriter();
