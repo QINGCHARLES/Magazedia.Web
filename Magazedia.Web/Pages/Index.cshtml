@@ -9,19 +9,67 @@
 	ViewData["Title"] = "Home";
 }
 <div class="text-center home">
-	<h1 class="display-4">Welcome!</h1>
-	<ul class="row maglist">
+
+@* 	<ul class="row maglist">
 		@{
-			if (Model.Articles != null)
+			if (Model.MostRecentlyUpdatedMagazineArticles != null)
 			{
-				foreach (var Article in Model.Articles)
+				foreach (var Article in Model.MostRecentlyUpdatedMagazineArticles)
 				{
 					<li class="col-12 col-sm-6 col-md-4 col-lg-3"><a href="/@Article.UrlSlug">@Article.Title</a></li>
 				}
 			}
 		}
 	</ul>
+ *@
+	<div class="container">
+		<div class="image-container">
+			@{
+				if (Model.MostRecentlyUpdatedMagazineArticles != null)
+				{
+					foreach (IndexModel.MostRecentlyUpdatedMagazineArticle Article in Model.MostRecentlyUpdatedMagazineArticles)
+					{
+						<div class="img-wrapper">
+							<a href="/@Article.UrlSlug">
+								<img src="/sitefiles/1/@Article.PrimaryArticleImageUrl" />
+								<div class="image-title">@Article.Title</div>
+							</a>
+						</div>
+					}
+				}
+			}
+			@{
+				if (Model.MostRecentlyUpdatedMagazineArticles != null)
+				{
+					foreach (IndexModel.MostRecentlyUpdatedMagazineArticle Article in Model.MostRecentlyUpdatedMagazineArticles)
+					{
+						<div class="img-wrapper">
+							<a href="/@Article.UrlSlug">
+								<img src="/files/a/1othumb.jpg" />
+								<div class="image-title">@Article.Title</div>
+							</a>
+						</div>
+					}
+				}
+			}
+			@{
+				if (Model.MostRecentlyUpdatedMagazineArticles != null)
+				{
+					foreach (IndexModel.MostRecentlyUpdatedMagazineArticle Article in Model.MostRecentlyUpdatedMagazineArticles)
+					{
+						<div class="img-wrapper">
+							<a href="/@Article.UrlSlug">
+								<img src="/files/a/2othumb.jpg" />
+								<div class="image-title">@Article.Title</div>
+							</a>
+						</div>
+					}
+				}
+			}
+		</div>
+	</div>
 
+@* 
     <div class="container">
         <h1 class="title">Masonry image gallery</h1>
         <div class="image-container">
@@ -87,7 +135,7 @@
             </div>
         </div>
     </div>
-
+ *@
 
 	@Html.Raw(Model.ArticleText)
 	<p> <a href="/firehose:">View the Firehose</a></p>

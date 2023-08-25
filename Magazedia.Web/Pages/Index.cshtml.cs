@@ -7,6 +7,8 @@ using System.Globalization;
 using Markdig;
 using MarkdigMantisLink;
 using WikiWikiWorld.MarkdigExtensions;
+using System.Text.RegularExpressions;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 
 namespace Magazedia.Web.Pages
 {
@@ -17,19 +19,73 @@ namespace Magazedia.Web.Pages
 
 		public IEnumerable<WikiWikiWorld.Models.Article>? Articles { get; set; }
 
+		public IEnumerable<MostRecentlyUpdatedMagazineArticle>? MostRecentlyUpdatedMagazineArticles { get; set; }
+
+		public class MostRecentlyUpdatedMagazineArticle
+		{
+			public string Title { get; set; }
+			public string UrlSlug { get; set; }
+			public string Text { get; set; }
+			public string? PrimaryArticleImageUrl { get; set; }
+
+			public MostRecentlyUpdatedMagazineArticle(string Title, string UrlSlug, string Text)
+			{
+				this.Title = Title;
+				this.UrlSlug = UrlSlug;
+				this.Text = Text;
+			}
+		}
+
 		public IActionResult OnGet()
 		{
-			using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
+			using SqlConnection Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 			int SiteId = 1;
-			string SqlQuery = @"SELECT		*
-								FROM		Articles
-								WHERE		SiteId = @SiteId AND
-											Culture = @Culture AND
-											DateDeleted IS NULL
-								ORDER BY	DateCreated DESC
+			//    string SqlQuery = @"SELECT		*
+			//FROM		Articles
+			//WHERE		SiteId = @SiteId AND
+			//			Culture = @Culture AND
+			//			DateDeleted IS NULL
+			//ORDER BY	DateCreated DESC
+			//";
+
+			//    Articles = Connection.Query<WikiWikiWorld.Models.Article>(SqlQuery, new { SiteId, Culture });
+
+			string SqlQuery = @"WITH LatestRevisions AS
+								(
+									SELECT ArticleId, MAX(DateCreated) AS MaxDateCreated
+									FROM ArticleRevisions
+									WHERE [Text] LIKE '%{{Categories Magazines}}%'
+									AND [Text] LIKE '%Type=PrimaryArticleImage%'
+									AND DateDeleted IS NULL
+									GROUP BY ArticleId
+								)
+
+								SELECT Articles.Title, Articles.UrlSlug, ArticleRevisions.[Text]
+								FROM Articles
+								JOIN ArticleRevisions ON Articles.Id = ArticleRevisions.ArticleId
+								JOIN LatestRevisions ON ArticleRevisions.ArticleId = LatestRevisions.ArticleId AND ArticleRevisions.DateCreated = LatestRevisions.MaxDateCreated
+								WHERE Articles.SiteId = 1 
+								AND Articles.Culture = 'en'
+								AND Articles.DateDeleted IS NULL
+								ORDER BY ArticleRevisions.DateCreated DESC;
 								";
 
-			Articles = Connection.Query<WikiWikiWorld.Models.Article>(SqlQuery, new { SiteId, Culture });
+			MostRecentlyUpdatedMagazineArticles = Connection.Query<MostRecentlyUpdatedMagazineArticle>(SqlQuery, new { SiteId, Culture });
+
+			// For each magazine get the UrlSlug of the PrimaryImageArticle and then convert that UrlSlug into an actual Url for the image
+			foreach (MostRecentlyUpdatedMagazineArticle MostRecentlyUpdatedMagazineArticle in MostRecentlyUpdatedMagazineArticles)
+			{
+				string MatchPattern = @"{{Image (image:.+?)\|Type=PrimaryArticleImage}}";
+
+				MatchCollection matches = Regex.Matches(MostRecentlyUpdatedMagazineArticle.Text, MatchPattern, RegexOptions.IgnoreCase);
+				Match match = matches[0];
+
+				if (match.Groups.Count > 1) // Check if the desired capturing group exists
+				{
+					string imageLink = match.Groups[1].Value;
+					MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageUrl = Helpers.GetImageFilenameFromArticleUrlSlug(imageLink, Connection);
+				}
+			}
 
 			//ImageExtension ImageExtension = new(SiteId);
 			//ShortDescriptionExtension ShortDescriptionExtension = new(this);

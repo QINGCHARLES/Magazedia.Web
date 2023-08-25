@@ -27,7 +27,7 @@ public class MagazineInfoboxParser : BlockParser
         string[] Pairs = DataString.Split('|',StringSplitOptions.TrimEntries);
         Dictionary<string, string> Data = Pairs.Select(pair =>
         {
-            string[] parts = pair.Split('=', 1);
+            string[] parts = pair.Split('=', 2);
             return new { Var = parts[0], Text = parts[1] };
         }).ToDictionary(x => x.Var, x => x.Text);
 

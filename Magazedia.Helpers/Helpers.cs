@@ -9,12 +9,13 @@ public static class Helpers
 {
 	public static string GetImageFilenameFromArticleUrlSlug(string ArticleUrlSlug, SqlConnection Connection)
 	{
-        string SqlQuery = @"SELECT TOP 1 fr.*
-							FROM Articles a
-							JOIN FileRevisions fr ON a.Id = fr.ArticleId
-							WHERE a.UrlSlug = @ArticleUrlSlug
-							AND fr.DateDeleted IS NULL
-							ORDER BY fr.DateCreated DESC;";
+		//TODO: Does not handle Culture and SiteId
+        string SqlQuery = @"SELECT TOP 1 FileRevisions.*
+							FROM Articles
+							JOIN FileRevisions FileRevisions ON Articles.Id = FileRevisions.ArticleId
+							WHERE Articles.UrlSlug = @ArticleUrlSlug
+							AND FileRevisions.DateDeleted IS NULL
+							ORDER BY FileRevisions.DateCreated DESC;";
 
         WikiWikiWorld.Models.FileRevision FileRevision = Connection.QuerySingle<WikiWikiWorld.Models.FileRevision>(SqlQuery, new { ArticleUrlSlug });
 
