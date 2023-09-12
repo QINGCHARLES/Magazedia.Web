@@ -120,6 +120,9 @@
   <data name="Login" xml:space="preserve">
     <value>دخول</value>
   </data>
+  <data name="LoginJoin" xml:space="preserve">
+    <value>L / J [need trans]</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>إنشاء حساب</value>
   </data>

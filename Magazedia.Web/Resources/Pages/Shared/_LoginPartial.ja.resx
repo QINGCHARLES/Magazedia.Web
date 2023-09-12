@@ -120,6 +120,9 @@
   <data name="Login" xml:space="preserve">
     <value>ログイン</value>
   </data>
+  <data name="LoginJoin" xml:space="preserve">
+    <value>L / J [need trans]</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>アカウント作成</value>
   </data>

@@ -5,6 +5,9 @@
 @{
 	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
 }
-<p><a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">English</a></p>
-<p><a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">日本語</a></p>
-<p><a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">العربية</a></p>
+<article>
+	<h1>Select Culture:</h1>
+	<p><a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">English</a></p>
+	<p><a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">日本語</a></p>
+	<p><a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">العربية</a></p>
+</article>

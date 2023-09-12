@@ -400,6 +400,12 @@ header
 }
 
 
+nav div
+{
+	display: flex;
+	justify-content: space-between;
+}
+
 
 a.navbar-brand
 {
