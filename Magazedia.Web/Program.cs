@@ -13,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Gives better integration with the systemd service on Linux
 builder.Host.UseSystemd();
 
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -69,6 +74,8 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
+    app.UseResponseCompression();
+
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
