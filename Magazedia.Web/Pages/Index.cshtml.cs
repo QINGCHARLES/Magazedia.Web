@@ -20,6 +20,7 @@ namespace Magazedia.Web.Pages
 		public IEnumerable<WikiWikiWorld.Models.Article>? Articles { get; set; }
 
 		public IEnumerable<MostRecentlyUpdatedMagazineArticle>? MostRecentlyUpdatedMagazineArticles { get; set; }
+		public IEnumerable<MostRecentlyUpdatedMagazineArticle>? MostRecentlyUpdatedMagazineIssueArticles { get; set; }
 
 		public class MostRecentlyUpdatedMagazineArticle
 		{
@@ -50,11 +51,17 @@ namespace Magazedia.Web.Pages
 
 			//    Articles = Connection.Query<WikiWikiWorld.Models.Article>(SqlQuery, new { SiteId, Culture });
 
+			string CategoriesTypeToMatch = "Magazines";
+			string CategoriesTag = "Categories";
+			string CategoriesFirstPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "|%}}%";
+			string CategoriesOtherPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "}}%";
+
 			string SqlQuery = @"WITH LatestRevisions AS
 								(
 									SELECT ArticleId, MAX(DateCreated) AS MaxDateCreated
 									FROM ArticleRevisions
-									WHERE [Text] LIKE '%{{Categories Magazines}}%'
+									WHERE [Text] LIKE @CategoriesFirstPositionSearchTerm
+									OR [Text] LIKE @CategoriesOtherPositionSearchTerm
 									AND [Text] LIKE '%Type=PrimaryArticleImage%'
 									AND DateDeleted IS NULL
 									GROUP BY ArticleId
@@ -64,16 +71,58 @@ namespace Magazedia.Web.Pages
 								FROM Articles
 								JOIN ArticleRevisions ON Articles.Id = ArticleRevisions.ArticleId
 								JOIN LatestRevisions ON ArticleRevisions.ArticleId = LatestRevisions.ArticleId AND ArticleRevisions.DateCreated = LatestRevisions.MaxDateCreated
-								WHERE Articles.SiteId = 1 
-								AND Articles.Culture = 'en'
+								WHERE Articles.SiteId = @SiteId
+								AND Articles.Culture = @Culture
 								AND Articles.DateDeleted IS NULL
 								ORDER BY ArticleRevisions.DateCreated DESC;
 								";
 
-			MostRecentlyUpdatedMagazineArticles = Connection.Query<MostRecentlyUpdatedMagazineArticle>(SqlQuery, new { SiteId, Culture });
+			MostRecentlyUpdatedMagazineArticles = Connection.Query<MostRecentlyUpdatedMagazineArticle>(SqlQuery, new { SiteId, Culture, CategoriesFirstPositionSearchTerm, CategoriesOtherPositionSearchTerm });
 
 			// For each magazine get the UrlSlug of the PrimaryImageArticle and then convert that UrlSlug into an actual Url for the image
 			foreach (MostRecentlyUpdatedMagazineArticle MostRecentlyUpdatedMagazineArticle in MostRecentlyUpdatedMagazineArticles)
+			{
+				string MatchPattern = @"{{Image (image:.+?)\|Type=PrimaryArticleImage}}";
+
+				MatchCollection matches = Regex.Matches(MostRecentlyUpdatedMagazineArticle.Text, MatchPattern, RegexOptions.IgnoreCase);
+				Match match = matches[0];
+
+				if (match.Groups.Count > 1) // Check if the desired capturing group exists
+				{
+					string imageLink = match.Groups[1].Value;
+					MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageUrl = Helpers.GetImageFilenameFromArticleUrlSlug(imageLink, Connection);
+				}
+			}
+
+			CategoriesTypeToMatch = "Magazine issues";
+			CategoriesFirstPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "|%}}%";
+			CategoriesOtherPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "}}%";
+
+
+			SqlQuery = @"	WITH LatestRevisions AS
+							(
+								SELECT ArticleId, MAX(DateCreated) AS MaxDateCreated
+								FROM ArticleRevisions
+								WHERE [Text] LIKE @CategoriesFirstPositionSearchTerm
+								OR [Text] LIKE @CategoriesOtherPositionSearchTerm
+								AND [Text] LIKE '%Type=PrimaryArticleImage%'
+								AND DateDeleted IS NULL
+								GROUP BY ArticleId
+							)
+
+							SELECT Articles.Title, Articles.UrlSlug, ArticleRevisions.[Text]
+							FROM Articles
+							JOIN ArticleRevisions ON Articles.Id = ArticleRevisions.ArticleId
+							JOIN LatestRevisions ON ArticleRevisions.ArticleId = LatestRevisions.ArticleId AND ArticleRevisions.DateCreated = LatestRevisions.MaxDateCreated
+							WHERE Articles.SiteId = @SiteId
+							AND Articles.Culture = @Culture
+							AND Articles.DateDeleted IS NULL
+							ORDER BY ArticleRevisions.DateCreated DESC;
+							";
+
+			MostRecentlyUpdatedMagazineIssueArticles = Connection.Query<MostRecentlyUpdatedMagazineArticle>(SqlQuery, new { SiteId, Culture, CategoriesFirstPositionSearchTerm, CategoriesOtherPositionSearchTerm });
+
+			foreach (MostRecentlyUpdatedMagazineArticle MostRecentlyUpdatedMagazineArticle in MostRecentlyUpdatedMagazineIssueArticles)
 			{
 				string MatchPattern = @"{{Image (image:.+?)\|Type=PrimaryArticleImage}}";
 

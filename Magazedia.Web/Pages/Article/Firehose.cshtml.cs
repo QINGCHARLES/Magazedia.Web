@@ -22,7 +22,7 @@ namespace Magazedia.Web.Pages
 		{
 			using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
-			string SqlQuery = @"SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
+            string SqlQuery = @"SELECT		ar.Id, ar.ArticleId, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.CreatedByAspNetUserId, u.UserName as CreatedByAspNetUsername, ar.DateCreated, ar.DateDeleted
 								FROM		Articles a
 								INNER JOIN	ArticleRevisions ar ON a.Id = ar.ArticleId
 								INNER JOIN	AspNetUsers u ON ar.CreatedByAspNetUserId = u.Id

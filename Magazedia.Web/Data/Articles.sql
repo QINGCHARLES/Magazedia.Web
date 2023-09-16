@@ -19,7 +19,7 @@ VALUES (SCOPE_IDENTITY(), N'A category containing all known magazines.{{Categori
 -- Files
 
 INSERT Articles (Title, UrlSlug, SiteId, Culture)
-VALUES ( N'Image:CoverImage.jpg', N'image:coverimage.jpg', 1, 'en' );
+VALUES ( N'Image: CoverImage.jpg', N'image:coverimage.jpg', 1, 'en' );
 
 SET @ArticleId = SCOPE_IDENTITY();
 
@@ -27,6 +27,18 @@ INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserI
 VALUES (@ArticleId, N'The cover image of a magazine.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
 INSERT INTO FileRevisions (ArticleId, [FileName], FileSizeBytes, MimeType, Is2dImage, IsVideo, IsAudio, RevisionReason, CreatedByAspNetUserId)
 VALUES (@ArticleId, N'CoverImage.jpg', 56789, N'image/jpeg', 1, 0, 0, N'Initial upload', N'7240be61-df81-46f9-8152-6a48b96abc40');
+
+-------- Missing cover
+
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES ( N'Image: magazine-cover-not-available.png', N'image:magazine-cover-not-available.png', 1, 'en' );
+
+SET @ArticleId = SCOPE_IDENTITY();
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'A placeholder for a missing magazine cover.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+INSERT INTO FileRevisions (ArticleId, [FileName], FileSizeBytes, MimeType, Is2dImage, IsVideo, IsAudio, RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'magazine-cover-not-available.png', 2141, N'image/png', 1, 0, 0, N'Initial upload', N'7240be61-df81-46f9-8152-6a48b96abc40');
 
 ---- Magazines
 

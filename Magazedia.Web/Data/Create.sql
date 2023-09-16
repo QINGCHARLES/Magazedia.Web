@@ -16,6 +16,11 @@ CREATE TABLE Articles
 CREATE INDEX IX_Articles_UrlSlug
 ON Articles (UrlSlug);
 
+-- IMPORTANT TODO
+-- FileRevisions table needs another link table; take ArticleId out of here. A list of FileRevisions can be
+-- attached to multiple Articles, one per culture/siteid. It also needs a RevisionReasonCulture so that you can instantly see
+-- what language the RevisionReason is written in and machine translate it?
+
 CREATE TABLE FileRevisions
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,

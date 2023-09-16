@@ -12,18 +12,6 @@
 <h1>Magazines</h1>
 </article>
 <div class="text-center home">
-@* 	<ul class="row maglist">
-		@{
-			if (Model.MostRecentlyUpdatedMagazineArticles != null)
-			{
-				foreach (var Article in Model.MostRecentlyUpdatedMagazineArticles)
-				{
-					<li class="col-12 col-sm-6 col-md-4 col-lg-3"><a href="/@Article.UrlSlug">@Article.Title</a></li>
-				}
-			}
-		}
-	</ul>
- *@
 	<div class="container">
 		<div class="image-container">
 			@{
@@ -40,28 +28,21 @@
 					}
 				}
 			}
+		</div>
+	</div>
+
+	<h2>Magazine Issues</h2>
+
+	<div class="container">
+		<div class="image-container">
 			@{
-				if (Model.MostRecentlyUpdatedMagazineArticles != null)
+				if (Model.MostRecentlyUpdatedMagazineIssueArticles != null)
 				{
-					foreach (IndexModel.MostRecentlyUpdatedMagazineArticle Article in Model.MostRecentlyUpdatedMagazineArticles)
+					foreach (IndexModel.MostRecentlyUpdatedMagazineArticle Article in Model.MostRecentlyUpdatedMagazineIssueArticles)
 					{
 						<div class="img-wrapper">
 							<a href="/@Article.UrlSlug">
-								<img src="/files/a/1othumb.jpg" />
-								<div class="image-title">@Article.Title</div>
-							</a>
-						</div>
-					}
-				}
-			}
-			@{
-				if (Model.MostRecentlyUpdatedMagazineArticles != null)
-				{
-					foreach (IndexModel.MostRecentlyUpdatedMagazineArticle Article in Model.MostRecentlyUpdatedMagazineArticles)
-					{
-						<div class="img-wrapper">
-							<a href="/@Article.UrlSlug">
-								<img src="/files/a/2othumb.jpg" />
+								<img src="/sitefiles/1/@Article.PrimaryArticleImageUrl" />
 								<div class="image-title">@Article.Title</div>
 							</a>
 						</div>
@@ -71,74 +52,5 @@
 		</div>
 	</div>
 
-@* 
-    <div class="container">
-        <h1 class="title">Masonry image gallery</h1>
-        <div class="image-container">
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/0othumb.jpg" />
-                    <div class="image-title">Image 1</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/1othumb.jpg" />
-                    <div class="image-title">Image 2</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/2othumb.jpg" />
-                    <div class="image-title">Image 3</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/3othumb.jpg" />
-                    <div class="image-title">Image 4</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/4othumb.jpg" />
-                    <div class="image-title">Image 5</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/5othumb.jpg" />
-                    <div class="image-title">Image 6</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/6othumb.jpg" />
-                    <div class="image-title">Image 7</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/7othumb.jpg" />
-                    <div class="image-title">Image 8</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/8othumb.jpg" />
-                    <div class="image-title">Image 9</div>
-                </a>
-            </div>
-            <div class="img-wrapper">
-                <a href="#">
-                    <img src="/files/a/9othumb.jpg" />
-                    <div class="image-title">Image 10</div>
-                </a>
-            </div>
-        </div>
-    </div>
- *@
-
-	@Html.Raw(Model.ArticleText)
 	<p> <a href="/firehose:">View the Firehose</a></p>
 </div>

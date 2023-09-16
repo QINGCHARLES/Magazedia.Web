@@ -7,6 +7,7 @@ namespace Magazedia;
 
 public static class Helpers
 {
+	// Takes the UrlSlug for an image Article and returns the most recent FileRevisions row
 	public static string GetImageFilenameFromArticleUrlSlug(string ArticleUrlSlug, SqlConnection Connection)
 	{
 		//TODO: Does not handle Culture and SiteId
