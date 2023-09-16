@@ -7,10 +7,10 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
+    <li class="nav-item loggedin">
         <a  class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item loggedin">
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
             <button  type="submit" class="nav-link btn btn-link">Logout</button>
         </form>
@@ -19,7 +19,7 @@
 else
 {
         <li class="nav-item">
-            <a id="login" class="nav-link btn btn-primary" type="button" role="button" asp-area="Identity" asp-page="/Account/Login">@Localizer["LoginJoin"]</a>
+            <a id="login" class="nav-link btn btn-primary" type="button" role="button" asp-area="Identity" asp-page="/Account/Login">@Localizer["LoginRegister"]</a>
         </li>
 @* 
     <li class="nav-item">

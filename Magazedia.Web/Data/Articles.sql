@@ -40,6 +40,31 @@ VALUES (@ArticleId, N'A placeholder for a missing magazine cover.', N'Article cr
 INSERT INTO FileRevisions (ArticleId, [FileName], FileSizeBytes, MimeType, Is2dImage, IsVideo, IsAudio, RevisionReason, CreatedByAspNetUserId)
 VALUES (@ArticleId, N'magazine-cover-not-available.png', 2141, N'image/png', 1, 0, 0, N'Initial upload', N'7240be61-df81-46f9-8152-6a48b96abc40');
 
+-------- Covers
+
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES ( N'Image: mental-floss-sample-cover', N'image:mental-floss-sample-cover', 1, 'en' );
+
+SET @ArticleId = SCOPE_IDENTITY();
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'Mental Floss magazine sample cover.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+INSERT INTO FileRevisions (ArticleId, [FileName], FileSizeBytes, MimeType, Is2dImage, IsVideo, IsAudio, RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'mental-floss-sample-cover.webp', 72698, N'image/webp', 1, 0, 0, N'Initial upload', N'7240be61-df81-46f9-8152-6a48b96abc40');
+
+--
+
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES ( N'Image: americanstyle-magazine-sample-cover', N'image:americanstyle-magazine-sample-cover', 1, 'en' );
+
+SET @ArticleId = SCOPE_IDENTITY();
+
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'AmericanStyle Magazine sample cover.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+INSERT INTO FileRevisions (ArticleId, [FileName], FileSizeBytes, MimeType, Is2dImage, IsVideo, IsAudio, RevisionReason, CreatedByAspNetUserId)
+VALUES (@ArticleId, N'americanstyle-magazine-sample-cover.jpeg', 11618, N'image/jpeg', 1, 0, 0, N'Initial upload', N'7240be61-df81-46f9-8152-6a48b96abc40');
+
+
 ---- Magazines
 
 -- British Chess Magazine
