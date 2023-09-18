@@ -12,9 +12,23 @@
 <head>
 	<meta charset="utf-8" />
 	@{
-		if (!String.IsNullOrWhiteSpace((Model as BasePageModel)?.MetaDescription))
+		if (Model.GetType().IsSubclassOf(typeof(BasePageModel)))
 		{
-			<meta name="description" content="@((Model as BasePageModel)?.MetaDescription)" />
+			BasePageModel PageModel = (BasePageModel)Model;
+
+			if (PageModel != null)
+			{
+				if (!String.IsNullOrWhiteSpace(PageModel.MetaDescription))
+				{
+					<meta name="description" content="@((Model as BasePageModel)?.MetaDescription)" />
+				}
+
+				if (!PageModel.AllowSearchEngineIndexing)
+				{
+					<meta name="robots" content="noindex">
+				}
+			}
+
 		}
 	}
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -10,6 +10,7 @@ public abstract class BasePageModel : PageModel
 	public string Culture { get; }
 	public int SiteId { get; }
 	public string? MetaDescription { get; set; }
+	public bool AllowSearchEngineIndexing { get; set; }
 
 	protected BasePageModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor)
 	{
@@ -18,6 +19,7 @@ public abstract class BasePageModel : PageModel
 
 		Culture = Magazedia.Helpers.GetCultureFromHostname(HttpContextAccessor.HttpContext!.Request.Host.Host, "en");
 		SiteId = 1;
+		AllowSearchEngineIndexing = true;
 	}
 }
 

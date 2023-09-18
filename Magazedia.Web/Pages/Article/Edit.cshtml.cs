@@ -69,6 +69,8 @@ public class EditModel : BasePageModel
 		//	return Content(this.User!.Identity!.Name!);
 		//}
 
+		this.AllowSearchEngineIndexing = false;
+
 		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 		int SiteId = 1;
 		string SqlQuery = @"

@@ -1,9 +1,9 @@
 ﻿@page
 @model Magazedia.Web.Pages.TalkModel
 @{
-	ViewData["Title"] = "Talk: " + Model.Article.Title;
+	ViewData["Title"] = "Talk: " + Model.Article!.Title;
 }
-
+<article>
 <h1>Talk: @Model.Article.Title</h1>
 
 
@@ -25,3 +25,4 @@
 		</tbody>
 	</table>
 }
+</article>

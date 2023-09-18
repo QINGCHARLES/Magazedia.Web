@@ -22,16 +22,16 @@ namespace Magazedia.Web.Pages
 			using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 			// Get a list of all the revisions of this Article and convert the UserId in the Article table to a Username for display
-			string SqlQuery = @"SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
-								FROM		Articles a
-								INNER JOIN	ArticleRevisions ar ON a.Id = ar.ArticleId
-								INNER JOIN	AspNetUsers u ON ar.CreatedByAspNetUserId = u.Id
-								WHERE		a.UrlSlug = @UrlSlug AND
-											a.SiteId = @SiteId AND
-											a.Culture = @Culture AND
-											a.DateDeleted IS NULL AND
-											ar.DateDeleted IS NULL
-								ORDER BY ar.DateCreated DESC
+			string SqlQuery = @"SELECT		ArticleRevisions.Id, ArticleRevisions.ArticleId, Articles.Title, Articles.UrlSlug, ArticleRevisions.[Text], ArticleRevisions.RevisionReason, AspNetUsers.Id as CreatedByAspNetUserId, AspNetUsers.UserName as CreatedByAspNetUsername, ArticleRevisions.DateCreated, ArticleRevisions.DateDeleted
+								FROM		Articles
+								INNER JOIN	ArticleRevisions ON Articles.Id = ArticleRevisions.ArticleId
+								INNER JOIN	AspNetUsers ON ArticleRevisions.CreatedByAspNetUserId = AspNetUsers.Id
+								WHERE		Articles.UrlSlug = @UrlSlug AND
+											Articles.SiteId = @SiteId AND
+											Articles.Culture = @Culture AND
+											Articles.DateDeleted IS NULL AND
+											ArticleRevisions.DateDeleted IS NULL
+								ORDER BY ArticleRevisions.DateCreated DESC
 								";
 
 			ArticleRevisions = Connection.Query<WikiWikiWorld.Models.ArticleRevision>(SqlQuery, new { UrlSlug, SiteId, Culture }).ToList();
