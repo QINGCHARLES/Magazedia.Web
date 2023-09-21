@@ -1,7 +1,7 @@
 /*#region CSS Reset*/
 
 /***
-    The new CSS reset - version 1.9 (last updated 19.6.2023)
+    The new CSS reset - version 1.11 (last updated 20.9.2023)
     GitHub page: https://github.com/elad2412/the-new-css-reset
 ***/
 
@@ -22,6 +22,14 @@
 *::after
 {
 	box-sizing: border-box;
+}
+
+/* Fix mobile Safari increase font-size on landscape mode */
+html
+{
+	-moz-text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
 }
 
 /* Reapply the pointer cursor for anchor tags */
@@ -72,6 +80,7 @@ meter
 :where(pre)
 {
 	all: revert;
+	box-sizing: border-box;
 }
 
 /* reset default text opacity of input placeholder */
@@ -115,6 +124,7 @@ meter
 :where(dialog:modal)
 {
 	all: revert;
+	box-sizing: border-box;
 }
 
 /*#endregion CSS Reset*/
@@ -210,6 +220,9 @@ article::after
 	border-radius: 15px;
 	opacity: 0;
 	transition: opacity 0.3s ease;
+	text-transform: uppercase;
+	font-family: sans-serif;
+	font-weight: bold;
 }
 
 .container .image-container .img-wrapper
@@ -249,7 +262,6 @@ article::after
 	{
 		columns: 4 8rem;
 		gap: 0.6rem;
-		
 	}
 
 	.img-wrapper
@@ -345,6 +357,7 @@ article h1
 		visibility: hidden;
 		display: none;
 	}
+
 /* Apply float on larger screens */
 @media (min-width: 768px)
 { /* Adjust the breakpoint as needed */
@@ -376,10 +389,21 @@ article h1
 		width: 25%;
 	}
 
+	article img
+	{
+		float: right;
+		width: 5rem;
+	}
+
 	article h1
 	{
 		font-size: 12vh;
 		padding-bottom: 3rem;
+	}
+
+	article h2
+	{
+		font-size: 5vh;
 	}
 
 	.logo span
@@ -391,6 +415,15 @@ article h1
 	html
 	{
 		font-size: 21px;
+	}
+}
+
+/* Device does not support hover (e.g. touchscreen) */
+@media (hover: none)
+{
+	.image-title
+	{
+		opacity: 1;
 	}
 }
 
