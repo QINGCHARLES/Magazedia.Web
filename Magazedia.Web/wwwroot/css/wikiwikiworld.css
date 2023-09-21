@@ -334,6 +334,60 @@ article h1
 	padding-bottom: 3rem;
 }
 
+article h2, article h3
+{
+	font-weight: bold;
+	font-size: 5vh;
+	padding-bottom: 0.2rem;
+	padding-top: 1rem;
+	font-family: sans-serif;
+}
+
+p
+{
+	margin-bottom: 1rem;
+}
+
+table
+{
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.25rem 0;
+	font-size: 1rem;
+	text-align: left;
+}
+
+th
+{
+	background-color: #f2f2f2; /* Light grey */
+	color: #333; /* Dark text */
+	font-weight: bold;
+	padding: 0.625rem 0.9375rem; /* 10px = 0.625rem, 15px = 0.9375rem given base font-size of 16px */
+	border-bottom: 0.125rem solid #ddd; /* Lighter grey border */
+}
+
+tr
+{
+	border-bottom: 0.0625rem solid #eee; /* Very light grey border */
+}
+
+	tr:nth-child(even)
+	{
+		background-color: #f7f7f7; /* Zebra-striping for better readability */
+	}
+
+td
+{
+	padding: 0.625rem 0.9375rem;
+	vertical-align: top;
+}
+
+/* Hover effect for table rows for better UX */
+tr:hover
+{
+	background-color: #e6e6e6; /* Slightly dark on hover */
+}
+
 .logo
 {
 	fpadding-left: 10rem;
@@ -392,18 +446,13 @@ article h1
 	article img
 	{
 		float: right;
-		width: 5rem;
+		width: 20rem;
 	}
 
 	article h1
 	{
 		font-size: 12vh;
 		padding-bottom: 3rem;
-	}
-
-	article h2
-	{
-		font-size: 5vh;
 	}
 
 	.logo span

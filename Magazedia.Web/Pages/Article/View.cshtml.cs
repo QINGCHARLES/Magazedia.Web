@@ -39,7 +39,7 @@ public class ArticleViewModel : BasePageModel
 		{
 			// Article revision look-up by ID
 			SqlQuery = @"
-						SELECT		ar.Id, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, ar.DateCreated, u.UserName as CreatorUsername
+						SELECT		ar.Id, ar.ArticleId, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, u.Id as CreatedByAspNetUserId, u.UserName as CreatedByAspNetUsername, ar.DateCreated, ar.DateDeleted
 						FROM		Articles a
 						INNER JOIN	ArticleRevisions ar ON a.Id = ar.ArticleId
 						INNER JOIN	AspNetUsers u ON ar.CreatedByAspNetUserId = u.Id
