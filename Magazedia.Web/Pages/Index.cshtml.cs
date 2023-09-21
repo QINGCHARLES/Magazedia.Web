@@ -52,7 +52,7 @@ namespace Magazedia.Web.Pages
 			//    Articles = Connection.Query<WikiWikiWorld.Models.Article>(SqlQuery, new { SiteId, Culture });
 
 			string CategoriesTypeToMatch = "Magazines";
-			string CategoriesTag = "Categories";
+			string CategoriesTag = "Category";
 			string CategoriesFirstPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "|%}}%";
 			string CategoriesOtherPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "}}%";
 
