@@ -51,7 +51,7 @@ JOIN (
         )
 ) AS LatestArticleRevisions ON a.Id = LatestArticleRevisions.ArticleId
 WHERE
-    LatestArticleRevisions.[Text] LIKE '%Categories Magazines%'
+    LatestArticleRevisions.[Text] LIKE '%Category Magazines%'
     AND LatestArticleRevisions.[Text] LIKE '%magazine-cover-not-available%'
 "
 			;
