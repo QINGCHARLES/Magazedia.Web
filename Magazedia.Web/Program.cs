@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,10 +72,21 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+	app.UseStaticFiles();
 }
 else
 {
-    app.UseResponseCompression();
+	app.UseStaticFiles(new StaticFileOptions
+	{
+		OnPrepareResponse = ctx =>
+		{
+			const string headerValue = "public,max-age=" + "604800"; // 1 week
+			ctx.Context.Response.Headers[HeaderNames.CacheControl] = headerValue;
+		}
+	});
+
+	app.UseResponseCompression();
 
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -158,7 +170,7 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug={{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
 				</rule>
 				<rule name=""Rewrite Rule"">
-					<match url=""^(?!Create)(?!Dmca)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Talk)(?!Article/View)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|webp|css|js|ico|txt|webmanifest)$)(.*)"" />
+					<match url=""^(?!Create)(?!Dmca)(?!dev/CoverList)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Talk)(?!Article/View)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|webp|css|js|ico|txt|webmanifest)$)(.*)"" />
 					<action type=""Rewrite"" url=""Article/View?UrlSlug={{R:1}}"" appendQueryString=""true"" />
 				</rule>
 			</rules>
@@ -171,7 +183,7 @@ using (TextReader sr = new StringReader(@$"
     app.UseRewriter(options);
 }
 
-app.UseStaticFiles();
+
 
 app.UseRouting();
 

@@ -221,7 +221,7 @@ article::after
 	opacity: 0;
 	transition: opacity 0.3s ease;
 	text-transform: uppercase;
-	font-family: sans-serif;
+	font-family: system-ui, sans-serif;
 	font-weight: bold;
 }
 
@@ -340,7 +340,7 @@ article h2, article h3
 	font-size: 5vh;
 	padding-bottom: 0.2rem;
 	padding-top: 1rem;
-	font-family: sans-serif;
+	font-family: system-ui, sans-serif;
 }
 
 p
@@ -429,12 +429,12 @@ tr:hover
 
 	article aside, article p
 	{
-		margin-right: 5rem;
+		margin-right: 8rem;
 	}
 
 	article p, article h2, article h3, article h4, article h5, article h6
 	{
-		margin-left: 5rem;
+		margin-left: 8rem;
 	}
 
 	article aside
@@ -447,6 +447,8 @@ tr:hover
 	{
 		float: right;
 		width: 20rem;
+		margin-left: 2rem;
+		margin-bottom: 2rem;
 	}
 
 	article h1
@@ -478,7 +480,7 @@ tr:hover
 
 article > p
 {
-	font-family: Charter, Georgia, Times, Serif;
+	font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
 	font-size: 1rem;
 	line-height: 1.6;
 }
@@ -515,8 +517,8 @@ a.navbar-brand
 .btn-primary
 {
 	margin-right: 0;
-	color: #ccc;
-	background-color: #030a;
+	color: #fff;
+	background-color: #0c0f;
 	border-color: #070;
 	border-width: 1px;
 	border-style: solid !important;
@@ -526,6 +528,9 @@ a.navbar-brand
 	margin-right: 0;
 	margin-left: auto;
 	display: inline !important;
+	border-radius: 1rem 1rem;
+	font-family: system-ui, sans-serif;
+	text-decoration: none;
 }
 
 	.btn-primary#register
@@ -666,7 +671,12 @@ a
 	color: #0077cc;
 }*/
 
-/*.categories li
+.categories
+{
+	margin-left: 8rem;
+}
+
+.categories li
 {
     padding: 5px 8px;
     border: 2px solid #222;
@@ -677,7 +687,7 @@ a
     list-style: none;
     display: inline-block;
     border-left: 9px solid #222;
-}*/
+}
 
 /*.categories li
 {

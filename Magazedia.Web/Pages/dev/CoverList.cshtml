@@ -1,0 +1,28 @@
+﻿@page
+@model Magazedia.Web.Pages.dev.CoverListModel
+@{
+}
+<article>
+	<h1>Cover list</h1>
+
+	<table class="table">
+		<thead>
+			<tr><th>Mag Name</th><th>UrlSlug</th><th>Cover Filename</th></tr>
+		</thead>
+		<tbody>
+			@if (Model.Covers != null)
+			{
+				foreach (var ArticleRevision in Model.Covers)
+				{
+					<tr>
+						<td><a href="/@ArticleRevision.UrlSlug">@ArticleRevision.Title</a></td>
+						<td>@ArticleRevision.UrlSlug</td>
+						<td>
+							<input type="text" value="@ArticleRevision.UrlSlug-sample-cover">
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</article>

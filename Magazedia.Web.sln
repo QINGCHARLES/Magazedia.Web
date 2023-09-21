@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magazedia.Web", "Magazedia.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magazedia.Helpers", "Magazedia.Helpers\Magazedia.Helpers.csproj", "{64D1550B-17B2-4A92-B5FC-4FDD1CB08FAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiWikiWorld.Models", "WikiWikiWorld.Models\WikiWikiWorld.Models.csproj", "{DBD72A4A-F51A-4070-BB07-83E9A4555408}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikiWikiWorld.Models", "WikiWikiWorld.Models\WikiWikiWorld.Models.csproj", "{DBD72A4A-F51A-4070-BB07-83E9A4555408}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
