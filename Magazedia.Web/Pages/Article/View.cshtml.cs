@@ -182,7 +182,7 @@ public class ArticleViewModel : BasePageModel
 
 			if (ArticleRevision.UrlSlug!.StartsWith("image:"))
 			{
-				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/" + ArticleRevision.UrlSlug.Substring(5) + "' />";
+				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/images/" + ArticleRevision.UrlSlug.Substring("Image:".Length) + "' />";
 			}
 			else
 			{

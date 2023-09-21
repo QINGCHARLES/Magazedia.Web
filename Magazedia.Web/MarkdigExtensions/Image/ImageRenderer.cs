@@ -49,7 +49,7 @@ public class ImageRenderer : HtmlObjectRenderer<Image>
 
         string FileName = Magazedia.Helpers.GetImageFilenameFromArticleUrlSlug(obj.UrlSlug!, Connection);
 
-        renderer.Write("<img src=\"/sitefiles/1/").Write(FileName).Write("\" ");
+        renderer.Write("<img src=\"/sitefiles/1/images/").Write(FileName).Write("\" ");
         if (obj.Attributes  != null)
         {
             foreach (var attribute in obj.Attributes)
