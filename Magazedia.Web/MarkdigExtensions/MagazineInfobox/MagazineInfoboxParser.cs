@@ -31,7 +31,7 @@ public class MagazineInfoboxParser : BlockParser
             return new { Var = parts[0], Text = parts[1] };
         }).ToDictionary(x => x.Var, x => x.Text);
 
-        MagazineInfobox MagazineInfobox = new MagazineInfobox(this, Data);
+		MagazineInfobox MagazineInfobox = new MagazineInfobox(this, Data);
         Processor.NewBlocks.Push(MagazineInfobox);
 
         return BlockState.ContinueDiscard;
