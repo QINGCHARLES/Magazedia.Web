@@ -82,7 +82,7 @@ namespace Magazedia.Web.Pages
 			// For each magazine get the UrlSlug of the PrimaryImageArticle and then convert that UrlSlug into an actual Url for the image
 			foreach (MostRecentlyUpdatedMagazineArticle MostRecentlyUpdatedMagazineArticle in MostRecentlyUpdatedMagazineArticles)
 			{
-				string MatchPattern = @"{{Image (image:.+?)\|Type=PrimaryArticleImage}}";
+				string MatchPattern = @"{{Image (image:.+?)\|#\|Type=PrimaryArticleImage}}";
 
 				MatchCollection matches = Regex.Matches(MostRecentlyUpdatedMagazineArticle.Text, MatchPattern, RegexOptions.IgnoreCase);
 				Match match = matches[0];

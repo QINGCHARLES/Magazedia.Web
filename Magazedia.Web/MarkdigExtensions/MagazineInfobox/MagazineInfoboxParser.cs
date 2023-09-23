@@ -24,7 +24,7 @@ public class MagazineInfoboxParser : BlockParser
         string DataString = Processor.Line.Text.Substring(DataStart, DataEnd - DataStart);
 
         // Parse data into pairs
-        string[] Pairs = DataString.Split('|',StringSplitOptions.TrimEntries);
+        string[] Pairs = DataString.Split("|#|", StringSplitOptions.TrimEntries);
         Dictionary<string, string> Data = Pairs.Select(pair =>
         {
             string[] parts = pair.Split('=', 2);

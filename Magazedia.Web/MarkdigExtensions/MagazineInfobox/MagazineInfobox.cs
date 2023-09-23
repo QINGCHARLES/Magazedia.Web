@@ -5,10 +5,10 @@ namespace WikiWikiWorld.MarkdigExtensions;
 
 public class MagazineInfobox : LeafBlock
 {
-	public MagazineInfobox(BlockParser Parser, Dictionary<string, string> Data) : base(Parser)
-	{
-		this.Data = Data;
-	}
+	public Dictionary<string, string> Attributes { get; }
 
-	public Dictionary<string, string> Data { get; }
+	public MagazineInfobox(BlockParser Parser, Dictionary<string, string> Attributes) : base(Parser)
+	{
+		this.Attributes = Attributes;
+	}
 }

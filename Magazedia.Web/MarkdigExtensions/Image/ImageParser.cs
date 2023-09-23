@@ -23,16 +23,16 @@ public class ImageParser : InlineParser
 		int End = Slice.IndexOf("}}");
 		if (End == -1) return false;
 
-        int barPosition = Slice.Text.IndexOf('|', Slice.Start);
+        int barPosition = Slice.Text.IndexOf("|#|", Slice.Start);
 
-        string urlSlug;
+		string urlSlug;
         Dictionary<string, string> attributes = new Dictionary<string, string>();
 
         if (barPosition > 0 && barPosition < End)
         {
             urlSlug = Slice.Text.Substring(Slice.Start, barPosition - Slice.Start);
             string attributesText = Slice.Text.Substring(barPosition + 1, End - barPosition - 1);
-            string[] attributePairs = attributesText.Split('|');
+            string[] attributePairs = attributesText.Split("|#|");
             foreach (string attribute in attributePairs)
             {
                 string[] parts = attribute.Split('=');

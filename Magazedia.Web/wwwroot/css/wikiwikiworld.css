@@ -148,6 +148,8 @@ a
 {
 	color: blue;
 	text-decoration: underline;
+	text-decoration-thickness: 0.125rem;
+	text-underline-offset: 0.25rem;
 }
 
 h1
@@ -169,6 +171,7 @@ article aside
 	border: 1px solid #aaa;
 	border-radius: 4px;
 	margin-left: 20px;
+	margin-bottom: 1rem;
 }
 
 article aside, article p
@@ -176,7 +179,7 @@ article aside, article p
 	margin-right: 2rem;
 }
 
-article p, article h2, article h3, article h4, article h5, article h6
+article p, article h2, article h3, article h4, article h5, article h6, article ul
 {
 	margin-left: 2rem;
 }
@@ -351,6 +354,16 @@ p
 	margin-bottom: 1rem;
 }
 
+ul
+{
+	list-style:circle;
+}
+
+ul li
+{
+	margin-bottom: 1rem;
+}
+
 table
 {
 	width: 100%;
@@ -435,7 +448,7 @@ tr:hover
 		margin-right: 8rem;
 	}
 
-	article p, article h2, article h3, article h4, article h5, article h6
+	article p, article h2, article h3, article h4, article h5, article h6, article ul
 	{
 		margin-left: 8rem;
 	}

@@ -143,14 +143,8 @@ public class ArticleViewModel : BasePageModel
 			List<WikiWikiWorld.Models.Citation> Citations = new();
 			List<WikiWikiWorld.Models.Footnote> Footnotes = new();
 			List<WikiWikiWorld.Models.Category> Categories = new();
-			List<WikiWikiWorld.Models.Download> Downloads = new();
 
-			Download test = new("ff", "f", "asdf", "aseewe", 23423, true);
-			Download anothertest = new("gdfs", "sdfg", "dvsadvasd43sdf", "aseewe", 23423, false);
-			Downloads.Add(test);
-			Downloads.Add(anothertest);
-
-			DownloadBoxExtension DownloadBoxExtension = new(Downloads);
+			DownloadsBoxExtension DownloadBoxExtension = new(SiteId, Connection);
 
 			// Send the empty list into the CitationExtension - if the parser finds any citations in the Article
 			// it will not render them, but will simply add them to the Citations List

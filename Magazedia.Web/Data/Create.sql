@@ -68,7 +68,8 @@ CREATE TABLE DownloadUrls
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	SiteId int NOT NULL,
 	[Filename] nvarchar(1000) NOT NULL,
-	Filesize int NOT NULL,
+	MimeType nvarchar(100) NOT NULL,
+	FileSizeBytes int NOT NULL,
 	HashSha256 varbinary(64) NOT NULL,
 	DownloadUrls nvarchar(MAX) NULL,
 	NeedsOcr bit NULL,
@@ -78,6 +79,9 @@ CREATE TABLE DownloadUrls
 	DateModified datetime2(7) NOT NULL,
 	DateDeleted datetime2(7) NULL
 );
+
+CREATE INDEX IX_DownloadUrls_HashSha256
+ON DownloadUrls (HashSha256);
 
 CREATE TABLE ArticleTalkSubjects
 (
