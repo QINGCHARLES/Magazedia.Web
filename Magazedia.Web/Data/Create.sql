@@ -7,7 +7,7 @@ CREATE TABLE Articles
 	Culture nvarchar(20) NOT NULL,
 	Title nvarchar(1000) NOT NULL,
 	UrlSlug nvarchar(1000) NOT NULL,
-	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateCreated datetime2(7) NOT NULL DEFAULT GETUTCDATE(),
 	DateDeleted datetime2(7) NULL,
 	CONSTRAINT UQ_Articles_Title UNIQUE (Title),
 	CONSTRAINT UQ_Articles_UrlSlug UNIQUE (UrlSlug)
@@ -33,7 +33,7 @@ CREATE TABLE FileRevisions
 	IsAudio bit NOT NULL,
 	RevisionReason nvarchar(1000) NOT NULL,
   	CreatedByAspNetUserId nvarchar(450) NOT NULL,
-	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateCreated datetime2(7) NOT NULL DEFAULT GETUTCDATE(),
 	DateDeleted datetime2(7) NULL
 );
 
@@ -47,7 +47,7 @@ CREATE TABLE ArticleRevisions
 	[Text] nvarchar(max) NOT NULL,
 	RevisionReason nvarchar(1000) NOT NULL,
   	CreatedByAspNetUserId nvarchar(450) NOT NULL,
-	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateCreated datetime2(7) NOT NULL DEFAULT GETUTCDATE(),
 	DateDeleted datetime2(7) NULL
 );
 
@@ -70,13 +70,13 @@ CREATE TABLE DownloadUrls
 	[Filename] nvarchar(1000) NOT NULL,
 	MimeType nvarchar(100) NOT NULL,
 	FileSizeBytes int NOT NULL,
-	HashSha256 varbinary(64) NOT NULL,
+	HashSha256 binary(32) NOT NULL,
 	DownloadUrls nvarchar(MAX) NULL,
 	NeedsOcr bit NULL,
 	IsComplete bit NULL,
 	CreatedByAspNetUserId nvarchar(450) NOT NULL,
-	DateCreated datetime2(7) NOT NULL,
-	DateModified datetime2(7) NOT NULL,
+	DateCreated datetime2(7) NOT NULL DEFAULT GETUTCDATE(),
+	DateModified datetime2(7) NULL,
 	DateDeleted datetime2(7) NULL
 );
 
@@ -92,7 +92,7 @@ CREATE TABLE ArticleTalkSubjects
 	UrlSlug nvarchar(300) NOT NULL,
 	HasBeenEdited bit NOT NULL DEFAULT 0,
 	CreatedByAspNetUserId nvarchar(450) NOT NULL,
-	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateCreated datetime2(7) NOT NULL DEFAULT GETUTCDATE(),
 	DateModified datetime2(7) NULL,
 	DateDeleted datetime2(7) NULL
 );
@@ -105,7 +105,7 @@ CREATE TABLE ArticleTalkSubjectPosts
 	[Text] nvarchar(2000) NOT NULL,
 	HasBeenEdited bit NOT NULL DEFAULT 0,
 	CreatedByAspNetUserId nvarchar(450) NOT NULL,
-	DateCreated datetime2(7) NOT NULL DEFAULT GETDATE(),
+	DateCreated datetime2(7) NOT NULL DEFAULT GETUTCDATE(),
 	DateModified datetime2(7) NULL,
 	DateDeleted datetime2(7) NULL
 );

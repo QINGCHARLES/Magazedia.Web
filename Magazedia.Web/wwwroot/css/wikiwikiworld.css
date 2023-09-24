@@ -236,6 +236,7 @@ article::after
 	border-radius: 15px;
 	position: relative;
 	gap: 1rem;
+	content-visibility: auto;
 }
 
 .container .title
@@ -362,6 +363,11 @@ ul
 ul li
 {
 	margin-bottom: 1rem;
+}
+
+article .infobox ul
+{
+	margin-left: 1rem;
 }
 
 table
