@@ -14,7 +14,18 @@ VALUES (SCOPE_IDENTITY(), N'All about stub articles and how to expand them.{{Cat
 INSERT Articles (Title, UrlSlug, SiteId, Culture)
 VALUES ( N'Category: Magazines', N'category:magazines', 1, 'en' );
 INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
-VALUES (SCOPE_IDENTITY(), N'A category containing all known magazines.{{Categories Magazines}}', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+VALUES (SCOPE_IDENTITY(), N'A category containing all known magazines.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES ( N'Category: Magazine issues', N'category:magazine-issues', 1, 'en' );
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (SCOPE_IDENTITY(), N'A category containing all known magazine issues.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES ( N'Category: BYTE magazine issues', N'category:byte-magazine-issues', 1, 'en' );
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (SCOPE_IDENTITY(), N'A category containing all known issues of BYTE magazines.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
 
 -- Files
 

@@ -92,6 +92,7 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 using (TextReader sr = new StringReader(@$"
 		<rewrite>
 			<rules>
@@ -138,16 +139,16 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=image:{{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""(.+)/edit"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Edit?UrlSlug={{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^category:(.+)"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=category:{{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^create-article:"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Create"" />
-				</rule>
-				<rule enabled=""true"">
-					<match url=""(.+)/edit"" />
-					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Edit?UrlSlug={{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/talk$"" />
