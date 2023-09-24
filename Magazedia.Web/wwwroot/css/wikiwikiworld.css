@@ -327,7 +327,7 @@ article h1
 {
 	margin: 0 auto;
 	text-align: center;
-	font-size: 6vh;
+	font-size: 2rem;
 	font-weight: bold;
 	line-height: .9;
 	color: #fbfbf8;
@@ -368,6 +368,16 @@ ul li
 article .infobox ul
 {
 	margin-left: 1rem;
+}
+
+footer
+{
+	line-height: 3rem;
+}
+
+footer a
+{
+	margin-right: 1rem;
 }
 
 table
@@ -477,7 +487,7 @@ tr:hover
 
 	article h1
 	{
-		font-size: 12vh;
+		font-size: 5rem;
 		padding-bottom: 3rem;
 	}
 
