@@ -236,7 +236,7 @@ article::after
 	border-radius: 15px;
 	position: relative;
 	gap: 1rem;
-	content-visibility: auto;
+	ccontent-visibility: auto;
 }
 
 .container .title

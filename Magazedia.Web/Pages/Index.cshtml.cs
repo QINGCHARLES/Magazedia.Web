@@ -124,7 +124,7 @@ namespace Magazedia.Web.Pages
 
 			foreach (MostRecentlyUpdatedMagazineArticle MostRecentlyUpdatedMagazineArticle in MostRecentlyUpdatedMagazineIssueArticles)
 			{
-				string MatchPattern = @"{{Image (image:.+?)\|Type=PrimaryArticleImage}}";
+				string MatchPattern = @"{{Image (image:.+?)\|#\|Type=PrimaryArticleImage}}";
 
 				MatchCollection matches = Regex.Matches(MostRecentlyUpdatedMagazineArticle.Text, MatchPattern, RegexOptions.IgnoreCase);
 				Match match = matches[0];

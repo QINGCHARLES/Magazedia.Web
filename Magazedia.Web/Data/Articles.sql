@@ -26,6 +26,23 @@ VALUES ( N'Category: BYTE magazine issues', N'category:byte-magazine-issues', 1,
 INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
 VALUES (SCOPE_IDENTITY(), N'A category containing all known issues of BYTE magazines.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
 
+-- BYTE - Volume 1 - Issue 1 - September 1975
+INSERT Articles (Title, UrlSlug, SiteId, Culture)
+VALUES ( N'BYTE - Volume 1 - Issue 1 - September 1975', N'byte-volume-1-issue-1-september-1975', 1, 'en' );
+INSERT ArticleRevisions (ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+VALUES (SCOPE_IDENTITY(), N'{{ShortDescription The September 1975 edition unveils the dawn of digital, blending artistry in circuitry with software nuances, capturing the technological spirit of its era.}}' + CHAR(13) + CHAR(10) + N'BYTE, a publication dedicated to the world of computing, offers a rich collection of articles, reviews, and insights in its September 1975 issue. The magazine touches upon various aspects of the rapidly evolving computer industry.' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'1. **RECYCLING USED ICs** - A deep dive into the intricacies of logic circuitry and the importance of testing. The author shares personal experiences, emphasizing the need for detailed test routines and their role in troubleshooting.' + CHAR(13) + CHAR(10) + N'   ' + CHAR(13) + CHAR(10) + N'2. **DECIPHERING MYSTERY KEYBOARDS** - An exploration of hardware components, particularly focusing on keyboards, their design, and challenges in understanding their mechanisms.' + CHAR(13) + CHAR(10) + N'   ' + CHAR(13) + CHAR(10) + N'3. **RGS 008A MICROCOMPUTER KIT** - A review of a particular microcomputer kit, discussing its features, assembly, and potential applications.' + CHAR(13) + CHAR(10) + N'   ' + CHAR(13) + CHAR(10) + N'4. **WRITE YOUR OWN ASSEMBLER** - A guide for enthusiasts looking to delve deeper into software development, providing insights into creating an assembler.' + CHAR(13) + CHAR(10) + N'   ' + CHAR(13) + CHAR(10) + N'5. **How BYTE Started** - A reflective piece discussing the origins and motivations behind BYTE magazine, giving readers a glimpse into its foundational journey.' + CHAR(13) + CHAR(10) + N'   ' + CHAR(13) + CHAR(10) + N'6. **Book Reviews** - Critiques and overviews of the latest literature in the computing domain, guiding readers on what to add to their reading lists.' + CHAR(13) + CHAR(10) + N'   ' + CHAR(13) + CHAR(10) + N'7. **Letters** - A section dedicated to the readers, addressing queries, feedback, and opinions from the BYTE community.' + CHAR(13) + CHAR(10) + N'   ' + CHAR(13) + CHAR(10) + N'8. **Byter''s Digest** - A compilation of snippets, quick tips, and short insights from the world of technology and computing.' + CHAR(13) + CHAR(10) + N'   ' + CHAR(13) + CHAR(10) + N'9. **Reader''s Service** - A section dedicated to servicing the readers'' needs, potentially involving subscriptions, updates, and announcements.' + CHAR(13) + CHAR(10) + CHAR(13) + CHAR(10) + N'Advertisements, product reviews, and news about the latest innovations in the computing world punctuate the magazine, offering readers both a comprehensive understanding of the then-current state of technology and a glimpse into its future.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+
+
+
+DECLARE @ArticleId int;INSERT Articles(Title, UrlSlug, SiteId, Culture)						
+										VALUES(N'Image: BYTE - Volume 1 - Issue 1 - September 1975 - Cover', N'image:byte-volume-1-issue-1-september-1975-cover', 1, 'en');
+										SET @ArticleId = SCOPE_IDENTITY();
+										INSERT ArticleRevisions(ArticleId, [Text], RevisionReason, CreatedByAspNetUserId)
+										VALUES(@ArticleId, N'The cover image of BYTE - Volume 1 - Issue 1 - September 1975 magazine issue.', N'Article created.', '7240be61-df81-46f9-8152-6a48b96abc40');
+										INSERT INTO FileRevisions(ArticleId, [FileName], FileSizeBytes, MimeType, Is2dImage, IsVideo, IsAudio, RevisionReason, CreatedByAspNetUserId)
+										VALUES(@ArticleId, N'byte-volume-1-issue-1-september-1975-cover.jpg', 222564, N'image/jpeg', 1, 0, 0, N'Initial upload', N'7240be61-df81-46f9-8152-6a48b96abc40');
+
+
 
 -- Files
 
