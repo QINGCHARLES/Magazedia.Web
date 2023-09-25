@@ -141,12 +141,13 @@ html
 
 .home
 {
-	padding-top: 30vh;
+	padding-top: 3rem;
 }
 
 a
 {
 	color: blue;
+	color: #0c0;
 	text-decoration: underline;
 	text-decoration-thickness: 0.125rem;
 	text-underline-offset: 0.25rem;
@@ -713,15 +714,23 @@ a
 .categories li
 {
     padding: 5px 8px;
-    border: 2px solid #222;
+    border: 2px solid #0c0;
     border-radius: 3px;
     line-height: 20px;
-    background-color: #eef;
+    bbackground-color: #eef;
     margin: 4px 4px;
     list-style: none;
     display: inline-block;
-    border-left: 9px solid #222;
+    bborder-left: 9px solid #222;
 }
+
+	.categories li a
+	{
+		text-transform: uppercase;
+		text-decoration: none;
+		
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
 
 /*.categories li
 {

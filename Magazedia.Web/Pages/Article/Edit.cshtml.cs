@@ -69,6 +69,7 @@ public class EditModel : BasePageModel
 		//	return Content(this.User!.Identity!.Name!);
 		//}
 
+		// Don't let search engines index the edit page as it offers no value in SERPs
 		this.AllowSearchEngineIndexing = false;
 
 		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));

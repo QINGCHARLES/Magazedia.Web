@@ -78,6 +78,9 @@ public class ArticleViewModel : BasePageModel
 		{
 			// Article does not exist in database
 
+			// As the Article doesn't exist we don't want it to show up in SERPs
+			this.AllowSearchEngineIndexing = false;
+
 			// Convert the current site Culture into a CultureInfo object; if we are on the test Culture then use zh (Chinese)
 			CultureInfo CultureInfo = new CultureInfo(Culture.Equals("xx-test") ? "zh" : Culture);
 			string TitleHint = CultureInfo.TextInfo.ToTitleCase(UrlSlug!.Replace('-', ' '));
