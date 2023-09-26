@@ -7,7 +7,7 @@ namespace Magazedia.Web.Pages
 {
     public class CultureSelectModel : BasePageModel
     {
-        public string[] Cultures = { "en", "eu", "ru", "fr", "es", "ja", "ab" };
+        public string[] Cultures = { "en", "eu", "ru", "fr", "es", "ja", "ar" };
         public Dictionary<string, int> CultureCount = new Dictionary<string, int>();
 
         public CultureSelectModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor)
