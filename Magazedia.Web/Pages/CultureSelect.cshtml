@@ -5,36 +5,51 @@
 @{
 	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
 }
-<div class="box-container">
-    <article class="culture-selection">
-        <h1>Select Culture:</h1>
-        <div class="languages-circle">
-            <img src="/files/dalle-img.png" alt="Central Image" class="central-image" />
-            <div class="lang english"><a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">English</a></div>
-            <div class="lang japanese"><a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">日本語</a></div>
-            <div class="lang arabic"><a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">العربية</a></div>
-            <div class="lang french"><a href="https://fr.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">French</a></div>
-            <div class="lang espanol"><a href="https://es.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">Español</a></div>
-            <div class="lang russian"><a href="https://ru.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">русский</a></div>
+
+<article class="culture-selection">
+    <h1>Select Culture:</h1>
+    <div class="languages-circle">
+        <img src="/files/dalle-img.png" alt="Central Image" class="central-image" />
+        <div class="lang english">
+            <a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">English</a>
+            <div>@Model.CultureCount["en"]</div>
         </div>
-    </article>
-</div>
+        <div class="lang japanese">
+            <a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">日本語</a>
+            <div>@Model.CultureCount["ja"]</div>
+        </div>
+        <div class="lang arabic">
+            <a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">العربية</a>
+            <div>@Model.CultureCount["ab"]</div>
+        </div>
+        <div class="lang french">
+            <a href="https://fr.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">Français</a>
+            <div>@Model.CultureCount["fr"]</div>
+        </div>
+        <div class="lang espanol">
+            <a href="https://es.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">Español</a>
+            <div>@Model.CultureCount["es"]</div>
+        </div>
+        <div class="lang russian">
+            <a href="https://ru.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">русский</a>
+            <div>@Model.CultureCount["ru"]</div>
+        </div>
+    </div>
+</article>
+
 <style>
-    .box-container{
-        margin: 1rem;
-        margin-bottom: 2rem;
-    }
+    
     .culture-selection {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         background-color: #f6f6f6;
-        padding: 20px;
         text-align: center;
+        margin-bottom: 2rem;
     }
 
     .languages-circle {
         position: relative;
-        width: 150px;
-        height: 150px;
+        width: 7rem;
+        height: 7rem;
         margin: 0 auto;
     }
 
@@ -50,6 +65,8 @@
         width: 30%;
         text-align: center;
         font-size: .9rem;
+        white-space: nowrap;
+        
     }
 
         .lang a {
@@ -65,7 +82,8 @@
     .english {
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) rotate(0deg) translate(125px) rotate(0deg);
+        transform: translate(-50%, -50%) rotate(240deg) translate(125px) rotate(-240deg);
+        
     }
 
     .japanese {
@@ -82,14 +100,14 @@
 
     .french {
         top: 50%;
-        left: 50%;
+        left: 43%;
         transform: translate(-50%, -50%) rotate(180deg) translate(125px) rotate(-180deg);
     }
 
     .espanol {
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) rotate(240deg) translate(125px) rotate(-240deg);
+        transform: translate(-50%, -50%) rotate(0deg) translate(125px) rotate(0deg);
     }
 
     .russian {
