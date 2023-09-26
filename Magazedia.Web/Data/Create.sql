@@ -83,6 +83,7 @@ CREATE TABLE DownloadUrls
 CREATE INDEX IX_DownloadUrls_HashSha256
 ON DownloadUrls (HashSha256);
 
+DROP TABLE ArticleTalkSubjects;
 CREATE TABLE ArticleTalkSubjects
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -97,6 +98,7 @@ CREATE TABLE ArticleTalkSubjects
 	DateDeleted datetime2(7) NULL
 );
 
+DROP TABLE ArticleTalkSubjectPosts;
 CREATE TABLE ArticleTalkSubjectPosts
 (
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
