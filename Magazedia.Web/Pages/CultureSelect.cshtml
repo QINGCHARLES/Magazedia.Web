@@ -5,9 +5,96 @@
 @{
 	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
 }
-<article>
-	<h1>Select Culture:</h1>
-	<p><a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">English</a></p>
-	<p><a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">日本語</a></p>
-	<p><a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">العربية</a></p>
-</article>
+<div class="box-container">
+    <article class="culture-selection">
+        <h1>Select Culture:</h1>
+        <div class="languages-circle">
+            <img src="/files/dalle-img.png" alt="Central Image" class="central-image" />
+            <div class="lang english"><a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">English</a></div>
+            <div class="lang japanese"><a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">日本語</a></div>
+            <div class="lang arabic"><a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">العربية</a></div>
+            <div class="lang french"><a href="https://fr.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">French</a></div>
+            <div class="lang espanol"><a href="https://es.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">Español</a></div>
+            <div class="lang russian"><a href="https://ru.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">русский</a></div>
+        </div>
+    </article>
+</div>
+<style>
+    .box-container{
+        margin: 1rem;
+        margin-bottom: 2rem;
+    }
+    .culture-selection {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: #f6f6f6;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .languages-circle {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    .central-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .lang {
+        position: absolute;
+        width: 30%;
+        text-align: center;
+        font-size: .9rem;
+    }
+
+        .lang a {
+            text-decoration: none;
+            color: #0645ad;
+            font-weight: bold;
+        }
+
+            .lang a:hover {
+                text-decoration: underline;
+            }
+
+    .english {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg) translate(125px) rotate(0deg);
+    }
+
+    .japanese {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(60deg) translate(125px) rotate(-60deg);
+    }
+
+    .arabic {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(120deg) translate(125px) rotate(-120deg);
+    }
+
+    .french {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(180deg) translate(125px) rotate(-180deg);
+    }
+
+    .espanol {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(240deg) translate(125px) rotate(-240deg);
+    }
+
+    .russian {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(300deg) translate(125px) rotate(-300deg);
+    }
+</style>
