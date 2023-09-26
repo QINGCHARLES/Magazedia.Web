@@ -8,17 +8,16 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
-
+<article>
 <h1>Manage your account</h1>
-
+</article>
 <div>
-    <h2>Change your account settings</h2>
     <hr />
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-3">
             <partial name="_ManageNav" />
         </div>
-        <div class="col-md-9">
+        <div class="col-9">
             @RenderBody()
         </div>
     </div>
@@ -27,3 +26,30 @@
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }
+<style>
+    /* General Styles */
+h2 {
+    margin: 0;
+    padding: 0 0 15px 0; /* Added padding at the bottom for spacing below the heading */
+}
+
+hr {
+    margin: 10px 0;
+    border-color: #ccc; /* Light grey color */
+}
+
+/* Flexbox Container for Row */
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows the items to wrap to the next line if necessary */
+}
+
+
+.col-9 {
+    flex: 1; /* Take up remaining space */
+    margin-left: 5%;
+    margin-top: .5rem;
+}
+
+</style>

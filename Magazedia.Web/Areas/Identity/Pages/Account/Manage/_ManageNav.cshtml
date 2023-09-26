@@ -2,6 +2,7 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
+
 <ul class="nav nav-pills flex-column">
     <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
@@ -13,3 +14,47 @@
     <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
 </ul>
+
+
+<style>
+    .nav {
+        /* Giving a transition effect to the whole UL for a smooth hover effect */
+        transition: all 0.3s ease;
+    }
+
+    .nav-item {
+        /* Padding and text centering for each list item */
+        padding: 10px 15px;
+        text-align: center;
+    }
+
+    .nav-link {
+        /* Making sure the text color isn't too stark against the muted background */
+        color: #333;
+        transition: color 0.3s ease; /* Smooth transition for color changes */
+    }
+
+    .nav-item:hover {
+        /* Muted background color for hover effect */
+        background-color: #f2f2f2;
+        /* Gives a "floating" effect by slightly moving the item up */
+        transform: translateY(-5px);
+        /* A shadow to emphasize the floating effect */
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+        .nav-item:hover .nav-link {
+            /* Slightly darkens text on hover for better contrast */
+            color: #555;
+        }
+
+    /* Remove default underline from links */
+    .nav-link {
+        text-decoration: none;
+    }
+    
+    ul{
+        list-style: none;
+        margin-left: .4rem;
+    }
+</style>

@@ -16,20 +16,21 @@ namespace Magazedia.Web.Pages
 
         public void OnGet()
         {
+            string SqlQuery = @"
+                SELECT Culture, COUNT(*) as Count
+                FROM Articles
+                WHERE SiteId = @SiteId AND DateDeleted IS NULL
+                GROUP BY Culture
+            ";
+
+            using SqlConnection Connection = new(Configuration.GetConnectionString("DefaultConnection"));
+            int SiteId = 1;
+
+            var results = Connection.Query(SqlQuery, new { SiteId }).ToDictionary(x => (string)x.Culture, x => (int)x.Count);
+
             foreach (var Culture in Cultures)
             {
-                using SqlConnection Connection = new(Configuration.GetConnectionString("DefaultConnection"));
-                int SiteId = 1;
-                string SqlQuery = @"
-                    SELECT COUNT(*)
-                    FROM Articles
-                    WHERE SiteId = @SiteId AND
-                          Culture = @Culture AND
-                          DateDeleted IS NULL
-                ";
-
-                int articleCount = Connection.QuerySingle<int>(SqlQuery, new { SiteId, Culture });
-                CultureCount[Culture] = articleCount;
+                CultureCount[Culture] = results.ContainsKey(Culture) ? results[Culture] : 0;
             }
         }
     }
