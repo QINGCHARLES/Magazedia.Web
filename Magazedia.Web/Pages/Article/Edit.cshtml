@@ -4,18 +4,19 @@
 @{
 	ViewData["Title"] = "Editing: " + Model.ArticleTitle;
 }
-
+<article>
 <h1>@Model.ArticleTitle</h1>
 <p>@Html.Raw(Model.ArticleHtml)</p>
-<p></p>
+</article>
+<br /><br />
 <form method="post">
 	<input asp-for="ArticleTitle" />
 	<input asp-for="ArticleUrlSlug" />
 	<input asp-for="ArticleRevisionReason" />
-	<br />
+	<br /><br /><br />
 	<textarea asp-for="ArticleText" style="height:300px; width:600px;"></textarea>
 	<br />
-	<input type="submit" />
+	<input type="submit" class="btn-primary" />
 	<br />
 </form>
 

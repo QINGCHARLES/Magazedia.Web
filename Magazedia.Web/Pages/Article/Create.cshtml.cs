@@ -9,38 +9,39 @@ using System.Security.Policy;
 using System.Text.RegularExpressions;
 
 namespace Magazedia.Web.Pages;
-public class CreateModel : PageModel
+public class CreateModel : BasePageModel
 {
-	public string ArticleTitle { get; set; }
-	public string ArticleText { get; set; }
+	public string? ArticleTitle { get; set; }
+	public string? ArticleText { get; set; }
 
-	private readonly IConfiguration Config;
-	private readonly IHttpContextAccessor HttpContextAccessor;
-	private readonly string Language;
-
-	public CreateModel(IConfiguration Config, IHttpContextAccessor HttpContextAccessor)
-	{
-		this.Config = Config;
-		this.HttpContextAccessor = HttpContextAccessor;
-		Language = "en";
-	}
-
+	public CreateModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
 	public IActionResult OnPost()
 	{
+		var specificUsername = "QINGCHARLES";
+
+		if (this.User == null || this.User.Identity == null || !this.User.Identity.IsAuthenticated || (this.User.Identity.IsAuthenticated && this.User.Identity.Name != specificUsername))
+		{
+
+			return BadRequest();
+		}
+
 		ArticleText = Request.Form[nameof(ArticleText)];
 		ArticleTitle = Request.Form[nameof(ArticleTitle)];
 
+		int SiteId = 1;
 
-		ClaimsPrincipal? user = HttpContextAccessor.HttpContext?.User;
-		string Username = user?.Identity?.Name ?? "Anonymous";
-		using var Connection = new SqlConnection(Config.GetConnectionString("DefaultConnection"));
+		ClaimsPrincipal? User = HttpContextAccessor.HttpContext?.User;
+		string Username = User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "7240be61-df81-46f9-8152-6a48b96abc40";// "Anonymous";
+
+		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
+
 		var SlugOptions = new UnicodeSlug.SlugOptions();
 		string UrlSlug = SlugOptions.GenerateSlug(ArticleTitle);
-		string ArticleRevisionReason = "Created";
-		var SqlQuery = "INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
-		var res = Connection.Execute(SqlQuery, new { Title = ArticleTitle, UrlSlug = UrlSlug, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username, SiteId = 1, Language = Language });
-		return Content("output:" + res.ToString() + UrlSlug + ArticleText);
+		//string ArticleRevisionReason = "Created";
+		//var SqlQuery = "INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
+		//var res = Connection.Execute(SqlQuery, new { Title = ArticleTitle, UrlSlug = UrlSlug, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username, SiteId = 1, Language = Language });
+		//return Content("output:" + res.ToString() + UrlSlug + ArticleText);
 
 		//                var sql = "SELECT * FROM Article WHERE UrlSlug=@UrlSlug AND Language='en'";
 		//              var Article = connection.QuerySingleOrDefault(sql, new { UrlSlug = UrlSlug });
@@ -65,7 +66,7 @@ public class CreateModel : PageModel
 		//	tran.Commit(); //Or rollback 
 		//}
 
-		//return Page();
+		return Page();
 	}
 }
 

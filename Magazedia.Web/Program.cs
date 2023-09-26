@@ -105,7 +105,7 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Redirect"" url=""https://{{HTTP_HOST}}{{REQUEST_URI}}"" appendQueryString=""false"" redirectType=""308"" />
 				</rule>
 				<rule enabled=""true"" stopProcessing=""true"">
-					<match url=""^sitemap\.xml$"" />
+					<match url=""^info:sitemap$"" />
 					<action type=""Rewrite"" url=""Sitemap"" />
 				</rule>
 				<rule enabled=""true"" stopProcessing=""true"">
@@ -171,7 +171,7 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug={{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
 				</rule>
 				<rule name=""Rewrite Rule"">
-					<match url=""^(?!Create)(?!Dmca)(?!dev/CoverList)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Talk)(?!Article/View)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|webp|css|js|ico|txt|webmanifest)$)(.*)"" />
+					<match url=""^(?!Create)(?!Dmca)(?!Sitemap)(?!dev/CoverList)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Talk)(?!Article/View)(?!DbHelper)(?!TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|webp|css|js|ico|txt|webmanifest)$)(.*)"" />
 					<action type=""Rewrite"" url=""Article/View?UrlSlug={{R:1}}"" appendQueryString=""true"" />
 				</rule>
 			</rules>

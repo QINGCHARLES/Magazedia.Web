@@ -144,6 +144,16 @@ html
 	padding-top: 3rem;
 }
 
+input, textarea
+{
+	border: solid 1px #000;
+}
+
+br
+{
+	margin-bottom: 1rem;
+}
+
 a
 {
 	color: blue;
@@ -349,6 +359,16 @@ article h2, article h3
 	padding-bottom: 0.2rem;
 	padding-top: 1rem;
 	font-family: system-ui, sans-serif;
+}
+
+i, em
+{
+	font-style: italic;
+}
+
+b, strong
+{
+	font-weight: bolder;
 }
 
 p
@@ -563,7 +583,7 @@ a.navbar-brand
 	margin-right: 0;
 	margin-left: auto;
 	display: inline !important;
-	border-radius: 0.5rem 0.5rem;
+	border-radius: 0.2rem;
 	font-family: system-ui, sans-serif;
 	text-decoration: none;
 }
@@ -715,10 +735,11 @@ a
 {
     padding: 5px 8px;
     border: 2px solid #0c0;
-    border-radius: 3px;
+    border-radius: 0.2rem;
     line-height: 20px;
     bbackground-color: #eef;
-    margin: 4px 4px;
+    fmargin: 4px 4px;
+	margin-right: 0.5rem;
     list-style: none;
     display: inline-block;
     bborder-left: 9px solid #222;
