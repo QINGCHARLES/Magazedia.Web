@@ -5,34 +5,39 @@
 @{
 	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
 }
-
+<style>
+    article h1
+    {
+        background: linear-gradient(to bottom, #000c, #000c), url(/sitefiles/1/culture-select.jpeg) center center no-repeat;
+    }
+</style>
 <article class="culture-selection">
-    <h1>Select Culture:</h1>
+    <h1>🤗</h1>
     <div class="languages-circle">
         <img src="/files/dalle-img.png" alt="Central Image" class="central-image" />
         <div class="lang english">
             <a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">English</a>
-            <div>@Model.CultureCount["en"]</div>
+            <div>@Model.CultureCount["en"]+ articles</div>
         </div>
         <div class="lang japanese">
             <a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">日本語</a>
-            <div>@Model.CultureCount["ja"]</div>
+            <div>@Model.CultureCount["ja"]+ 記事</div>
         </div>
         <div class="lang arabic">
             <a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">العربية</a>
-            <div>@Model.CultureCount["ar"]</div>
+            <div>مقالة @Model.CultureCount["ar"]+</div>
         </div>
         <div class="lang french">
             <a href="https://fr.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">Français</a>
-            <div>@Model.CultureCount["fr"]</div>
+            <div>@Model.CultureCount["fr"]+ articles</div>
         </div>
         <div class="lang espanol">
             <a href="https://es.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">Español</a>
-            <div>@Model.CultureCount["es"]</div>
+            <div>@Model.CultureCount["es"]+ artículos</div>
         </div>
         <div class="lang russian">
             <a href="https://ru.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">русский</a>
-            <div>@Model.CultureCount["ru"]</div>
+            <div>@Model.CultureCount["ru"]+ статей</div>
         </div>
     </div>
 </article>
@@ -71,8 +76,8 @@
 
         .lang a {
             text-decoration: none;
-            color: #0645ad;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
             .lang a:hover {

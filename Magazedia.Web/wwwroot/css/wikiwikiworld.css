@@ -342,9 +342,10 @@ article h1
 	font-weight: bold;
 	line-height: .9;
 	color: #fbfbf8;
-	background: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
-	background: linear-gradient(to bottom, #0000, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
-	background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0) 15%, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.6) 100%), url(/sitefiles/1/gqusa.webp) center center no-repeat;
+	bbackground: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
+	bbackground: linear-gradient(to bottom, #000c, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
+	background: linear-gradient(to bottom, #000c, #000c), url(/sitefiles/1/gqusa.webp) center center no-repeat;
+	bbackground: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0) 15%, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.6) 100%), url(/sitefiles/1/gqusa.webp) center center no-repeat;
 	background-size: cover;
 	padding-top: 30vh;
 	margin-bottom: 4rem;
@@ -543,31 +544,41 @@ article > p
 header
 {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
-	box-sizing: border-box;
 	position: absolute;
 	width: 100%;
-	background: transparent;
-	z-index: 2;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
-
-nav div
+nav
 {
 	display: flex;
+	width: 100%;
+	max-width: 1200px;
+	padding: 15px;
 	justify-content: space-between;
+	align-items: center;
 }
 
-
-a.navbar-brand
+nav ul
 {
-	white-space: normal;
-	text-align: center;
-	word-break: break-all;
+	list-style: none;
 }
 
+.nav-left, .nav-right
+{
+	display: flex;
+	gap: 15px;
+}
 
+.logo-svg
+{
+	transform: rotate(-15deg);
+	max-height: 3rem;
+}
 
 .btn-primary
 {
