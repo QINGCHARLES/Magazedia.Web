@@ -7,20 +7,38 @@ namespace Magazedia;
 
 public static class Helpers
 {
+	// Converts bytes to a string, e.g. 1.45MB
+	public static string HumanReadableByteCount(long Bytes, bool Si)
+	{
+		int Unit = Si ? 1000 : 1024;
+		long AbsBytes = Bytes == long.MinValue ? long.MaxValue : Math.Abs(Bytes);
+		if (AbsBytes < Unit) return Bytes + " B";
+		int Exp = (int)(Math.Log(AbsBytes) / Math.Log(Unit));
+		long Th = (long)Math.Ceiling(Math.Pow(Unit, Exp) * (Unit - 0.05));
+		if (Exp < 6 && AbsBytes >= Th - ((Th & 0xFFF) == 0xD00 ? 51 : 0)) Exp++;
+		string Pre = (Si ? "kMGTPE" : "KMGTPE")[Exp - 1] + (Si ? "" : "i");
+		if (Exp > 4)
+		{
+			Bytes /= Unit;
+			Exp -= 1;
+		}
+		return string.Format("{0:F1} {1}B", Bytes / Math.Pow(Unit, Exp), Pre);
+	}
+
 	// Takes the UrlSlug for an image Article and returns the most recent FileRevisions row
 	public static string GetImageFilenameFromArticleUrlSlug(string ArticleUrlSlug, SqlConnection Connection)
 	{
 		//TODO: Does not handle Culture and SiteId
-        string SqlQuery = @"SELECT TOP 1 FileRevisions.*
+		string SqlQuery = @"SELECT TOP 1 FileRevisions.*
 							FROM Articles
 							JOIN FileRevisions FileRevisions ON Articles.Id = FileRevisions.ArticleId
 							WHERE Articles.UrlSlug = @ArticleUrlSlug
 							AND FileRevisions.DateDeleted IS NULL
 							ORDER BY FileRevisions.DateCreated DESC;";
 
-        WikiWikiWorld.Models.FileRevision FileRevision = Connection.QuerySingle<WikiWikiWorld.Models.FileRevision>(SqlQuery, new { ArticleUrlSlug });
+		WikiWikiWorld.Models.FileRevision FileRevision = Connection.QuerySingle<WikiWikiWorld.Models.FileRevision>(SqlQuery, new { ArticleUrlSlug });
 
-        return FileRevision.FileName;
+		return FileRevision.FileName;
 	}
 
 	public static string GetCultureFromHostname(string Hostname, string DefaultCulture)
@@ -78,7 +96,7 @@ public static class Helpers
 	{
 		string Result = "";
 
-		while(Number > 0)
+		while (Number > 0)
 		{
 			Number--; // Adjusting the number to start from 0
 			int Remainder = Number % 26; // Get the remainder after division by 26
