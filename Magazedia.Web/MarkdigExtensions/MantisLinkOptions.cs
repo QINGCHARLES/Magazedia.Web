@@ -12,7 +12,7 @@ namespace MarkdigMantisLink
 
     private bool _openInNewWindow;
 
-    private string _url;
+    private string? _url;
 
     #endregion
 
@@ -52,7 +52,7 @@ namespace MarkdigMantisLink
 
     public string Url
     {
-      get { return _url; }
+      get { return _url!; }
       set { _url = value; }
     }
 

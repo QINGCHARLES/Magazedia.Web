@@ -19,10 +19,10 @@ public class TalkModel : BasePageModel
 	//public ArticleTalkSubjectPost TalkPost { get; set; }
 
 	[BindProperty, Required, StringLength(300)]
-	public string Subject { get; set; }
+	public string? Subject { get; set; }
 
 	[BindProperty, Required, StringLength(2000)]
-	public string Text { get; set; }
+	public string? Text { get; set; }
 
 	public TalkModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 

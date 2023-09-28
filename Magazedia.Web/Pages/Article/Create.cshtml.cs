@@ -29,7 +29,7 @@ public class CreateModel : BasePageModel
 		ArticleText = Request.Form[nameof(ArticleText)];
 		ArticleTitle = Request.Form[nameof(ArticleTitle)];
 
-		int SiteId = 1;
+		//int SiteId = 1;
 
 		ClaimsPrincipal? User = HttpContextAccessor.HttpContext?.User;
 		string Username = User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "7240be61-df81-46f9-8152-6a48b96abc40";// "Anonymous";
@@ -37,7 +37,7 @@ public class CreateModel : BasePageModel
 		using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 		var SlugOptions = new UnicodeSlug.SlugOptions();
-		string UrlSlug = SlugOptions.GenerateSlug(ArticleTitle);
+		string UrlSlug = SlugOptions.GenerateSlug(ArticleTitle!);
 		//string ArticleRevisionReason = "Created";
 		//var SqlQuery = "INSERT Articles (Title, UrlSlug, [Text], RevisionReason, CreatedByAspNetUserId, SiteId, Language) VALUES (@Title, @UrlSlug, @Text, @RevisionReason, @CreatedByAspNetUserId, @SiteId, @Language);";
 		//var res = Connection.Execute(SqlQuery, new { Title = ArticleTitle, UrlSlug = UrlSlug, Text = ArticleText, RevisionReason = ArticleRevisionReason, CreatedByAspNetUserId = Username, SiteId = 1, Language = Language });

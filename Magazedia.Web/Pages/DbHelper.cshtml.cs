@@ -18,11 +18,11 @@ namespace Magazedia.Web.Pages
 		public bool IsMagazine { get; set; }
 
 		private readonly IConfiguration Config;
-		private readonly string Language;
+		//private readonly string Language;
 		public DbHelperModel(IConfiguration Config)
 		{
 			this.Config = Config;
-			Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
+			//Language = "en";// Magazedia.Helpers.GetLanguage(HttpContext.Request.Host.Host);
 		}
 
 		public IActionResult OnPost()
