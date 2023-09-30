@@ -177,7 +177,10 @@ h1
 	font-weight: 800;
 	letter-spacing: -0.05em;
 	text-transform: uppercase;
+	text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191, 1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191, 1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191, 1px 10px 1px #919191, 1px 18px 6px rgba(80,80,80,0.4), 1px 22px 10px rgba(80,80,80,0.2), 1px 25px 35px rgba(80,80,80,0.2), 1px 30px 60px rgba(80,80,80,0.4);
 }
+
+
 
 article aside
 {
@@ -345,7 +348,7 @@ article h1
 	margin: 0 auto;
 	text-align: center;
 	font-size: 2rem;
-	font-weight: bold;
+	ffont-weight: bold;
 	line-height: .9;
 	color: #fbfbf8;
 	bbackground: linear-gradient(to bottom, #0000, #000c), url(https://images.unsplash.com/photo-1500417148159-68083bd7333a) center center no-repeat;
@@ -355,7 +358,7 @@ article h1
 	background-size: cover;
 	padding-top: 30vh;
 	margin-bottom: 4rem;
-	text-shadow: 0 3px 1px #444;
+	ftext-shadow: 0 3px 1px #444;
 	padding-bottom: 3rem;
 }
 
