@@ -177,16 +177,80 @@ h1
 	font-weight: 800;
 	letter-spacing: -0.05em;
 	text-transform: uppercase;
-	text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191, 1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191, 1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191, 1px 10px 1px #919191, 1px 18px 6px rgba(80,80,80,0.4), 1px 22px 10px rgba(80,80,80,0.2), 1px 25px 35px rgba(80,80,80,0.2), 1px 30px 60px rgba(80,80,80,0.4);
+	text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191, 1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191, 1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191, 1px 10px 1px #919191, 1px 18px 6px rgba(60,60,60,0.4), 1px 22px 10px rgba(60,60,60,0.2), 1px 25px 35px rgba(60,60,60,0.2), 1px 30px 60px rgba(60,60,60,0.4);
 }
 
+.download-button
+{
+	display: flex;
+	align-items: center;
+	fpadding: 1rem;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
 
+.icon-container,
+.filetype-icon-container
+{
+	width: 3rem;
+	height: 3rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.download-icon
+{
+	width: 1rem;
+	height: 1rem;
+}
+
+.text-container
+{
+	flex-grow: 1;
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+
+.download-text
+{
+	font-weight: bold;
+}
+
+.file-info
+{
+	display: flex;
+	flex-direction: column;
+	margin-left: 1rem;
+}
+
+.filename,
+.filesize
+{
+	font-size: 0.8rem;
+}
+
+.primary-indicator
+{
+	margin-left: 1rem;
+	font-size: 0.8rem;
+	font-weight: bold;
+	background-color: #ffcc00;
+	padding: 0.2rem 0.5rem;
+	border-radius: 0.25rem;
+	display: none;
+	visibility: hidden;
+}
 
 article aside
 {
 	float: unset;
 	width: unset;
-	padding: 20px;
+	fpadding: 20px;
 	background-color: #f9f9f9;
 	border: 1px solid #aaa;
 	border-radius: 4px;
@@ -355,6 +419,14 @@ article h1
 	bbackground: linear-gradient(to bottom, #000c, #000c), url(/sitefiles/1/fruits.webp) center center no-repeat;
 	background: linear-gradient(to bottom, #000c, #000c), url(/sitefiles/1/gqusa.webp) center center no-repeat;
 	bbackground: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0) 15%, rgba(0,0,0,0.0) 80%, rgba(0,0,0,0.6) 100%), url(/sitefiles/1/gqusa.webp) center center no-repeat;
+	background: 
+				linear-gradient(90deg, #ffffff 0, rgba(255,255,255,.986) 0.485%, rgba(255,255,255,.945) 1.03916667%, rgba(255,255,255,.883) 1.64833333%, rgba(255,255,255,.803) 2.30083333%, rgba(255,255,255,.711) 2.98333333%, rgba(255,255,255,.61) 3.6825%, rgba(255,255,255,.504) 4.38583333%, rgba(255,255,255,.398) 5.08%, rgba(255,255,255,.296) 5.7525%, rgba(255,255,255,.203) 6.39%, rgba(255,255,255,.122) 6.97916667%, rgba(255,255,255,.059) 7.50833333%, rgba(255,255,255,.016) 7.96416667%, rgba(255,255,255,0) 8.33333333%, rgba(255,255,255,0) 91.66666667%, rgba(255,255,255,.016) 92.03583334%, rgba(255,255,255,.059) 92.49166667%, rgba(255,255,255,.122) 93.02083334%, rgba(255,255,255,.203) 93.61%, rgba(255,255,255,.296) 94.2475%, rgba(255,255,255,.398) 94.92%, rgba(255,255,255,.504) 95.61416667%, rgba(255,255,255,.61) 96.3175%, rgba(255,255,255,.711) 97.01666667%, rgba(255,255,255,.803) 97.69916667%, rgba(255,255,255,.883) 98.35166667%, rgba(255,255,255,.945) 98.96083333%, rgba(255,255,255,.986) 99.515%, #ffffff),
+				linear-gradient(0deg, #ffffff 0, #ffffff 10.74074074%, rgba(255,255,255,.986) 11.81851852%, rgba(255,255,255,.945) 13.05%, rgba(255,255,255,.883) 14.4037037%, rgba(255,255,255,.803) 15.8537037%, rgba(255,255,255,.711) 17.37037037%, rgba(255,255,255,.61) 18.92407407%, rgba(255,255,255,.504) 20.48703703%, rgba(255,255,255,.398) 22.02962963%, rgba(255,255,255,.296) 23.52407407%, rgba(255,255,255,.203) 24.94074074%, rgba(255,255,255,.122) 26.25%, rgba(255,255,255,.059) 27.42592592%, rgba(255,255,255,.016) 28.43888889%, rgba(255,255,255,0) 29.25925926%),
+				linear-gradient(to bottom, #3338, #fff0),
+				url(/sitefiles/1/gqusa.webp) center center no-repeat;
+
+ffill: 				linear-gradient(0deg, #ffffff 0, #ffffff 21.48148148%, rgba(255,255,255,.986) 23.63703704%, rgba(255,255,255,.945) 26.1%, rgba(255,255,255,.883) 28.80740741%, rgba(255,255,255,.803) 31.70740741%, rgba(255,255,255,.711) 34.74074074%, rgba(255,255,255,.61) 37.84814815%, rgba(255,255,255,.504) 40.97407407%, rgba(255,255,255,.398) 44.05925926%, rgba(255,255,255,.296) 47.04814815%, rgba(255,255,255,.203) 49.88148148%, rgba(255,255,255,.122) 52.5%, rgba(255,255,255,.059) 54.85185185%, rgba(255,255,255,.016) 56.87777778%, rgba(255,255,255,0) 58.51851852%),;
+
 	background-size: cover;
 	padding-top: 30vh;
 	margin-bottom: 4rem;
@@ -661,3 +733,197 @@ nav ul
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
+:root
+{
+	--gray-light: #d9d9d9;
+	--gray-mid: #808080;
+	--gray-dark: #333333;
+	--icon-distance: 1.5rem;
+}
+
+a[download]
+{
+	font-size: 1.5rem;
+	font-weight: 500;
+	padding-left: var(--icon-distance);
+}
+
+	a[download]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-download.svg);
+		display: inline-block;
+		height: 2rem;
+		position: relative;
+		top: 0.75rem;
+		right: var(--icon-distance);
+		width: 2rem;
+	}
+
+	a[download][href$=".mov"]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-movie.svg);
+	}
+
+	a[download][href$=".m4a"]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-podcast.svg);
+	}
+
+	a[download][href$=".pdf"]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-manual.svg);
+	}
+
+	a[download][href$=".mp3"]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-music.svg);
+	}
+
+	a[download][href$=".zip"]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-zip.svg);
+	}
+
+	a[download][href$=".txt"]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-script.svg);
+	}
+
+	a[download][href$=".stl"]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-3d.svg);
+	}
+
+	a[download][href$=".docx"]::before
+	{
+		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-documentation.svg);
+	}
+
+/*body
+{
+	color: var(--gray-dark);
+	font-family: "Barlow", sans-serif;
+	font-size: 18px;
+	margin: 1.5rem 1.5rem 3rem 1.5rem;
+}*/
+/*
+@media screen and (min-width: 30em)
+{
+	body
+	{
+		margin: 2rem 2rem 4rem 2rem;
+	}
+}
+
+p
+{
+	margin: 0;
+}
+
+small
+{
+	font-size: 1em;
+}
+
+a
+{
+	color: #3477db;
+	-webkit-text-decoration-skip: ink;
+	text-decoration-skip: ink;
+}
+
+	a:focus, a:hover
+	{
+		color: #1e90ff;
+		text-decoration: none;
+	}
+
+	a:active
+	{
+		color: #1f3a93;
+	}
+*/
+abbr[title]
+{
+	border-bottom: 1px dotted;
+	cursor: help;
+	text-decoration: none;
+}
+
+.disclosure
+{
+	margin-bottom: 2em;
+}
+
+@media screen and (min-width: 30em)
+{
+	.rewards
+	{
+		border: 1px solid var(--gray-light);
+		border-radius: 0.75rem;
+		padding: 1.5rem 2rem 3rem 2rem;
+	}
+
+	@supports (display: grid)
+	{
+		.rewards
+		{
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+			grid-auto-rows: minmax(5rem, auto);
+			grid-gap: 2rem;
+		}
+	}
+}
+
+.download
+{
+	margin-top: 2rem;
+}
+
+@media screen and (min-width: 30em)
+{
+	@supports (display: grid)
+	{
+		.download
+		{
+			margin-top: 0;
+		}
+	}
+}
+
+.download__instructions
+{
+	color: var(--gray-dark);
+	line-height: 1.3;
+	padding-top: 0.4rem;
+	padding-left: 3.6rem;
+}
+
+.download__properties
+{
+	color: var(--gray-mid);
+	display: block;
+	font-size: 80%;
+	text-transform: uppercase;
+	margin-top: 0.65em;
+}
+
+.sr-only
+{
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.download p
+{ 
+margin:0;
+
+}
