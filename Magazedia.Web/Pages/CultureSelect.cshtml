@@ -8,13 +8,18 @@
 <style>
     article h1
     {
-        background: linear-gradient(to bottom, #000c, #000c), url(/sitefiles/1/culture-select.jpeg) center center no-repeat;
+        background: linear-gradient(to bottom, #000c, #000c), url(/sitefiles/1/culture-select.jpg) center center no-repeat;
+	background: 
+				linear-gradient(90deg, #ffffff 0, rgba(255,255,255,.986) 0.485%, rgba(255,255,255,.945) 1.03916667%, rgba(255,255,255,.883) 1.64833333%, rgba(255,255,255,.803) 2.30083333%, rgba(255,255,255,.711) 2.98333333%, rgba(255,255,255,.61) 3.6825%, rgba(255,255,255,.504) 4.38583333%, rgba(255,255,255,.398) 5.08%, rgba(255,255,255,.296) 5.7525%, rgba(255,255,255,.203) 6.39%, rgba(255,255,255,.122) 6.97916667%, rgba(255,255,255,.059) 7.50833333%, rgba(255,255,255,.016) 7.96416667%, rgba(255,255,255,0) 8.33333333%, rgba(255,255,255,0) 91.66666667%, rgba(255,255,255,.016) 92.03583334%, rgba(255,255,255,.059) 92.49166667%, rgba(255,255,255,.122) 93.02083334%, rgba(255,255,255,.203) 93.61%, rgba(255,255,255,.296) 94.2475%, rgba(255,255,255,.398) 94.92%, rgba(255,255,255,.504) 95.61416667%, rgba(255,255,255,.61) 96.3175%, rgba(255,255,255,.711) 97.01666667%, rgba(255,255,255,.803) 97.69916667%, rgba(255,255,255,.883) 98.35166667%, rgba(255,255,255,.945) 98.96083333%, rgba(255,255,255,.986) 99.515%, #ffffff),
+				linear-gradient(0deg, #ffffff 0, #ffffff 10.74074074%, rgba(255,255,255,.986) 11.81851852%, rgba(255,255,255,.945) 13.05%, rgba(255,255,255,.883) 14.4037037%, rgba(255,255,255,.803) 15.8537037%, rgba(255,255,255,.711) 17.37037037%, rgba(255,255,255,.61) 18.92407407%, rgba(255,255,255,.504) 20.48703703%, rgba(255,255,255,.398) 22.02962963%, rgba(255,255,255,.296) 23.52407407%, rgba(255,255,255,.203) 24.94074074%, rgba(255,255,255,.122) 26.25%, rgba(255,255,255,.059) 27.42592592%, rgba(255,255,255,.016) 28.43888889%, rgba(255,255,255,0) 29.25925926%),
+				linear-gradient(to bottom, #3338, #fff0), url(/sitefiles/1/culture-select.jpg) center center no-repeat;
+
     }
 </style>
 <article class="culture-selection">
     <h1>🤗</h1>
     <div class="languages-circle">
-        <img src="/files/dalle-img.png" alt="Central Image" class="central-image" />
+        <img src="/files/magazedia-culture-select.jpg" alt="Central Image" class="central-image" />
         <div class="lang english">
             <a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">English</a>
             <div>@Model.CultureCount["en"]+ articles</div>
@@ -46,15 +51,15 @@
     
     .culture-selection {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        background-color: #f6f6f6;
+        fbackground-color: #f6f6f6;
         text-align: center;
         margin-bottom: 2rem;
     }
 
     .languages-circle {
         position: relative;
-        width: 7rem;
-        height: 7rem;
+        width: 12rem;
+        height: 12rem;
         margin: 0 auto;
     }
 
@@ -86,7 +91,7 @@
 
     .english {
         top: 50%;
-        left: 50%;
+        left: 20%;
         transform: translate(-50%, -50%) rotate(240deg) translate(125px) rotate(-240deg);
         
     }
