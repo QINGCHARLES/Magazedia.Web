@@ -67,7 +67,7 @@ namespace Magazedia.Web.Pages
 									GROUP BY ArticleId
 								)
 
-								SELECT Articles.Title, Articles.UrlSlug, ArticleRevisions.[Text]
+								SELECT TOP(100) Articles.Title, Articles.UrlSlug, ArticleRevisions.[Text]
 								FROM Articles
 								JOIN ArticleRevisions ON Articles.Id = ArticleRevisions.ArticleId
 								JOIN LatestRevisions ON ArticleRevisions.ArticleId = LatestRevisions.ArticleId AND ArticleRevisions.DateCreated = LatestRevisions.MaxDateCreated
