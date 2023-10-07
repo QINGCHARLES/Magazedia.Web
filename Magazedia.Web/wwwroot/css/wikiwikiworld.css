@@ -799,6 +799,30 @@ a[download]
 		content: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/11907/download-icon-documentation.svg);
 	}
 
+input[type=text], input[type=email], input[type=tel], input[type=password], select
+{
+	fmargin: auto;
+	display: block;
+	outline: none;
+	fpadding: calc((3rem - (1rem * 1.5) - (0.125rem * 2)) / 2) calc(1rem * 1.5);
+	padding: 0.5rem 1rem;
+	font-size: 1.5rem !important;
+	border-radius: .75rem;
+	width: 25rem;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 0.3rem;
+	border-color: lightgreen;
+	background-repeat: no-repeat;
+	background-position: .9rem 1.2rem; /* Adjust this to move the icon */
+	background-size: 2rem; /* Size of the icon */
+}
+
+	input[type=text]::placeholder, input[type=email]::placeholder, input[type=tel]::placeholder, input[type=password]::placeholder
+	{ /* Chrome, Firefox, Opera, Safari 10.1+ */
+		color: #bbb;
+	}
+
 /*body
 {
 	color: var(--gray-dark);
