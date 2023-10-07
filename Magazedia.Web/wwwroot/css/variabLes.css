@@ -1,0 +1,51 @@
+:root {
+    /* Tiny Font Sizes */
+    --font-size-tiny-12: 0.75rem; /* 15.75px */
+    --font-size-tiny-13: 0.8125rem; /* 17.0625px */
+    --font-size-tiny-14: 0.875rem; /* 18.375px */
+    --font-size-tiny-15: 0.9375rem; /* 19.6875px */
+    --font-size-tiny-16: 1rem; /* 21px */
+    /* Font sizes */
+    --font-size-small: 1.3125rem; /* 27.5625px */
+    --font-size-regular: 1.5rem; /* 31.5px */
+    --font-size-medium: 1.875rem; /* 39.375px */
+    --font-size-large: 2.25rem; /* 47.25px */
+    --font-size-extra-large: 3rem; /* 63px */
+    /* Spacing */
+    --space-xs: 0.75rem; /* 15.75px */
+    --space-sm: 1.3125rem; /* 27.5625px */
+    --space-md: 2.25rem; /* 47.25px */
+    --space-lg: 3rem; /* 63px */
+    --space-xl: 6rem; /* 126px */
+    /* Border Width */
+    --border-width-thin: 0.09375rem; /* 1.96875px */
+    --border-width-normal: 0.1875rem; /* 3.9375px */
+    --border-width-thick: 0.375rem; /* 7.875px */
+    /* Border Radius */
+    --border-radius-small: 0.375rem; /* 7.875px */
+    --border-radius-medium: 0.75rem; /* 15.75px */
+    --border-radius-large: 1.5rem; /* 31.5px */
+    /* Colors */
+    --color-primary: #007bff;
+    --color-secondary: #6c757d;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-info: #17a2b8;
+    --color-light: #f8f9fa;
+    --color-dark: #343a40;
+    --color-black: #000;
+    --color-white: #fff;
+    /* Box Shadows */
+    --box-shadow-small: 0 0.1875rem 0.375rem rgba(0,0,0,0.1);
+    --box-shadow-medium: 0 0.5625rem 1.40625rem rgba(0,0,0,0.2);
+    --box-shadow-large: 0 1.3125rem 2.8125rem rgba(0,0,0,0.3);
+    /* Extra Variables */
+    --line-height-normal: 1.6;
+    --line-height-dense: 1.4;
+    --line-height-loose: 1.8;
+    --z-index-default: 1;
+    --z-index-tooltip: 1000;
+    --z-index-modal: 2000;
+    --transition-default: all 0.3s ease-in-out;
+}
