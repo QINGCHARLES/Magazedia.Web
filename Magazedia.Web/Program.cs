@@ -147,7 +147,7 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=category:{{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
-					<match url=""^create-article:"" />
+					<match url=""^create:"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Create"" />
 				</rule>
 				<rule enabled=""true"">
