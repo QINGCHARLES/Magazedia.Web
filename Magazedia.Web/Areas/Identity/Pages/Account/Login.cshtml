@@ -2,164 +2,182 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+	ViewData["Title"] = "Log in";
 }
 <article>
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section class="login-section">
-            <form id="account" method="post">
-                    <hr class="login-divider" />
-                <div class="login-container">
-                   
-                    <div class="form-container">
-                        <input asp-for="Input.UserName" class="form-input" autocomplete="username" aria-required="true" placeholder="Username" />
-                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
-                    </div>
-                    <div class="form-container">
-                        <input asp-for="Input.Password" class="form-input" autocomplete="current-password" aria-required="true" placeholder="Password" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                    <div class="checkbox-container">
-                        <div class="remember-bar">
-                            <input class="form-check-input" asp-for="Input.RememberMe" />
-                            <span>@Html.DisplayNameFor(m => m.Input.RememberMe)</span>
-                            <button id="login-submit" type="submit">Log in</button>
-                        </div>
-                    </div>
-                   
-               
-                
-                    <div class="help-bar">
-                        
-                        <p>
-                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                        </p>
-                        <p>
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                        </p>
-                        @* <p>
-                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                        </p> *@
-                    </div>
-                </div>
-                    <hr class="login-divider" />
-            </form>
-        </section>
-    </div>
-    
-</div>
+	<h1>@ViewData["Title"]</h1>
+	<div class="row">
+		<div class="col-md-4">
+			<section class="login-section">
+				<form id="account" method="post">
+					<hr class="login-divider" />
+					<div class="login-container">
+						<div class="form-container input-wrapper">
+							<label for="Input.Username">Username</label>
+							<input asp-for="Input.UserName" class="form-input" autocomplete="username" aria-required="true" placeholder="Username" />
+							<span asp-validation-for="Input.UserName" class="text-danger"></span>
+						</div>
+						<div class="form-container input-wrapper">
+							<label for="Input.Password">Password</label>
+							<input asp-for="Input.Password" class="form-input" autocomplete="current-password" aria-required="true" placeholder="Password" />
+							<span asp-validation-for="Input.Password" class="text-danger"></span>
+						</div>
+						<div class="checkbox-container">
+							<div class="remember-bar">
+								<input class="form-check-input" asp-for="Input.RememberMe" />
+								<span>@Html.DisplayNameFor(m => m.Input.RememberMe)</span>
+								<button class="button primary-button" id="login-submit" type="submit">Log in</button>
+							</div>
+						</div>
+
+
+
+						<div class="help-bar">
+
+							<p>
+								<a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+							</p>
+							<p>
+								<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+							</p>
+							@* <p>
+							<a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+							</p> *@
+						</div>
+					</div>
+					<hr class="login-divider" />
+				</form>
+			</section>
+		</div>
+
+	</div>
 </article>
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
 }
 
 <style>
-    .login-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
+	.login-section
+	{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+	}
 
-    .login-title {
-        font-size: 1.5rem;
-        color: #333;
-        margin-bottom: 1rem;
-        text-align: center;
-        margin-right: 5rem;
-    }
+	.login-title
+	{
+		font-size: 1.5rem;
+		color: #333;
+		margin-bottom: 1rem;
+		text-align: center;
+		margin-right: 5rem;
+	}
 
-    .login-divider {
-        border-color: #ccc;
-        margin-bottom: 1.5rem;
-    }
+	.login-divider
+	{
+		border-color: #ccc;
+		margin-bottom: 1.5rem;
+	}
 
-    .login-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: calc(100% - 2rem);
-        padding: 2rem;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        border-radius: 0.5rem;
-        margin: 0 auto;
-    }
+	.login-container
+	{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: calc(100% - 2rem);
+		padding: 2rem;
+		box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+		border-radius: 0.5rem;
+		margin: 0 auto;
+	}
 
-    .form-container {
-        width: 100%;
-        max-width: calc(100% - 2rem);
-        margin-bottom: 1rem;
-        position: relative;
-    }
+	.form-container
+	{
+		width: 100%;
+		max-width: calc(100% - 2rem);
+		margin-bottom: 1rem;
+		position: relative;
+	}
 
-    .form-input {
-        padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 0.5rem;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-        margin-right: 3rem;
-    }
+	.form-input
+	{
+		padding: 0.75rem;
+		border: 1px solid #ccc;
+		border-radius: 0.5rem;
+		transition: all 0.3s ease;
+		font-size: 1rem;
+		margin-right: 3rem;
+	}
 
-        .form-input:hover,
-        .form-input:focus {
-            border-color: #00FF00;
-            box-shadow: 0 0 0.5rem rgba(0, 123, 255, 0.25);
-        }
+		.form-input:hover,
+		.form-input:focus
+		{
+			border-color: #00FF00;
+			box-shadow: 0 0 0.5rem rgba(0, 123, 255, 0.25);
+		}
 
-    .checkbox-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
+	.checkbox-container
+	{
+		display: flex;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
 
-    .form-check-input {
-        margin-right: 0.5rem;
-    }
+	.form-check-input
+	{
+		margin-right: 0.5rem;
+	}
 
-    #login-submit {
-        background-color: #32CD32;
-        color: #fff;
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+	#flogin-submit
+	{
+		background-color: #32CD32;
+		color: #fff;
+		padding: 0.75rem 1.5rem;
+		border: none;
+		border-radius: 0.5rem;
+		font-size: 1rem;
+		cursor: pointer;
+		transition: all 0.3s ease;
+	}
 
-    #login-submit:hover {
-        background-color: #00FF00;
-        box-shadow: 0 0 0.5rem rgba(0, 123, 255, 0.25);
-    }
+	#login-submit:hover
+	{
+		background-color: #00FF00;
+		box-shadow: 0 0 0.5rem rgba(0, 123, 255, 0.25);
+	}
 
-    .help-bar {
-        text-align: justify;
-        padding: 1rem 0;
-        margin-top: auto;
-    }
-    .remember-bar button{
-        margin-left: 3rem;
-    }
-    
+	.help-bar
+	{
+		text-align: justify;
+		padding: 1rem 0;
+		margin-top: auto;
+	}
 
-    .help-bar:after {
-        content: "";
-        display: inline-block;
-        width: 100%;
-    }
+	.remember-bar button
+	{
+		margin-left: 3rem;
+	}
 
-    .help-bar p {
-        display: inline;
-        margin: 0;
-        margin-right: 1rem;
-    }
 
-    .help-bar p:last-child {
-        margin-right: 0; 
-    }
+	.help-bar:after
+	{
+		content: "";
+		display: inline-block;
+		width: 100%;
+	}
+
+	.help-bar p
+	{
+		display: inline;
+		margin: 0;
+		margin-right: 1rem;
+	}
+
+		.help-bar p:last-child
+		{
+			margin-right: 0;
+		}
 </style>
 @* <div class="col-md-6 col-md-offset-2">
         <section>

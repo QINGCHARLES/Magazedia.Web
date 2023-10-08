@@ -1,4 +1,4 @@
-/*#region CSS Reset*/
+﻿/*#region CSS Reset*/
 
 /***
     The new CSS reset - version 1.11 (last updated 20.9.2023)
@@ -89,7 +89,7 @@ meter
 	color: unset;
 }
 
-/* remove default dot (�) sign */
+/* remove default dot (•) sign */
 ::marker
 {
 	content: initial;
@@ -604,6 +604,134 @@ tr:hover
 	{
 		font-size: 21px;
 	}
+}
+
+.input-wrapper
+{
+	position: relative;
+}
+
+	.input-wrapper input
+	{
+		fborder: 1px solid gray;
+		fborder-radius: 6px;
+		position: relative;
+		width: 200px;
+		fmargin: 10px;
+		fline-height: 6ex;
+	}
+
+	.input-wrapper label
+	{
+		transition: opacity 0.2s ease;
+		opacity: 0;
+	}
+
+input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder, input[type="tel"]::placeholder
+{
+	transition: opacity 0.2s ease;
+}
+
+input[type="text"]:focus::placeholder, input[type="password"]:focus::placeholder, input[type="email"]:focus::placeholder, input[type="tel"]:focus::placeholder
+{
+	opacity: 0;
+}
+
+.input-wrapper:focus-within label
+{
+	fvisibility: visible;
+	opacity: 1;
+}
+
+.input-wrapper label
+{
+	fvisibility: hidden;
+	position: absolute;
+	top: -0.7rem;
+	font-size: 1rem;
+	z-index: 1;
+	left: 2rem;
+	background-color: white;
+	padding: 0 2px;
+	color: black;
+	color: #bbb;
+}
+
+input[type=text], input[type=password], input[type=email]
+{
+	font-family: sans-serif;
+}
+
+label, input[type=button], input[type=submit], button
+{
+	font-weight: bold;
+	font-size: 1.5rem;
+	font-family: sans-serif;
+}
+
+input[type=button], input[type=submit], button
+{
+	border-radius: .75rem;
+	padding: 0.5rem 1.5rem;
+}
+
+.button
+{
+	transition: all ease 0.1s;
+	border: 0.3rem solid #000;
+}
+
+.primary-button
+{
+	background: lightgreen;
+	font-weight: bold;
+	color: black;
+	border-color: lightgreen;
+}
+
+	.primary-button:hover
+	{
+		background: #fff;
+	}
+
+	.primary-button::after
+	{
+		content: "→";
+	}
+
+	.primary-button:hover::after
+	{
+		content: "⇒";
+	}
+
+.secondary-button
+{
+	font-weight: normal;
+	border-color: #eee;
+	color: #777;
+	background: #eee;
+}
+
+	.secondary-button:hover
+	{
+		border-color: #eee;
+		background-color: #fff;
+	}
+
+	.secondary-button::before
+	{
+		content: "←";
+	}
+
+	.secondary-button:hover::before
+	{
+		content: "⇐";
+	}
+
+.twobuttons
+{
+	display: flex;
+	justify-content: space-between;
 }
 
 /* Device does not support hover (e.g. touchscreen) */
