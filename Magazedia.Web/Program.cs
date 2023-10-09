@@ -148,7 +148,7 @@ using (TextReader sr = new StringReader(@$"
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^create:"" />
-					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Create"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Create"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/talk$"" />
@@ -171,7 +171,7 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug={{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
 				</rule>
 				<rule name=""Rewrite Rule"">
-					<match url=""^(?!Create)(?!Dmca)(?!Sitemap)(?!dev/CoverList)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Article/Talk)(?!Article/View)(?!DbHelper)(?!Article/TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|webp|css|js|ico|txt|webmanifest)$)(.*)"" />
+					<match url=""^(?!Article/Create)(?!Dmca)(?!Sitemap)(?!dev/CoverList)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Article/Talk)(?!Article/View)(?!DbHelper)(?!Article/TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|webp|css|js|ico|txt|webmanifest)$)(.*)"" />
 					<action type=""Rewrite"" url=""Article/View?UrlSlug={{R:1}}"" appendQueryString=""true"" />
 				</rule>
 			</rules>
