@@ -16,7 +16,8 @@
 	<h1>@Html.Raw(Model.ArticleTitle)</h1>
 	
 	@Html.Raw(Model.ArticleText)
-
+</article>
+<section>
 	@if (Model.ArticleCultureLinks != null)
 	{
 		foreach (var ArticleCultureLink in Model.ArticleCultureLinks)
@@ -56,4 +57,4 @@
 			}
 		}
 	}
-</article>
+</section>
