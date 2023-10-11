@@ -3,9 +3,9 @@
 @{
 	ViewData["Title"] = Model.ArticleTitle + " Talk: " + Model.TalkSubject;
 }
-
-<h1>@Model.ArticleTitle Talk subject: @Model.TalkSubject</h1>
-
+<article>
+<h1>@Model.ArticleTitle<br /> @Model.TalkSubject</h1>
+</article>
 <table class="table">
 	<thead>
 		<tr><th>Text</th><th>Username</th><th>When</th></tr>
