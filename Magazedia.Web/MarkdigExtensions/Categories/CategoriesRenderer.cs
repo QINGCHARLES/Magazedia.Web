@@ -1,14 +1,13 @@
 ﻿using Markdig.Renderers;
 using Markdig.Renderers.Html;
-using Microsoft.AspNetCore.Components.RenderTree;
 
 namespace WikiWikiWorld.MarkdigExtensions;
 
 public class CategoriesRenderer : HtmlObjectRenderer<Categories>
 {
-	private List<WikiWikiWorld.Models.Category> Categories;
+	private List<Models.Category> Categories;
 
-	public CategoriesRenderer(List<WikiWikiWorld.Models.Category> Categories)
+	public CategoriesRenderer(List<Models.Category> Categories)
 	{
 		this.Categories = Categories;
 	}
@@ -28,7 +27,7 @@ public class CategoriesRenderer : HtmlObjectRenderer<Categories>
 
 	private void WriteCategories(HtmlRenderer renderer, Models.Category.PriorityOptions Priority)
 	{
-		foreach (WikiWikiWorld.Models.Category Category in Categories)
+		foreach (Models.Category Category in Categories)
 		{
 			if (Category.Priority == Priority)
 			{

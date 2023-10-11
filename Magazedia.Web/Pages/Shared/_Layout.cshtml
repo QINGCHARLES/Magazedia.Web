@@ -73,21 +73,36 @@
 		</main>
 	</div>
 	<div style="clear: both;"></div>
-	<footer class="border-top footer text-muted">
-		<div class="container">
-			<p>
-				Content is available under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> unless otherwise noted.<br />
-				&copy; 2023 Magazedia - <a href="/dmca:">Copyright & DMCA </a> / <a href="/terms:">Terms of Use</a> / <a href="/privacy-policy:">Privacy Policy</a>
-				<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">en</a> /
-				<a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ja</a> /
-				<a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ar</a> /
-				<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/category:magazines">All magazines</a> /
-				<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/category:magazine-issues">All magazine issues</a> /
-				@if (this.User != null && this.User.Identity != null && this.User.Identity.IsAuthenticated && this.User.Identity.Name == "QINGCHARLES")
-				{
-					@: <a href="https://xx-test.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">xx</a> / <a href="/DbHelper">DbHelper</a>
-				}
-			</p>
+	<footer>
+		<div class="footer-col">
+			Magazedia is the world's largest encyclopedia of magazines, fanzines, journals and newsletters
+
+		</div>
+		<div class="footer-col">
+			<ul>
+				<li><a href="/dmca:">Copyright & DMCA </a></li>
+				<li><a href="/terms:">Terms of Use</a></li>
+				<li><a href="/privacy-policy:">Privacy Policy</a></li>
+			</ul>
+			
+			
+			
+
+		</div>
+		<div class="footer-col">
+			<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">en</a> /
+			<a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ja</a> /
+			<a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ar</a> /
+
+			<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/category:magazines">All magazines</a> /
+			<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/category:magazine-issues">All magazine issues</a> /
+			@if (this.User != null && this.User.Identity != null && this.User.Identity.IsAuthenticated && this.User.Identity.Name == "QINGCHARLES")
+			{
+				@: <a href="https://xx-test.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">xx</a> / <a href="/DbHelper">DbHelper</a>
+			}
+			Content is available under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> unless otherwise noted.<br />
+			&copy; 2021-2023 Magazedia
+
 		</div>
 	</footer>
 	@*

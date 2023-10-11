@@ -17,7 +17,7 @@
 	
 	@Html.Raw(Model.ArticleText)
 </article>
-<section>
+<section style="margin-left:8rem;">
 	@if (Model.ArticleCultureLinks != null)
 	{
 		foreach (var ArticleCultureLink in Model.ArticleCultureLinks)
@@ -41,9 +41,11 @@
 		}
 	}
 
-	<p><a href="/@Model.UrlSlug/edit">Edit Article</a></p>
-	<p><a href="/@Model.UrlSlug/history">View Edit History</a></p>
-	<p><a href="/@Model.UrlSlug/talk">Talk</a></p>
+	<a class="btn btn-primary" type="button" role="button" href="/@Model.UrlSlug/edit">Edit This Article</a>
+	<a style="margin-left:1rem;" href="/@Model.UrlSlug/history">Edit History</a>
+	<br />
+	<br /><a href="/@Model.UrlSlug/talk">Talk</a>
+	<br /><br />
 
 	@section ArticleLanguageLinksLinkRelAlternates
 	{

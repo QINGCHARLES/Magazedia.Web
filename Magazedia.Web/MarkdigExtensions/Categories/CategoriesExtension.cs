@@ -16,9 +16,9 @@ public class CategoriesExtension : IMarkdownExtension
 
 	public void Setup(MarkdownPipelineBuilder pipeline)
 	{
-		OrderedList<InlineParser> parsers;
+		OrderedList<BlockParser> parsers;
 
-		parsers = pipeline.InlineParsers;
+		parsers = pipeline.BlockParsers;
 
 		if (!parsers.Contains<CategoriesParser>())
 		{

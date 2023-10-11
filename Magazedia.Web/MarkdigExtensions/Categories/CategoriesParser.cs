@@ -1,78 +1,23 @@
-﻿using Markdig.Helpers;
-using Markdig.Parsers;
+﻿using Markdig.Parsers;
 
 namespace WikiWikiWorld.MarkdigExtensions;
 
-public class CategoriesParser : InlineParser
+public class CategoriesParser : BlockParser
 {
 	public CategoriesParser()
 	{
-		this.OpeningCharacters = new[] { '{' };
+		OpeningCharacters = new[] { '{' };
 	}
 
-	public override bool Match(InlineProcessor processor, ref StringSlice slice)
+	public override BlockState TryOpen(BlockProcessor processor)
 	{
-		bool matchFound = false;
-		char current;
-		int start;
-		int end;
-
-		slice.NextChar(); // skip the starting character
-		current = slice.CurrentChar;
-		if (current != '{') return false;
-
-		string expectedTag = "Categories";
-
-		for (int i = 0; i < expectedTag.Length; i++)
+		if (processor.Line.Match("{{Categories}}"))
 		{
-			if (slice.NextChar() != expectedTag[i])
-			{
-				return false;
-			}
+			processor.NewBlocks.Push(new Categories(this));
+			return BlockState.BreakDiscard;
 		}
 
-		slice.NextChar();
-
-		current = slice.CurrentChar;
-
-		start = slice.Start;
-		end = start;
-
-
-
-		// read as many digits as we can find, incrementing the slice length as we go
-		while (current != '}')
-		{
-			end = slice.Start;
-			current = slice.NextChar();
-		}
-		if (slice.NextChar() != '}') return false;
-		slice.NextChar();
-		// once we've ran out of digits, check to see what the next character is
-		// to make sure this is a valid issue and nothing something random like #001Alpha
-		if (current.IsWhiteSpaceOrZero() || current == ')' || current == '}')
-		{
-			int inlineStart;
-
-			inlineStart = processor.GetSourcePosition(slice.Start, out int line, out int column);
-
-			// and if we got here, then we've got a valid reference, so create our AST node
-			// and assign it to the processor
-			processor.Inline = new Categories
-			{
-				Span =
-							   {
-								 Start = inlineStart,
-								 End = inlineStart + (end - start) + 1 // add one to the length to account for the # starting character
-                               },
-				Line = line,
-				Column = column
-			};
-
-			matchFound = true;
-		}
-
-		return matchFound;
+		return BlockState.None;
 	}
 }
 
