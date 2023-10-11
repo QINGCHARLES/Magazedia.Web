@@ -490,7 +490,7 @@ footer
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: 1rem;
+	padding: 1rem 0rem;
 	color: #0c0;
 	background-color: #333;
 	font-family: system-ui, sans-serif;
@@ -513,9 +513,13 @@ footer
 		flex: 2;
 		min-width: calc(50% - 1rem); /* 50% width minus 1rem for margin */
 		font-size: 2rem;
-		
 		font-weight: bold;
 		line-height: 2.5rem;
+		background: url(/sitefiles/1/footer.png) top left no-repeat;
+		background-size: contain;
+		margin-left: 0;
+		padding-left: 5rem;
+		letter-spacing: -.1rem;
 	}
 
 ffooter
