@@ -485,31 +485,31 @@ article .infobox ul
 	margin-left: 1rem;
 }
 
-article ul
+article ul:not(.categories)
 {
 	list-style-type: none; /* Remove default bullets */
 	padding-left: 0;
 }
 
-article ul li
-{
-	position: relative;
-	padding-left: 1.5em; /* Space for the custom bullet */
-}
-
-	article ul li::before
+	article ul:not(.categories) li
 	{
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.7rem;
-		width: .7rem;
-		height: .7rem;
-		border-radius: 30%;
-		background-color: #0c0;
-		transform: translateY(-50%);
-		box-shadow: 1px 2px 0px 0px #000;
+		position: relative;
+		padding-left: 1.5em; /* Space for the custom bullet */
 	}
+
+		article ul:not(.categories) li::before
+		{
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0.7rem;
+			width: .7rem;
+			height: .7rem;
+			border-radius: 30%;
+			background-color: #0c0;
+			transform: translateY(-50%);
+			box-shadow: 1px 2px 0px 0px #000;
+		}
 
 
 footer
