@@ -485,6 +485,33 @@ article .infobox ul
 	margin-left: 1rem;
 }
 
+article ul
+{
+	list-style-type: none; /* Remove default bullets */
+	padding-left: 0;
+}
+
+article ul li
+{
+	position: relative;
+	padding-left: 1.5em; /* Space for the custom bullet */
+}
+
+	article ul li::before
+	{
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.7rem;
+		width: .7rem;
+		height: .7rem;
+		border-radius: 30%;
+		background-color: #0c0;
+		transform: translateY(-50%);
+		box-shadow: 1px 2px 0px 0px #000;
+	}
+
+
 footer
 {
 	display: flex;
@@ -494,6 +521,12 @@ footer
 	color: #0c0;
 	background-color: #333;
 	font-family: system-ui, sans-serif;
+}
+
+footer a
+{
+	text-decoration: none;
+	border: none;
 }
 
 .footer-col ul
