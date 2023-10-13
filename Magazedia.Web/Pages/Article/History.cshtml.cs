@@ -35,6 +35,12 @@ namespace Magazedia.Web.Pages
 								";
 
 			ArticleRevisions = Connection.Query<WikiWikiWorld.Models.ArticleRevision>(SqlQuery, new { UrlSlug, SiteId, Culture }).ToList();
+
+			if (ArticleRevisions == null)
+			{
+				return Redirect($"/404:{UrlSlug}");
+			}
+
 			ArticleTitle = ArticleRevisions[0].Title;
 
 			return Page();
