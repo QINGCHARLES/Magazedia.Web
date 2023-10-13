@@ -140,7 +140,7 @@ using (TextReader sr = new StringReader(@$"
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^404:(.+)"" />
-					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/NotFound?UrlSlug={{R:1}}"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/NotFound?UrlSlug={{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""(.+)/edit"" />

@@ -40,7 +40,7 @@ public class TalkModel : BasePageModel
 									DateDeleted IS NULL
 					";
 
-		Article = Connection.QuerySingle<WikiWikiWorld.Models.Article>(SqlQuery, new { UrlSlug, SiteId, Culture });
+		Article = Connection.QuerySingleOrDefault<WikiWikiWorld.Models.Article>(SqlQuery, new { UrlSlug, SiteId, Culture });
 
 		if(Article == null)
 		{

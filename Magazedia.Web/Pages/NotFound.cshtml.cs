@@ -5,8 +5,11 @@ namespace Magazedia.Web.Pages
 {
     public class NotFoundModel : PageModel
     {
-        public void OnGet()
+        public IActionResult OnGet()
         {
+        
+			this.Response.StatusCode = StatusCodes.Status404NotFound;
+            return Page();
         }
     }
 }
