@@ -42,6 +42,12 @@ public class TalkModel : BasePageModel
 
 		Article = Connection.QuerySingle<WikiWikiWorld.Models.Article>(SqlQuery, new { UrlSlug, SiteId, Culture });
 
+		if(Article == null)
+		{
+			return Redirect($"/404:{UrlSlug}");
+		}
+
+
 		// Find and display any Talk subjects for this Article
 		SqlQuery = @"	
 						SELECT		*

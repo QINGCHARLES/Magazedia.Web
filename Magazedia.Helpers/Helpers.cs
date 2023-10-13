@@ -7,6 +7,11 @@ namespace Magazedia;
 
 public static class Helpers
 {
+	public static long ConvertDateTimeToBeatsInternetTime(DateTime DateTime)
+	{
+		return (long)(DateTime.AddHours(1).TimeOfDay.TotalMilliseconds / 86400d);
+	}
+
 	// Converts bytes to a string, e.g. 1.45MB
 	public static string HumanReadableByteCount(long Bytes, bool Si)
 	{
