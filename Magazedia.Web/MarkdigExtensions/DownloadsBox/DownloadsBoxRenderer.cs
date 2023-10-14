@@ -20,7 +20,7 @@ public class DownloadsBoxRenderer : HtmlObjectRenderer<DownloadsBox>
 
 	protected override void Write(HtmlRenderer Renderer, DownloadsBox Obj)
 	{
-		Renderer.Write("<aside class=\"infobox\">");
+		Renderer.Write("<aside class=\"infobox\"><h1>Downloads</h1>");
 
 		foreach (Dictionary<string, string> Download in Obj.Downloads)
 		{
