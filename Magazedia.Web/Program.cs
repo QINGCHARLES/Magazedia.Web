@@ -73,12 +73,22 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
 
-	app.UseStaticFiles();
+	app.UseStaticFiles(new StaticFileOptions
+	{
+		ContentTypeProvider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider
+		{
+			Mappings = { [".avif"] = "image/avif" }
+		}
+	});
 }
 else
 {
 	app.UseStaticFiles(new StaticFileOptions
 	{
+		ContentTypeProvider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider
+        {
+			Mappings = { [".avif"] = "image/avif" }
+		},
 		OnPrepareResponse = ctx =>
 		{
 			const string headerValue = "public,max-age=" + "604800"; // 1 week
