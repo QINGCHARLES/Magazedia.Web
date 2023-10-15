@@ -55,7 +55,7 @@ public class ArticleViewModel : BasePageModel
 						";
 			ArticleRevision = Connection.QuerySingleOrDefault<ArticleRevision>(SqlQuery, new { Id });
 
-			ArticleRevisionDate = " (Prior revision dated " + ArticleRevision.DateCreated.ToString("dddd dd MMMM yyyy HH:mm") + " -- @" + Helpers.ConvertDateTimeToBeatsInternetTime(ArticleRevision.DateCreated) + ")";
+			ArticleRevisionDate = " (Prior revision dated " + ArticleRevision.DateCreated.ToString("dddd dd MMMM yyyy HH:mm:ss") + " -- @" + Helpers.ConvertDateTimeToBeatsInternetTime(ArticleRevision.DateCreated) + ")";
 
 			ArticleFound = true;
 		}
