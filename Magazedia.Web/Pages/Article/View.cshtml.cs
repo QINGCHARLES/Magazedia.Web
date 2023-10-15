@@ -188,7 +188,16 @@ public class ArticleViewModel : BasePageModel
 
 			if (ArticleRevision.UrlSlug!.StartsWith("image:"))
 			{
-				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/images/" + ArticleRevision.UrlSlug.Substring("Image:".Length) + "' />";
+				SqlQuery = @"	
+						SELECT 		*
+						FROM		FileRevisions
+						WHERE		ArticleId = @ArticleId AND
+									DateDeleted IS NULL
+						ORDER BY	DateCreated DESC
+						";
+				List<FileRevision> FileRevisions = Connection.Query<FileRevision>(SqlQuery, new { ArticleRevision.ArticleId }).ToList();
+
+				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/images/" + FileRevisions[0].FileName + "' />";
 			}
 			else
 			{

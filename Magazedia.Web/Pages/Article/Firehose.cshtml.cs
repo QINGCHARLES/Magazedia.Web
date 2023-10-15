@@ -40,15 +40,23 @@ namespace Magazedia.Web.Pages
 
 		public IActionResult OnPostDelete(string Id)
 		{
+			var specificUsername = "QINGCHARLES";
+
+			if (this.User == null || this.User.Identity == null || !this.User.Identity.IsAuthenticated || (this.User.Identity.IsAuthenticated && this.User.Identity.Name != specificUsername))
+			{
+
+				return BadRequest();
+			}
+
 			using var Connection = new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
 
 			// Delete the Article revision. If it was the only remaining revision, then delete the Article row too.
-			string SqlQuery = @"UPDATE	ArticleRevisions SET DateDeleted = GETDATE() WHERE Id = @Id;
+			string SqlQuery = @"UPDATE	ArticleRevisions SET DateDeleted = GETUTCDATE() WHERE Id = @Id;
 								DECLARE	@ArticleIdToDelete int;
 								SET		@ArticleIdToDelete = (SELECT ArticleId FROM ArticleRevisions WHERE Id = @Id);
 								IF NOT EXISTS (SELECT 1 FROM ArticleRevisions WHERE ArticleId = @ArticleIdToDelete AND DateDeleted IS NULL)
 								BEGIN
-									UPDATE Articles SET DateDeleted = GETDATE() WHERE Id = @ArticleIdToDelete;
+									UPDATE Articles SET DateDeleted = GETUTCDATE() WHERE Id = @ArticleIdToDelete;
 								END
 								";
 

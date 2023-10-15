@@ -145,6 +145,10 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=file:{{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""^image:(.+)/revision/(.+)"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=image:{{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^image:(.+)"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=image:{{R:1}}"" />
 				</rule>
