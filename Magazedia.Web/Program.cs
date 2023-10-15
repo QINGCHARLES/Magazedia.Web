@@ -3,11 +3,13 @@ using Magazedia.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using System.Globalization;
+using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,27 @@ builder.Host.UseSystemd();
 
 builder.Services.AddResponseCompression(options =>
 {
-    options.EnableForHttps = true;
+	options.MimeTypes =
+	ResponseCompressionDefaults.MimeTypes.Concat(
+		new[]
+		{
+			"text/css",
+			"application/javascript",
+			"application/manifest+json"
+		}
+	);
+
+	options.EnableForHttps = true;
+});
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+	options.Level = CompressionLevel.SmallestSize;
+});
+
+builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+{
+	options.Level = CompressionLevel.SmallestSize;
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -68,10 +90,12 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 var app = builder.Build();
 
+app.UseResponseCompression();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+	app.UseMigrationsEndPoint();
 
 	app.UseStaticFiles(new StaticFileOptions
 	{
@@ -95,8 +119,6 @@ else
 			ctx.Context.Response.Headers[HeaderNames.CacheControl] = headerValue;
 		}
 	});
-
-	app.UseResponseCompression();
 
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
