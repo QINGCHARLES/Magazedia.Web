@@ -13,6 +13,7 @@ public class ArticleViewModel : BasePageModel
 {
 	public string? ArticleTitle { get; set; }
 	public string? ArticleText { get; set; }
+	public string? ArticleHtmlTitle { get; set; }
 
 	[BindProperty(SupportsGet = true)]
 	public string? UrlSlug { get; set; }
@@ -34,6 +35,8 @@ public class ArticleViewModel : BasePageModel
 		string SqlQuery = "";
 		ArticleRevision? ArticleRevision = null;
 
+		string ArticleRevisionDate = "";
+
 		// This page can be accessed by UrlSlug or by ID of Article
 		if (Id is not null)
 		{
@@ -48,6 +51,8 @@ public class ArticleViewModel : BasePageModel
 									ar.DateDeleted IS NULL;
 						";
 			ArticleRevision = Connection.QuerySingleOrDefault<ArticleRevision>(SqlQuery, new { Id });
+
+			ArticleRevisionDate = " (Prior revision dated " + ArticleRevision.DateCreated.ToString("dddd dd MMMM yyyy HH:mm") + " -- @" + Helpers.ConvertDateTimeToBeatsInternetTime(ArticleRevision.DateCreated) + ")";
 		}
 		else
 		{
@@ -105,7 +110,9 @@ public class ArticleViewModel : BasePageModel
 		else
 		{
 			// Article exists in database
-			ArticleTitle = ArticleRevision.Title;
+			ArticleTitle = ArticleRevision.Title + ArticleRevisionDate;
+
+			ArticleHtmlTitle = ArticleRevision.Title + ArticleRevisionDate;
 
 			// Find and display any alternate versions of this Article in other cultures
 			SqlQuery = @"	
@@ -198,6 +205,10 @@ public class ArticleViewModel : BasePageModel
 				List<FileRevision> FileRevisions = Connection.Query<FileRevision>(SqlQuery, new { ArticleRevision.ArticleId }).ToList();
 
 				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline) + "<br /><img src='/sitefiles/" + SiteId + "/images/" + FileRevisions[0].FileName + "' />";
+				if (MetaDescription != null)
+				{
+					MetaDescription += ArticleRevisionDate;
+				}
 			}
 			else
 			{

@@ -7,7 +7,7 @@
 @inject IHtmlLocalizer<SharedResource> htmlLocalizer;
 @model ArticleViewModel
 @{
-	ViewData["Title"] = Html.Raw(Model.ArticleTitle);
+	ViewData["Title"] = Html.Raw(Model.ArticleHtmlTitle);
 	HostString Hostname = HttpContextAccessor.HttpContext!.Request.Host;
 }
 
