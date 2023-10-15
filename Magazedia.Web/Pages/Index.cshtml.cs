@@ -28,6 +28,7 @@ namespace Magazedia.Web.Pages
 			public string UrlSlug { get; set; }
 			public string Text { get; set; }
 			public string? PrimaryArticleImageUrl { get; set; }
+			public string? PrimaryArticleImageTitle { get; set; }
 
 			public MostRecentlyUpdatedMagazineArticle(string Title, string UrlSlug, string Text)
 			{
@@ -90,7 +91,7 @@ namespace Magazedia.Web.Pages
 				if (match.Groups.Count > 1) // Check if the desired capturing group exists
 				{
 					string imageLink = match.Groups[1].Value;
-					MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageUrl = Helpers.GetImageFilenameFromArticleUrlSlug(imageLink, Connection);
+					(MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageUrl, MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageTitle) = Helpers.GetImageFilenameAndArticleTitleFromArticleUrlSlug(imageLink, Connection);
 				}
 			}
 
@@ -132,7 +133,7 @@ namespace Magazedia.Web.Pages
 				if (match.Groups.Count > 1) // Check if the desired capturing group exists
 				{
 					string imageLink = match.Groups[1].Value;
-					MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageUrl = Helpers.GetImageFilenameFromArticleUrlSlug(imageLink, Connection);
+					(MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageUrl, MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageTitle) = Helpers.GetImageFilenameAndArticleTitleFromArticleUrlSlug(imageLink, Connection);
 				}
 			}
 

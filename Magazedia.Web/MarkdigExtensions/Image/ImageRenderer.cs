@@ -47,16 +47,16 @@ public class ImageRenderer : HtmlObjectRenderer<Image>
         //	renderer.Write('#').Write(obj.Data);
         //}
 
-        string FileName = Magazedia.Helpers.GetImageFilenameFromArticleUrlSlug(obj.UrlSlug!, Connection);
+        (string FileName, string Title) = Magazedia.Helpers.GetImageFilenameAndArticleTitleFromArticleUrlSlug(obj.UrlSlug!, Connection);
 
-        renderer.Write("<img src=\"/sitefiles/1/images/").Write(FileName).Write("\" ");
-        if (obj.Attributes  != null)
-        {
-            foreach (var attribute in obj.Attributes)
-            {
-                renderer.Write(attribute.Key).Write("=\"").Write(attribute.Value).Write("\" ");
-            }
-        }
+        renderer.Write($"<img src=\"/sitefiles/1/images/{FileName}\" alt=\"{Title}\" ");
+        //if (obj.Attributes != null)
+        //{
+        //    foreach (var attribute in obj.Attributes)
+        //    {
+        //        renderer.Write(attribute.Key).Write("=\"").Write(attribute.Value).Write("\" ");
+        //    }
+        //}
         renderer.Write("/>");
     }
 }

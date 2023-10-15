@@ -31,19 +31,29 @@ public static class Helpers
 	}
 
 	// Takes the UrlSlug for an image Article and returns the most recent FileRevisions row
-	public static string GetImageFilenameFromArticleUrlSlug(string ArticleUrlSlug, SqlConnection Connection)
+
+	public static (string FileName, string ArticleTitle) GetImageFilenameAndArticleTitleFromArticleUrlSlug(string ArticleUrlSlug, SqlConnection Connection)
 	{
-		//TODO: Does not handle Culture and SiteId
-		string SqlQuery = @"SELECT TOP 1 FileRevisions.*
-							FROM Articles
-							JOIN FileRevisions FileRevisions ON Articles.Id = FileRevisions.ArticleId
-							WHERE Articles.UrlSlug = @ArticleUrlSlug
-							AND FileRevisions.DateDeleted IS NULL
-							ORDER BY FileRevisions.DateCreated DESC;";
+		string SqlQuery = @"
+            SELECT TOP 1 
+                FileRevisions.FileName, 
+                Articles.Title
+            FROM 
+                Articles
+            JOIN 
+                FileRevisions ON Articles.Id = FileRevisions.ArticleId
+            WHERE 
+                Articles.UrlSlug = @ArticleUrlSlug
+            AND 
+                FileRevisions.DateDeleted IS NULL
+            ORDER BY 
+                FileRevisions.DateCreated DESC;";
 
-		WikiWikiWorld.Models.FileRevision FileRevision = Connection.QuerySingle<WikiWikiWorld.Models.FileRevision>(SqlQuery, new { ArticleUrlSlug });
+		(string FileName, string ArticleTitle) Result = Connection.QuerySingle<(string FileName, string ArticleTitle)>(SqlQuery, new { ArticleUrlSlug });
 
-		return FileRevision.FileName;
+		Result.ArticleTitle = Result.ArticleTitle.Replace("image:", "", StringComparison.InvariantCultureIgnoreCase);
+
+		return Result;
 	}
 
 	public static string GetCultureFromHostname(string Hostname, string DefaultCulture)

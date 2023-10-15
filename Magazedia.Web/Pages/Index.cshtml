@@ -6,7 +6,7 @@
 @inject IHttpContextAccessor HttpContextAccessor;
 @model IndexModel
 @{
-	ViewData["Title"] = "Home";
+	ViewData["Title"] = "Magazine Encyclopedia";
 }
 <article>
 <h1>Magazines</h1>
@@ -21,7 +21,7 @@
 					{
 						<div class="img-wrapper">
 							<a href="/@Article.UrlSlug">
-								<img src="/sitefiles/1/images/@Article.PrimaryArticleImageUrl" loading="lazy" />
+								<img src="/sitefiles/1/images/@Article.PrimaryArticleImageUrl" loading="lazy" alt="@Article.PrimaryArticleImageTitle" />
 								<div class="image-title">@Article.Title</div>
 							</a>
 						</div>
@@ -42,7 +42,7 @@
 					{
 						<div class="img-wrapper">
 							<a href="/@Article.UrlSlug">
-								<img src="/sitefiles/1/images/@Article.PrimaryArticleImageUrl" />
+								<img src="/sitefiles/1/images/@Article.PrimaryArticleImageUrl" loading="lazy" alt="@Article.PrimaryArticleImageTitle" />
 								<div class="image-title">@Article.Title</div>
 							</a>
 						</div>
