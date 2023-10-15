@@ -163,6 +163,10 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Privacy"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""^terms:"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Terms"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^file:(.+)"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=file:{{R:1}}"" />
 				</rule>
@@ -231,7 +235,7 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug={{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
 				</rule>
 				<rule name=""Rewrite Rule"">
-					<match url=""^(?!NotFound)(?!Article/Create)(?!Dmca)(?!Sitemap)(?!dev/CoverList)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Article/Talk)(?!Article/View)(?!DbHelper)(?!Article/TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|webp|avif|css|js|ico|txt|webmanifest)$)(.*)"" />
+					<match url=""^(?!Privacy)(?!Terms)(?!NotFound)(?!Article/Create)(?!Dmca)(?!Sitemap)(?!dev/CoverList)(?!Article/History)(?!Article/Firehose)(?!Article/Edit)(?!Article/Talk)(?!Article/View)(?!DbHelper)(?!Article/TalkSubject)(?!Identity\/)(?!$)(?!.*\.(?:jpg|jpeg|gif|png|webp|avif|css|js|ico|txt|webmanifest)$)(.*)"" />
 					<action type=""Rewrite"" url=""Article/View?UrlSlug={{R:1}}"" appendQueryString=""true"" />
 				</rule>
 			</rules>

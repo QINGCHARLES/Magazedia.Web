@@ -105,7 +105,7 @@ public class ArticleViewModel : BasePageModel
 			}
 			else if (UrlSlug!.StartsWith("@"))
 			{
-				ArticleText = $"<p>User {UrlSlug!} not found.</p>";
+				ArticleText = $"<p>User profiles not currently implemented.</p>";
 			}
 			else
 			{
