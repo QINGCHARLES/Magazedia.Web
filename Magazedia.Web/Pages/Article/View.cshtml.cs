@@ -14,6 +14,7 @@ public class ArticleViewModel : BasePageModel
 	public string? ArticleTitle { get; set; }
 	public string? ArticleText { get; set; }
 	public string? ArticleHtmlTitle { get; set; }
+	public bool ArticleFound { get; set; }
 
 	[BindProperty(SupportsGet = true)]
 	public string? UrlSlug { get; set; }
@@ -40,6 +41,8 @@ public class ArticleViewModel : BasePageModel
 		// This page can be accessed by UrlSlug or by ID of Article
 		if (Id is not null)
 		{
+			// TODO: Check ID actually exists and error if not
+
 			// Article revision look-up by ID
 			SqlQuery = @"
 						SELECT		ar.Id, ar.ArticleId, a.Title, a.UrlSlug, ar.[Text], ar.RevisionReason, u.Id as CreatedByAspNetUserId, u.UserName as CreatedByAspNetUsername, ar.DateCreated, ar.DateDeleted
@@ -53,6 +56,8 @@ public class ArticleViewModel : BasePageModel
 			ArticleRevision = Connection.QuerySingleOrDefault<ArticleRevision>(SqlQuery, new { Id });
 
 			ArticleRevisionDate = " (Prior revision dated " + ArticleRevision.DateCreated.ToString("dddd dd MMMM yyyy HH:mm") + " -- @" + Helpers.ConvertDateTimeToBeatsInternetTime(ArticleRevision.DateCreated) + ")";
+
+			ArticleFound = true;
 		}
 		else
 		{
@@ -76,11 +81,14 @@ public class ArticleViewModel : BasePageModel
 						";
 
 			ArticleRevision = Connection.QuerySingleOrDefault<ArticleRevision>(SqlQuery, new { UrlSlug, SiteId, Culture });
+
+			ArticleFound = true;
 		}
 
 		// Check if Article exists
 		if (ArticleRevision is null)
 		{
+			ArticleFound = false;
 			// Article does not exist in database
 
 			// As the Article doesn't exist we don't want it to show up in SERPs

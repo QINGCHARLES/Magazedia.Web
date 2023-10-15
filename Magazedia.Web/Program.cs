@@ -183,6 +183,10 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Edit?UrlSlug={{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""^category:(.+)/talk$"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Talk?UrlSlug=category:{{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^category:(.+)"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=category:{{R:1}}"" />
 				</rule>

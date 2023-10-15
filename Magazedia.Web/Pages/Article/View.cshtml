@@ -45,11 +45,23 @@
 		}
 	}
 	<br />
-	<a class="btn btn-primary" type="button" role="button" href="/@Model.UrlSlug/edit">Edit This Article</a>
-	<a style="margin-left:1rem;" href="/@Model.UrlSlug/history">Edit History</a>
-	<br />
-	<br /><a href="/@Model.UrlSlug/talk">Talk</a>
-	<br /><br />
+
+	@if (Model.ArticleFound)
+	{
+		@if (Model.Id is null)
+		{
+			<a class="btn btn-primary" type="button" role="button" href="/@Model.UrlSlug/edit">Edit This Article</a>
+		}
+
+		<a style="margin-left:1rem;" href="/@Model.UrlSlug/history">Edit History</a>
+		<br />
+		<br />
+
+		<a href="/@Model.UrlSlug/talk">Talk</a>
+		<br />
+
+		<br />
+	}
 
 	@section ArticleLanguageLinksLinkRelAlternates
 	{
