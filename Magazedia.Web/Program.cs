@@ -167,6 +167,14 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=file:{{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""^image:(.+)/history$"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/History?UrlSlug=image:{{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""^image:(.+)/talk$"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Talk?UrlSlug=image:{{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^image:(.+)/revision/(.+)"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=image:{{R:1}}&amp;Id={{R:2}}"" appendQueryString=""true"" />
 				</rule>
@@ -181,6 +189,10 @@ using (TextReader sr = new StringReader(@$"
 				<rule enabled=""true"">
 					<match url=""(.+)/edit"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Edit?UrlSlug={{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""^category:(.+)/history$"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/History?UrlSlug=category:{{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^category:(.+)/talk$"" />
