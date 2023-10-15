@@ -213,6 +213,10 @@ public class ArticleViewModel : BasePageModel
 			else
 			{
 				ArticleText = Markdown.ToHtml(ArticleRevision.Text, pipeline);
+				if (MetaDescription != null)
+				{
+					MetaDescription += ArticleRevisionDate;
+				}
 			}
 		}
 
