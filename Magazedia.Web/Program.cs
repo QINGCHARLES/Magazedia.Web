@@ -171,6 +171,10 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/View?UrlSlug=file:{{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""^image:(.+)/edit"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Edit?UrlSlug=image:{{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^image:(.+)/history$"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/History?UrlSlug=image:{{R:1}}"" />
 				</rule>
@@ -193,6 +197,10 @@ using (TextReader sr = new StringReader(@$"
 				<rule enabled=""true"">
 					<match url=""(.+)/edit"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Edit?UrlSlug={{R:1}}"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""^category:(.+)/edit"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Article/Edit?UrlSlug=category:{{R:1}}"" />
 				</rule>
 				<rule enabled=""true"">
 					<match url=""^category:(.+)/history$"" />
