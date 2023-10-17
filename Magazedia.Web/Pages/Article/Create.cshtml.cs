@@ -16,9 +16,16 @@ public class CreateModel : BasePageModel
 
 	public CreateModel(IConfiguration Configuration, IHttpContextAccessor HttpContextAccessor) : base(Configuration, HttpContextAccessor) { }
 
+	public IActionResult OnGet()
+	{
+		base.AllowSearchEngineIndexing = false;
+
+		return Page();
+	}
+
 	public IActionResult OnPost()
 	{
-		this.AllowSearchEngineIndexing = false;
+		base.AllowSearchEngineIndexing = false;
 
 		var specificUsername = "QINGCHARLES";
 

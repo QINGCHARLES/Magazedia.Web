@@ -54,15 +54,13 @@ namespace Magazedia.Web.Pages
 
 			string CategoriesTypeToMatch = "Magazines";
 			string CategoriesTag = "Category";
-			string CategoriesFirstPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "|%}}%";
-			string CategoriesOtherPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "}}%";
+			string CategoriesSearchTerm = "%{{" + CategoriesTag + " " + CategoriesTypeToMatch + "}}%";
 
 			string SqlQuery = @"WITH LatestRevisions AS
 								(
 									SELECT ArticleId, MAX(DateCreated) AS MaxDateCreated
 									FROM ArticleRevisions
-									WHERE [Text] LIKE @CategoriesFirstPositionSearchTerm
-									OR [Text] LIKE @CategoriesOtherPositionSearchTerm
+									WHERE [Text] LIKE @CategoriesSearchTerm
 									AND [Text] LIKE '%Type=PrimaryArticleImage%'
 									AND DateDeleted IS NULL
 									GROUP BY ArticleId
@@ -78,7 +76,7 @@ namespace Magazedia.Web.Pages
 								ORDER BY ArticleRevisions.DateCreated DESC;
 								";
 
-			MostRecentlyUpdatedMagazineArticles = Connection.Query<MostRecentlyUpdatedMagazineArticle>(SqlQuery, new { SiteId, Culture, CategoriesFirstPositionSearchTerm, CategoriesOtherPositionSearchTerm });
+			MostRecentlyUpdatedMagazineArticles = Connection.Query<MostRecentlyUpdatedMagazineArticle>(SqlQuery, new { SiteId, Culture, CategoriesSearchTerm });
 
 			// For each magazine get the UrlSlug of the PrimaryImageArticle and then convert that UrlSlug into an actual Url for the image
 			foreach (MostRecentlyUpdatedMagazineArticle MostRecentlyUpdatedMagazineArticle in MostRecentlyUpdatedMagazineArticles)
@@ -96,16 +94,14 @@ namespace Magazedia.Web.Pages
 			}
 
 			CategoriesTypeToMatch = "Magazine issues";
-			CategoriesFirstPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "|%}}%";
-			CategoriesOtherPositionSearchTerm = "%{{" + CategoriesTag + "%" + CategoriesTypeToMatch + "}}%";
+			CategoriesSearchTerm = "%{{" + CategoriesTag + " " + CategoriesTypeToMatch + "}}%";
 
 
 			SqlQuery = @"	WITH LatestRevisions AS
 							(
 								SELECT ArticleId, MAX(DateCreated) AS MaxDateCreated
 								FROM ArticleRevisions
-								WHERE [Text] LIKE @CategoriesFirstPositionSearchTerm
-								OR [Text] LIKE @CategoriesOtherPositionSearchTerm
+								WHERE [Text] LIKE @CategoriesSearchTerm
 								AND [Text] LIKE '%Type=PrimaryArticleImage%'
 								AND DateDeleted IS NULL
 								GROUP BY ArticleId
@@ -121,7 +117,7 @@ namespace Magazedia.Web.Pages
 							ORDER BY ArticleRevisions.DateCreated DESC;
 							";
 
-			MostRecentlyUpdatedMagazineIssueArticles = Connection.Query<MostRecentlyUpdatedMagazineArticle>(SqlQuery, new { SiteId, Culture, CategoriesFirstPositionSearchTerm, CategoriesOtherPositionSearchTerm });
+			MostRecentlyUpdatedMagazineIssueArticles = Connection.Query<MostRecentlyUpdatedMagazineArticle>(SqlQuery, new { SiteId, Culture, CategoriesSearchTerm });
 
 			foreach (MostRecentlyUpdatedMagazineArticle MostRecentlyUpdatedMagazineArticle in MostRecentlyUpdatedMagazineIssueArticles)
 			{
