@@ -185,7 +185,16 @@ public class ArticleViewModel : BasePageModel
 
 			MagazineInfoboxExtension MagazineInfoboxExtension = new();
 
-			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions()
+			var builder = new MarkdownPipelineBuilder().UseAdvancedExtensions();
+
+			// Don't sap link juice or follow the links from old revisions
+			// This makes all the links in the article rel="nofollow"
+			if (Id is not null)
+			{
+				builder = builder.UseReferralLinks(new[] { "nofollow" });
+			}
+
+			var pipeline = builder
 				.UseMantisLinks(new MantisLinkOptions("https://issues.company.net/"))
 				.Use(ImageExtension)
 				.Use(ShortDescriptionExtension)
