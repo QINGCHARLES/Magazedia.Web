@@ -18,6 +18,8 @@ public class CreateModel : BasePageModel
 
 	public IActionResult OnPost()
 	{
+		this.AllowSearchEngineIndexing = false;
+
 		var specificUsername = "QINGCHARLES";
 
 		if (this.User == null || this.User.Identity == null || !this.User.Identity.IsAuthenticated || (this.User.Identity.IsAuthenticated && this.User.Identity.Name != specificUsername))

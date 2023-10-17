@@ -50,7 +50,16 @@
 	{
 		@if (Model.Id is null)
 		{
-			<a class="btn btn-primary" type="button" role="button" href="/@Model.UrlSlug/edit">Edit This Article</a>
+			var specificUsername = "QINGCHARLES";
+
+			if (this.User == null || this.User.Identity == null || !this.User.Identity.IsAuthenticated || (this.User.Identity.IsAuthenticated && this.User.Identity.Name != specificUsername))
+			{
+				<a class="btn btn-primary" type="button" role="button" href="/@Model.UrlSlug/edit">Edit Article</a>
+			}
+			else
+			{
+				<a class="btn btn-primary" type="button" role="button" href="#">[key]Login to Edit Article</a>
+			}
 		}
 
 		<a style="margin-left:1rem;" href="/@Model.UrlSlug/history">Edit History</a>
