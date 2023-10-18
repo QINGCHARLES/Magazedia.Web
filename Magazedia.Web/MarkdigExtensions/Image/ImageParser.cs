@@ -31,7 +31,7 @@ public class ImageParser : InlineParser
         if (barPosition > 0 && barPosition < End)
         {
             urlSlug = Slice.Text.Substring(Slice.Start, barPosition - Slice.Start);
-            string attributesText = Slice.Text.Substring(barPosition + 1, End - barPosition - 1);
+            string attributesText = Slice.Text.Substring(barPosition + 3, End - barPosition - 3);
             string[] attributePairs = attributesText.Split("|#|");
             foreach (string attribute in attributePairs)
             {

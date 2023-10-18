@@ -51,7 +51,7 @@ public static class Helpers
 
         (string FileName, string ArticleTitle) Result = Connection.QuerySingle<(string FileName, string ArticleTitle)>(SqlQuery, new { ArticleUrlSlug });
 
-        Result.ArticleTitle = Result.ArticleTitle.Replace("image:", "", StringComparison.InvariantCultureIgnoreCase);
+        Result.ArticleTitle = Result.ArticleTitle.Replace("Image: ", "", StringComparison.InvariantCultureIgnoreCase);
 
         return Result;
     }

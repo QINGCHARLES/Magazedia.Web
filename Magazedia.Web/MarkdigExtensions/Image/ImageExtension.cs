@@ -10,11 +10,13 @@ public class ImageExtension : IMarkdownExtension
 {
 	private readonly int SiteId;
 	private readonly SqlConnection Connection;
+	private readonly Magazedia.Web.Pages.BasePageModel Page;
 
-	public ImageExtension(int SiteId, SqlConnection Connection)
+	public ImageExtension(int SiteId, SqlConnection Connection, Magazedia.Web.Pages.BasePageModel Page)
 	{
 		this.SiteId = SiteId;
 		this.Connection = Connection;
+		this.Page = Page;
 	}
 
 	public void Setup(MarkdownPipelineBuilder pipeline)
@@ -39,7 +41,7 @@ public class ImageExtension : IMarkdownExtension
 
 		if (renderers != null && !renderers.Contains<ImageRenderer>())
 		{
-			renderers!.Add(new ImageRenderer(SiteId, Connection));
+			renderers!.Add(new ImageRenderer(SiteId, Connection, Page));
 		}
 	}
 }

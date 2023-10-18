@@ -150,7 +150,7 @@ public class ArticleViewModel : BasePageModel
 						";
 			ArticleTalkSubjects = Connection.Query<WikiWikiWorld.Models.ArticleTalkSubject>(SqlQuery, new { SiteId, ArticleRevision.ArticleId }).ToList();
 
-			ImageExtension ImageExtension = new(SiteId, Connection);
+			ImageExtension ImageExtension = new(SiteId, Connection, this);
 			ShortDescriptionExtension ShortDescriptionExtension = new(this);
 
 			// There are some types of tags which do not render at the point they are inserted but

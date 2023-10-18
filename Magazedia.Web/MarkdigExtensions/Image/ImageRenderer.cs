@@ -9,14 +9,16 @@ public class ImageRenderer : HtmlObjectRenderer<Image>
 {
     private int SiteId;
     private SqlConnection Connection;
+	private Magazedia.Web.Pages.BasePageModel Page;
 
-    public ImageRenderer(int SiteId, SqlConnection Connection)
-    {
-        this.SiteId = SiteId;
-        this.Connection = Connection;
-    }
+	public ImageRenderer(int SiteId, SqlConnection Connection, Magazedia.Web.Pages.BasePageModel Page)
+	{
+		this.SiteId = SiteId;
+		this.Connection = Connection;
+		this.Page = Page;
+	}
 
-    protected override void Write(HtmlRenderer renderer, Image obj)
+	protected override void Write(HtmlRenderer renderer, Image obj)
     {
         //StringSlice Data;
 
@@ -49,14 +51,38 @@ public class ImageRenderer : HtmlObjectRenderer<Image>
 
         (string FileName, string Title) = Magazedia.Helpers.GetImageFilenameAndArticleTitleFromArticleUrlSlug(obj.UrlSlug!, Connection);
 
-        renderer.Write($"<img src=\"/sitefiles/1/images/{FileName}\" alt=\"{Title}\" ");
-        //if (obj.Attributes != null)
-        //{
-        //    foreach (var attribute in obj.Attributes)
-        //    {
-        //        renderer.Write(attribute.Key).Write("=\"").Write(attribute.Value).Write("\" ");
-        //    }
-        //}
-        renderer.Write("/>");
+        string? Type;
+
+		if (obj.Attributes.TryGetValue("Type", out Type) && !string.IsNullOrWhiteSpace(Type))
+		{
+            Type = Type.Trim();
+		}
+
+        switch(Type)
+        {
+            case "Header":
+				renderer.Write($@"  <style>
+                                        article > h1
+                                        {{
+                                            background: linear-gradient(to bottom, #3338, #fff0), url(/sitefiles/1/images/{FileName}) top center no-repeat;
+                                        }}
+                                    </style>
+                                        ");
+                break;
+			case null:
+			default:    
+				renderer.Write($"<img src=\"/sitefiles/1/images/{FileName}\" alt=\"{Title}\" ");
+				renderer.Write("/>");
+				break;
+		}
+
+		//if (obj.Attributes != null)
+		//{
+		//    foreach (var attribute in obj.Attributes)
+		//    {
+		//        renderer.Write(attribute.Key).Write("=\"").Write(attribute.Value).Write("\" ");
+		//    }
+		//}
+
     }
 }

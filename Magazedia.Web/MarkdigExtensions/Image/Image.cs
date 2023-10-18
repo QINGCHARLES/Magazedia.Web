@@ -9,5 +9,5 @@ namespace WikiWikiWorld.MarkdigExtensions;
 public class Image : LeafInline
 {
     public string? UrlSlug { get; set; }
-    public Dictionary<string, string>? Attributes { get; set; }
+    public Dictionary<string, string> Attributes { get; set; } = new Dictionary<string, string>();
 }
