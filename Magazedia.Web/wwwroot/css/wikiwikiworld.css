@@ -593,7 +593,7 @@ footer
 		fstroke-width: 2;
 	}
 
-footer svg
+footer svg, .nav-item svg
 {
 	width: 1.5rem;
 	height: 1.5rem;
