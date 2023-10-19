@@ -11,7 +11,7 @@ public class MagazineInfoboxHtmlRenderer : HtmlObjectRenderer<MagazineInfobox>
 
         foreach (KeyValuePair<string, string> pair in Obj.Attributes)
         {
-            Renderer.Write("<li>").Write(pair.Key).Write(": ").Write(pair.Value).Write("</li>");
+            Renderer.Write("<li><strong>").Write(pair.Key).Write(":</strong> ").Write(pair.Value).Write("</li>");
         }
         
         Renderer.Write("</ul></aside>");
