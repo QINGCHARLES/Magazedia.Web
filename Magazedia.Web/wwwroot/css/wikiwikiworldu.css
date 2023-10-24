@@ -61,6 +61,7 @@ table
 input, textarea
 {
 	-webkit-user-select: auto;
+	box-shadow: 3px 4px 0px 1px #000;
 }
 
 /* revert the 'white-space' property for textarea elements on Safari */
@@ -208,7 +209,72 @@ body
 
 /* Using flexbox to achieve the desired layout */
 
-table
+header li
+{
+	display: inline-block;
+}
+
+.header-a svg
+{
+	color: var(--color-primary);
+}
+
+.button
+{
+	cursor: default;
+	font-size: 1rem;
+	line-height: 1;
+	box-sizing: border-box;
+}
+
+#register.button-primary
+{
+	background: var(--color-primary);
+	color: #000;
+}
+
+	#register.button-primary:hover
+	{
+		background-color: #fff;
+	}
+
+.button-secondary
+{
+	fbackground: #0c0;
+	color: #0c0;
+}
+
+#login.button-secondary:hover
+{
+	background-color: var(--color-primary);
+	color: #000;
+}
+
+#login.button-secondary
+{
+	fbackground: #0c0;
+	color: var(--color-primary);
+}
+
+.button
+{
+	padding: var(--space-3xs) var(--space-2xs);
+	font-weight: bolder;
+	border: 2px solid var(--color-primary);
+	fborder-radius: 0.2rem;
+	fmargin-right: var(--space-xs);
+	list-style: none;
+	display: inline-block;
+	box-shadow: 3px 4px 0px 1px #000;
+	color: var(--color-primary);
+	text-transform: capitalize;
+	text-decoration: none;
+	transition: ease 0.1s;
+}
+
+
+
+table:not(header table)
 {
 	width: 100%;
 	border-collapse: collapse;
@@ -226,24 +292,91 @@ th
 	border-bottom: 0.125rem solid #ddd; /* Lighter grey border */
 }
 
-tr
+form.gsc-search-box
+{
+	margin: 0 !important;
+}
+
+.gsc-control-cse
+{
+	padding: 0 !important;
+}
+
+.gsc-search-button-v2 svg
+{
+	fill: #000 !important;
+	width: 1rem !important;
+	height: 1rem !important;
+}
+
+.gsc-search-button-v2:hover
+{
+	background-color: #fff !important;
+	border: none !important;
+}
+
+.gsc-search-button-v2
+{
+	box-shadow: 3px 4px 0px 1px #000;
+	transition: ease 0.1s;
+	background-color: var(--color-primary) !important;
+	color: #000 !important;
+	border: none !important;
+	padding: var(--space-3xs) var(--space-2xs) !important;
+	font-size: 1rem !important;
+}
+
+.gsc-control-cse, .gsc-input-box
+{
+	background-color: unset !important;
+	border-style: none !important;
+}
+
+table.gsc-search-box td.gsc-input
+{
+	padding-right: 0 !important;
+}
+
+table.gsc-search-box
+{
+	margin-bottom: 0 !important;
+}
+
+.gsib_a
+{
+	padding: 0 !important;
+}
+
+input.gsc-input
+{
+	background: #fff !important;
+	padding: 4px 14px !important;
+}
+
+td.gsib_b
+{
+	display: none;
+	visibility: hidden;
+}
+
+tr:not(header tr)
 {
 	border-bottom: 0.0625rem solid #eee; /* Very light grey border */
 }
 
-	tr:nth-child(even)
+	tr:not(header tr):nth-child(even)
 	{
 		background-color: #f7f7f7; /* Zebra-striping for better readability */
 	}
 
-td
+td:not(header td)
 {
 	padding: 0.625rem 0.9375rem;
 	vertical-align: top;
 }
 
 /* Hover effect for table rows for better UX */
-tr:hover
+tr:not(header tr):hover
 {
 	background-color: #e6e6e6; /* Slightly dark on hover */
 }
@@ -253,7 +386,6 @@ article a, .container a
 {
 	color: #0c0;
 	text-decoration: underline;
-	
 }
 
 article p, article ul, article table, article h2, article h3
@@ -297,8 +429,7 @@ article ul:not(.categories):not(aside > ul)
 	fdisplay: flow-root;
 	fmargin-right: 7rem;
 	fpadding-right: 8rem;
-	fclear:both;
-
+	fclear: both;
 }
 
 article ul:not(.categories) li
@@ -309,19 +440,19 @@ article ul:not(.categories) li
 	contain: content;
 }
 
-		article ul:not(.categories) li::before
-		{
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0.7rem;
-			width: .7rem;
-			height: .7rem;
-			border-radius: 30%;
-			background-color: #0c0;
-			transform: translateY(-50%);
-			box-shadow: 1px 2px 0px 0px #000;
-		}
+	article ul:not(.categories) li::before
+	{
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.7rem;
+		width: .7rem;
+		height: .7rem;
+		border-radius: 30%;
+		background-color: #0c0;
+		transform: translateY(-50%);
+		box-shadow: 1px 2px 0px 0px #000;
+	}
 
 article aside
 {
@@ -337,9 +468,7 @@ article aside
 	fbackground-color: rgb(0,255,calc(50vw - 10%));
 	fbackground-position-x: calc( max( 0px, calc( 100cqw - 50vw ) ) );
 	fbackground-position-y: calc( max( 0px, (var(--space-3xl) * 3) - 50vw));
-
 	background-position-y: calc( max( 0px, (var(--space-3xl) * 3) - 50vw ) );
-
 	fbackground-position-x: calc( 100% - 50vw );
 	fbackground: #fff;
 	color: #fff;
@@ -350,7 +479,6 @@ article aside
 
 main
 {
-
 	background-position-y: calc(5%);
 }
 
@@ -473,21 +601,22 @@ article ul li
 
 .logo-svg
 {
-	width: var(--space-2xl);
-	height: var(--space-2xl);
+	width: var(--space-xl);
+	height: var(--space-xl);
 }
 
 .header
 {
 	overflow: hidden;
-	padding: var(--grid-gutter) 0;
+	padding: var(--grid-gutter);
 	position: absolute;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	flex-direction: row-reverse;
 	color: #fff;
 }
+
+
 
 .logo-svg
 {
@@ -496,48 +625,47 @@ article ul li
 
 .header-a svg, .header-b svg
 {
-	width: 3rem;
-	height: 3rem;
-	stroke: #fff;
+	fwidth: 3rem;
+	fheight: 3rem;
+	fstroke: #fff;
+	vertical-align: middle;
 }
 
 
-	.header a
+.header a
+{
+	color: white;
+	text-align: center;
+	fpadding: 12px;
+	text-decoration: none;
+	border-radius: 4px;
+}
+
+	.header a.logo
 	{
+		font-size: 25px;
 		color: white;
-		text-align: center;
-		fpadding: 12px;
-		text-decoration: none;
-		font-size: 14px;
-		line-height: 25px;
-		border-radius: 4px;
+		display: inline-block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+		fwidth: 1rem;
+		ftext-align: center;
 	}
 
-		.header a.logo
-		{
-			font-size: 25px;
-			color: white;
-			display: inline-block;
-			margin-left: auto;
-			margin-right: auto;
-			width: 50%;
-			fwidth: 1rem;
-			ftext-align: center;
-		}
+	.header a:hover
+	{
+		color: #aeaeae;
+	}
 
-		.header a:hover
-		{
-			color: #aeaeae;
-		}
-
-		.header a.active
-		{
-			color: #aeaeae;
-		}
+	.header a.active
+	{
+		color: #aeaeae;
+	}
 
 .header-b
 {
-	float: right;
+	float: left;
 	width: 50%;
 	fpadding: var(--grid-gutter);
 	text-align: right;
@@ -545,7 +673,7 @@ article ul li
 
 .header-a
 {
-	float: left;
+	float: right;
 	width: 50%;
 	fpadding: var(--grid-gutter);
 }
@@ -553,6 +681,7 @@ article ul li
 input, textarea
 {
 	outline: 1px solid #0c0;
+	color: #000;
 }
 
 h1, h2,
@@ -601,24 +730,24 @@ article strong
 	padding-top: var(--grid-gutter);
 }
 
-.categories li
-{
-	padding: var(--space-3xs) var(--space-2xs);
-	font-weight: bolder;
-	border: 2px solid var(--color-primary);
-	fborder-radius: 0.2rem;
-	margin-right: var(--space-xs);
-	list-style: none;
-	display: inline-block;
-	box-shadow: 3px 4px 0px 1px #000;
-}
-
-	.categories li a
+	.categories li
 	{
-		color: var(--color-primary);
-		text-transform: uppercase;
-		text-decoration: none;
+		padding: var(--space-3xs) var(--space-2xs);
+		font-weight: bolder;
+		border: 2px solid var(--color-primary);
+		fborder-radius: 0.2rem;
+		margin-right: var(--space-xs);
+		list-style: none;
+		display: inline-block;
+		box-shadow: 3px 4px 0px 1px #000;
 	}
+
+		.categories li a
+		{
+			color: var(--color-primary);
+			text-transform: uppercase;
+			text-decoration: none;
+		}
 /*#endregion Categories*/
 
 /*#region Footer*/
