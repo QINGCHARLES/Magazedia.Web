@@ -248,7 +248,8 @@ tr:hover
 	background-color: #e6e6e6; /* Slightly dark on hover */
 }
 
-article a
+/* container is thing on front page */
+article a, .container a
 {
 	color: #0c0;
 	text-decoration: underline;

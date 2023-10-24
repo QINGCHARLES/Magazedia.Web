@@ -134,7 +134,8 @@ namespace Magazedia.Web.Pages
 
 				if (match.Groups.Count > 1) // Check if the desired capturing group exists
 				{
-					string imageLink = match.Groups[1].Value;
+					// Determine which capturing group contains the desired URL slug.
+					string imageLink = !string.IsNullOrEmpty(match.Groups[1].Value) ? match.Groups[1].Value : match.Groups[2].Value;
 					(MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageUrl, MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageTitle) = Helpers.GetImageFilenameAndArticleTitleFromArticleUrlSlug(imageLink, Connection);
 				}
 			}
