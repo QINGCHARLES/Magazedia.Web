@@ -208,14 +208,54 @@ body
 
 /* Using flexbox to achieve the desired layout */
 
-a
+table
+{
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.25rem 0;
+	font-size: 1rem;
+	text-align: left;
+}
+
+th
+{
+	background-color: #f2f2f2; /* Light grey */
+	color: #333; /* Dark text */
+	font-weight: bold;
+	padding: 0.625rem 0.9375rem; /* 10px = 0.625rem, 15px = 0.9375rem given base font-size of 16px */
+	border-bottom: 0.125rem solid #ddd; /* Lighter grey border */
+}
+
+tr
+{
+	border-bottom: 0.0625rem solid #eee; /* Very light grey border */
+}
+
+	tr:nth-child(even)
+	{
+		background-color: #f7f7f7; /* Zebra-striping for better readability */
+	}
+
+td
+{
+	padding: 0.625rem 0.9375rem;
+	vertical-align: top;
+}
+
+/* Hover effect for table rows for better UX */
+tr:hover
+{
+	background-color: #e6e6e6; /* Slightly dark on hover */
+}
+
+article a
 {
 	color: #0c0;
 	text-decoration: underline;
 	
 }
 
-article p, article ul
+article p, article ul, article table, article h2, article h3
 {
 	max-width: var(--grid-max-width);
 	margin-inline: auto;

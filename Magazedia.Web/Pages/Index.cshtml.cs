@@ -106,8 +106,9 @@ namespace Magazedia.Web.Pages
 							(
 								SELECT ArticleId, MAX(DateCreated) AS MaxDateCreated
 								FROM ArticleRevisions
-								WHERE [Text] LIKE @CategoriesSearchTerm
-								AND [Text] LIKE '%Type=PrimaryArticleImage%'
+									WHERE	([Text] LIKE @CategoriesSearchTerm AND [Text] LIKE '%Type=PrimaryArticleImage%')
+											OR
+											([Text] LIKE '%{{MagazineInfobox%' AND [Text] LIKE '%PrimaryCoverImageUrlSlug=%')
 								AND DateDeleted IS NULL
 								GROUP BY ArticleId
 							)
