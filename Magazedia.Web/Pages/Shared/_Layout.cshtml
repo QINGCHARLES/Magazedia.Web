@@ -38,138 +38,135 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="~/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="~/favicon-16x16.png">
 	<link rel="manifest" href="~/site.webmanifest">
-@*	<link rel="stylesheet" href="~/css/variables.css" asp-append-version="true" />*@
-	<link rel="stylesheet" href="~/css/wikiwikiworld.css" asp-append-version="true" />
+	@*	<link rel="stylesheet" href="~/css/variables.css" asp-append-version="true" />*@
+	<link rel="stylesheet" href="~/css/wikiwikiworldu.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/@(Helpers.GetCultureFromHostname(Hostname.Host, "en")).css" asp-append-version="true" />
 	@*<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Sora:wght@800&family=Ubuntu:ital,wght@1,700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Sora:wght@800&family=Ubuntu:ital,wght@1,700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">*@
 	<script async src="https://analytics.umami.is/script.js" data-website-id="2681fe66-d481-4722-9df1-b50b7aa0010c"></script>
 </head>
 <body>
 	<header>
-		<nav>
-			<!-- Left navigation items -->
-			<ul class="nav-left">
-@*
-				<li><a href="#">SEARCH</a></li>
-				<li><a href="#">ABOUT</a></li>
-
-*@			</ul>
-
-			<!-- Centered logo -->
-			<div class="logo">
-				<a href="/">
-					<svg class="logo-svg" style="height: 4rem;margin-left:-3rem;" viewBox="1 -57 55 58"><path fill="#3f1" d="M1.51-14.11L11.88-55.51L13.39-54.00L3.10-12.53L1.51-14.11ZM33.55-20.45L53.06-43.06L54.65-41.47L44.28 0L42.70-1.58L51.84-38.23L49.10-35.06L41.11-3.17L39.60-4.68L46.37-31.90L43.63-28.73L38.02-6.26L36.43-7.85L40.82-25.49L38.16-22.39L34.92-9.36L33.34-10.94L35.35-19.22L34.42-18.07L33.41-19.01L31.75-12.53L30.17-14.11L31.82-20.66L32.76-19.73L25.56-39.89L25.13-38.23L31.32-21.17L29.74-22.75L24.70-36.58L24.34-34.92L28.15-24.34L26.64-25.85L23.90-33.34L23.47-31.75L25.06-27.43L23.47-29.02L23.11-30.10L15.62 0L14.04-1.58L24.41-42.98L25.92-41.47L26.64-39.46L40.61-55.51L42.12-54.00L27.50-37.01L28.37-34.70L43.70-52.42L45.22-50.90L29.23-32.33L30.10-29.95L46.80-49.32L48.38-47.74L30.96-27.58L31.82-25.13L49.90-46.22L51.48-44.64L32.69-22.82L33.55-20.45ZM4.61-11.02L14.98-52.42L16.56-50.83L6.19-9.43L4.61-11.02ZM7.78-7.85L18.14-49.25L19.66-47.74L9.36-6.26L7.78-7.85ZM10.87-4.75L21.24-46.15L22.82-44.57L12.46-3.17L10.87-4.75Z" /></svg>
-				</a>
+		<nav class="header">
+			<div class="header-a">
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+					<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+					<path d="M21 21l-6 -6" />
+				</svg>
 			</div>
-
-			<!-- Right navigation items -->
-			<partial name="_LoginPartial" />
+			<a class="logo" href="/">
+				<svg class="logo-svg" viewBox="1 -57 55 58"><path fill="#3f1" d="M1.51-14.11L11.88-55.51L13.39-54.00L3.10-12.53L1.51-14.11ZM33.55-20.45L53.06-43.06L54.65-41.47L44.28 0L42.70-1.58L51.84-38.23L49.10-35.06L41.11-3.17L39.60-4.68L46.37-31.90L43.63-28.73L38.02-6.26L36.43-7.85L40.82-25.49L38.16-22.39L34.92-9.36L33.34-10.94L35.35-19.22L34.42-18.07L33.41-19.01L31.75-12.53L30.17-14.11L31.82-20.66L32.76-19.73L25.56-39.89L25.13-38.23L31.32-21.17L29.74-22.75L24.70-36.58L24.34-34.92L28.15-24.34L26.64-25.85L23.90-33.34L23.47-31.75L25.06-27.43L23.47-29.02L23.11-30.10L15.62 0L14.04-1.58L24.41-42.98L25.92-41.47L26.64-39.46L40.61-55.51L42.12-54.00L27.50-37.01L28.37-34.70L43.70-52.42L45.22-50.90L29.23-32.33L30.10-29.95L46.80-49.32L48.38-47.74L30.96-27.58L31.82-25.13L49.90-46.22L51.48-44.64L32.69-22.82L33.55-20.45ZM4.61-11.02L14.98-52.42L16.56-50.83L6.19-9.43L4.61-11.02ZM7.78-7.85L18.14-49.25L19.66-47.74L9.36-6.26L7.78-7.85ZM10.87-4.75L21.24-46.15L22.82-44.57L12.46-3.17L10.87-4.75Z" /></svg>
+			</a>
+			<div class="header-b">
+				<partial name="_LoginPartial" />
+			</div>
 		</nav>
 	</header>
-	<div>
-		<main role="main">
-			@RenderBody()
-		</main>
-	</div>
-	<div style="clear: both;"></div>
+	<main role="main">
+		@RenderBody()
+	</main>
 	<footer>
-		<div class="footer-col">
-			Magazedia is the world's largest encyclopedia of magazines, fanzines, journals and newsletters<br />
-			@*https://github.com/tabler/tabler-icons*@
+		<nav>
+			<ul class="footer-columns">
+				<li class="footer-column">
+					Magazedia is the world's largest encyclopedia of magazines, fanzines, journals and newsletters<br />
+					@*https://github.com/tabler/tabler-icons*@
 
-			<a href="https://x.com/magazedia">
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-				<path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-				<path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-			</svg>
-			</a>
+					<a href="https://x.com/magazedia">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+							<path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+						</svg>
+					</a>
 
-			<a href="https://instagram.com/magazedia">
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-				<path d="M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />
-				<path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-				<path d="M16.5 7.5l0 .01" />
-			</svg>
-			</a>
+					<a href="https://instagram.com/magazedia">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />
+							<path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+							<path d="M16.5 7.5l0 .01" />
+						</svg>
+					</a>
 
-			<a href="https://facebook.com/magazedia">
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-				<path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
-			</svg>
-			</a>
+					<a href="https://facebook.com/magazedia">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+						</svg>
+					</a>
 
-			<a href="https://magazedia.tumblr.com/">
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-tumblr" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-				<path d="M14 21h4v-4h-4v-6h4v-4h-4v-4h-4v1a3 3 0 0 1 -3 3h-1v4h4v6a4 4 0 0 0 4 4" />
-			</svg>
-			</a>
+					<a href="https://magazedia.tumblr.com/">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-tumblr" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M14 21h4v-4h-4v-6h4v-4h-4v-4h-4v1a3 3 0 0 1 -3 3h-1v4h4v6a4 4 0 0 0 4 4" />
+						</svg>
+					</a>
 
-			<a href="https://flickr.com/magazedia">
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-flickr" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-				<path d="M7 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-				<path d="M17 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-			</svg>
-			</a>
+					<a href="https://flickr.com/magazedia">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-flickr" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M7 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+							<path d="M17 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+						</svg>
+					</a>
 
-			<a href="https://youtube.com/@@magazedia">
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-				<path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z" />
-				<path d="M10 9l5 3l-5 3z" />
-			</svg>
-			</a>
+					<a href="https://youtube.com/@@magazedia">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z" />
+							<path d="M10 9l5 3l-5 3z" />
+						</svg>
+					</a>
 
-			<a href="https://pinterest.com/magazedia">
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-pinterest" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-				<path d="M8 20l4 -9" />
-				<path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" />
-				<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-			</svg>
-			</a>
+					<a href="https://pinterest.com/magazedia">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-pinterest" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M8 20l4 -9" />
+							<path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" />
+							<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+						</svg>
+					</a>
 
-			<a href="https://tiktok.com/@@magazedia">
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-tiktok" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-					<path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z" />
-				</svg>
-			</a>
+					<a href="https://tiktok.com/@@magazedia">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-tiktok" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z" />
+						</svg>
+					</a>
+					<a href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+						</svg>
+					</a>
+				</li>
+				<li class="footer-column">
+					<ul>
+						<li><a href="/dmca:">Copyright & DMCA </a></li>
+						<li><a href="/terms:">Terms of Use</a></li>
+						<li><a href="/privacy-policy:">Privacy Policy</a></li>
+					</ul>
+				</li>
+				<li class="footer-column">
+					<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">en</a> /
+					<a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ja</a> /
+					<a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ar</a> /
 
-		</div>
-		<div class="footer-col">
-			<ul>
-				<li><a href="/dmca:">Copyright & DMCA </a></li>
-				<li><a href="/terms:">Terms of Use</a></li>
-				<li><a href="/privacy-policy:">Privacy Policy</a></li>
+					<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/category:magazines">All magazines</a> /
+					<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/category:magazine-issues">All magazine issues</a> /
+					@if (this.User != null && this.User.Identity != null && this.User.Identity.IsAuthenticated && this.User.Identity.Name == "QINGCHARLES")
+					{
+						@: <a href="https://xx-test.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">xx</a> / <a href="/DbHelper">DbHelper</a>
+					}
+					Content is available under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless otherwise noted.<br />
+					&copy; 2021-2023 Magazedia
+				</li>
 			</ul>
-
-
-
-
-		</div>
-		<div class="footer-col">
-			<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">en</a> /
-			<a href="https://ja.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ja</a> /
-			<a href="https://ar.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">ar</a> /
-
-			<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/category:magazines">All magazines</a> /
-			<a href="https://en.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/category:magazine-issues">All magazine issues</a> /
-			@if (this.User != null && this.User.Identity != null && this.User.Identity.IsAuthenticated && this.User.Identity.Name == "QINGCHARLES")
-			{
-				@: <a href="https://xx-test.@Helpers.GetDomainAndPortFromHostname(Hostname.ToString())/">xx</a> / <a href="/DbHelper">DbHelper</a>
-			}
-			Content is available under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> unless otherwise noted.<br />
-			&copy; 2021-2023 Magazedia
-
-		</div>
+		</nav>
 	</footer>
 	@*
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>

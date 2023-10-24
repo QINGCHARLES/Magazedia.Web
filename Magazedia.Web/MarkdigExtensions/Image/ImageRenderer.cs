@@ -59,20 +59,19 @@ public class ImageRenderer : HtmlObjectRenderer<Image>
 		}
 
         switch(Type)
-        {
+        {   // TODO: Why does this need background-size in here???
             case "Header":
 				renderer.Write($@"  <style>
-                                        article > h1
+                                        h1.title
                                         {{
-                                            background: linear-gradient(to bottom, #3338, #fff0), url(/sitefiles/1/images/{FileName}) top center no-repeat;
+                                            background: linear-gradient(to bottom, #3338, #fff0), url(/sitefiles/1/images/{FileName}) top center / cover no-repeat;
                                         }}
                                     </style>
                                         ");
                 break;
 			case null:
 			default:    
-				renderer.Write($"<img src=\"/sitefiles/1/images/{FileName}\" alt=\"{Title}\" ");
-				renderer.Write("/>");
+				renderer.Write($"<img src=\"/sitefiles/1/images/{FileName}\" alt=\"{Title}\" />");
 				break;
 		}
 

@@ -183,7 +183,7 @@ public class ArticleViewModel : BasePageModel
 
 			AlertsExtension AlertsExtension = new(Alerts);
 
-			MagazineInfoboxExtension MagazineInfoboxExtension = new();
+			MagazineInfoboxExtension MagazineInfoboxExtension = new(SiteId, Connection);
 
 			var builder = new MarkdownPipelineBuilder().UseAdvancedExtensions();
 

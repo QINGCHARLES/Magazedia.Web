@@ -9,10 +9,10 @@
 	ViewData["Title"] = "Magazine Encyclopedia";
 }
 <article>
-<h1>Magazines</h1>
+<h1 class="title">Magazines</h1>
 </article>
 <div class="text-center home">
-	<div class="container">
+	@*<div class="container">
 		<div class="image-container">
 			@{
 				if (Model.MostRecentlyUpdatedMagazineArticles != null)
@@ -29,11 +29,11 @@
 				}
 			}
 		</div>
-	</div>
+	</div>*@
 
 	<h2>Magazine Issues</h2>
 
-	<div class="container">
+	@*<div class="container">
 		<div class="image-container">
 			@{
 				if (Model.MostRecentlyUpdatedMagazineIssueArticles != null)
@@ -49,6 +49,24 @@
 					}
 				}
 			}
+		</div>
+	</div>*@
+
+	<div class="container">
+		<div class="image-container">
+			<ul>
+			@{
+				if (Model.MostRecentlyUpdatedMagazineIssueArticles != null)
+				{
+					foreach (IndexModel.MostRecentlyUpdatedMagazineArticle Article in Model.MostRecentlyUpdatedMagazineIssueArticles)
+					{
+						<li>
+							<a href="/@Article.UrlSlug">@Article.Title</a>
+						</li>
+					}
+				}
+			}
+			</ul>
 		</div>
 	</div>
 

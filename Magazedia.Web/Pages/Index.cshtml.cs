@@ -60,8 +60,9 @@ namespace Magazedia.Web.Pages
 								(
 									SELECT ArticleId, MAX(DateCreated) AS MaxDateCreated
 									FROM ArticleRevisions
-									WHERE [Text] LIKE @CategoriesSearchTerm
-									AND [Text] LIKE '%Type=PrimaryArticleImage%'
+									WHERE	([Text] LIKE @CategoriesSearchTerm AND [Text] LIKE '%Type=PrimaryArticleImage%')
+											OR
+											([Text] LIKE '%{{MagazineInfobox%' AND [Text] LIKE '%PrimaryCoverImageUrlSlug=%')
 									AND DateDeleted IS NULL
 									GROUP BY ArticleId
 								)
@@ -81,14 +82,18 @@ namespace Magazedia.Web.Pages
 			// For each magazine get the UrlSlug of the PrimaryImageArticle and then convert that UrlSlug into an actual Url for the image
 			foreach (MostRecentlyUpdatedMagazineArticle MostRecentlyUpdatedMagazineArticle in MostRecentlyUpdatedMagazineArticles)
 			{
-				string MatchPattern = @"{{Image (image:.+?)\|#\|Type=PrimaryArticleImage}}";
+				// Match the `PrimaryCoverImageUrlSlug` in either the `Image` or `MagazineInfobox` tags.
+				string MatchPattern = @"{{Image (image:.+?)\|#\|Type=PrimaryArticleImage}}|{{MagazineInfobox PrimaryCoverImageUrlSlug=(image:.+?)\|#\|";
 
 				MatchCollection matches = Regex.Matches(MostRecentlyUpdatedMagazineArticle.Text, MatchPattern, RegexOptions.IgnoreCase);
-				Match match = matches[0];
 
-				if (match.Groups.Count > 1) // Check if the desired capturing group exists
+				if (matches.Count > 0) // Ensure there's at least one match
 				{
-					string imageLink = match.Groups[1].Value;
+					Match match = matches[0];
+
+					// Determine which capturing group contains the desired URL slug.
+					string imageLink = !string.IsNullOrEmpty(match.Groups[1].Value) ? match.Groups[1].Value : match.Groups[2].Value;
+
 					(MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageUrl, MostRecentlyUpdatedMagazineArticle.PrimaryArticleImageTitle) = Helpers.GetImageFilenameAndArticleTitleFromArticleUrlSlug(imageLink, Connection);
 				}
 			}
