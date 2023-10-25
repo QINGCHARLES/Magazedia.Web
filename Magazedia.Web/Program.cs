@@ -155,6 +155,14 @@ using (TextReader sr = new StringReader(@$"
 					<action type=""Redirect"" url=""https://en.magazedia.wiki/{{R:1}}"" redirectType=""308"" />
 				</rule>
 				<rule enabled=""true"">
+					<match url=""^login:"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Identity/Account/Login"" />
+				</rule>
+				<rule enabled=""true"">
+					<match url=""^register:"" />
+					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Identity/Account/Register"" />
+				</rule>
+				<rule enabled=""true"">
 					<match url=""^dmca:"" />
 					<action type=""Rewrite"" url=""https://{{HTTP_HOST}}/Dmca"" />
 				</rule>
