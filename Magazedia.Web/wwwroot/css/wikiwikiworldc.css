@@ -1,0 +1,791 @@
+﻿/*#region CSS Reset*/
+
+/***
+    The new CSS reset - version 1.11 (last updated 20.9.2023)
+    GitHub page: https://github.com/elad2412/the-new-css-reset
+***/
+
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+    - The "html" element is excluded, otherwise a bug in Chrome breaks the CSS hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
+ */
+:where(abbr), :where(address), :where(area), :where(article), :where(aside), :where(audio), :where(b), :where(base), :where(bdi), :where(bdo), :where(big), :where(blockquote), :where(body), :where(br), :where(caption), :where(cite), :where(code), :where(col), :where(colgroup), :where(data), :where(datalist), :where(dd), :where(del), :where(details), :where(dfn), :where(dialog), :where(dl), :where(dt), :where(em), :where(embed), :where(fieldset), :where(figcaption), :where(figure), :where(footer), :where(form), :where(h1), :where(h2), :where(h3), :where(h4), :where(h5), :where(h6), :where(head), :where(header), :where(hgroup), :where(hr), :where(i), :where(input), :where(ins), :where(kbd), :where(keygen), :where(label), :where(legend), :where(li), :where(link), :where(main), :where(map), :where(mark), :where(menu), :where(menuitem), :where(meta), :where(meter), :where(nav), :where(object), :where(ol), :where(optgroup), :where(option), :where(output), :where(param), :where(picture), :where(pre), :where(progress), :where(q), :where(rp), :where(rt), :where(ruby), :where(s), :where(samp), :where(slot), :where(script), :where(section), :where(select), :where(small), :where(source), :where(strong), :where(style), :where(sub), :where(summary), :where(sup), :where(table), :where(template), :where(tbody), :where(td), :where(textarea), :where(tfoot), :where(th), :where(thead), :where(time), :where(title), :where(tr), :where(track), :where(u), :where(ul), :where(var), :where(wbr), :where(div), :where(span), :where(button), :where(a), :where(p)
+{
+	all: unset;
+	display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after
+{
+	box-sizing: border-box;
+}
+
+/* Fix mobile Safari increase font-size on landscape mode */
+html
+{
+	-moz-text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a, button
+{
+	cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol, ul, menu
+{
+	list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img
+{
+	max-inline-size: 100%;
+	max-block-size: 100%;
+}
+
+/* removes spacing between cells in tables */
+table
+{
+	border-collapse: collapse;
+}
+
+/* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+input, textarea
+{
+	-webkit-user-select: auto;
+	box-shadow: 3px 4px 0px 1px #000;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea
+{
+	white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter
+{
+	-webkit-appearance: revert;
+	appearance: revert;
+}
+
+/* preformatted text - use only for this feature */
+:where(pre)
+{
+	all: revert;
+	box-sizing: border-box;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder
+{
+	color: unset;
+}
+
+/* remove default dot (•) sign */
+::marker
+{
+	content: initial;
+}
+
+/* fix the feature of 'hidden' attribute.
+   display:revert; revert to element instead of attribute */
+:where([hidden])
+{
+	display: none;
+}
+
+/* revert for bug in Chromium browsers
+   - fix for the content editable attribute will work properly.
+   - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
+:where([contenteditable]:not([contenteditable="false"]))
+{
+	-moz-user-modify: read-write;
+	-webkit-user-modify: read-write;
+	overflow-wrap: break-word;
+	-webkit-line-break: after-white-space;
+	-webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"])
+{
+	-webkit-user-drag: element;
+}
+
+/* Revert Modal native behavior */
+:where(dialog:modal)
+{
+	all: revert;
+	box-sizing: border-box;
+}
+
+/* https://github.com/elad2412/the-new-css-reset/issues/45 */
+*
+{
+	min-width: 0;
+}
+
+/*#endregion CSS Reset*/
+
+/*#region Utopia Variables*/
+
+/* @link https://utopia.fyi/grid/calculator?c=280,16,1.2,1240,20,1.333,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+:root
+{
+	--grid-max-width: 60ch;
+	--grid-gutter: var(--space-s-l, clamp(1rem, 0.5625rem + 2.5vw, 2.5rem));
+	--grid-columns: 12;
+}
+
+/* @link https://utopia.fyi/space/calculator?c=280,16,1.2,1240,20,1.333,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+:root
+{
+	--space-3xs: clamp(0.25rem, 0.2318rem + 0.1042vw, 0.3125rem);
+	--space-2xs: clamp(0.5rem, 0.4635rem + 0.2083vw, 0.625rem);
+	--space-xs: clamp(0.75rem, 0.6953rem + 0.3125vw, 0.9375rem);
+	--space-s: clamp(1rem, 0.9271rem + 0.4167vw, 1.25rem);
+	--space-m: clamp(1.5rem, 1.3906rem + 0.625vw, 1.875rem);
+	--space-l: clamp(2rem, 1.8542rem + 0.8333vw, 2.5rem);
+	--space-xl: clamp(3rem, 2.7813rem + 1.25vw, 3.75rem);
+	--space-2xl: clamp(4rem, 3.7083rem + 1.6667vw, 5rem);
+	--space-3xl: clamp(6rem, 5.5625rem + 2.5vw, 7.5rem);
+	/* One-up pairs */
+	--space-3xs-2xs: clamp(0.25rem, 0.1406rem + 0.625vw, 0.625rem);
+	--space-2xs-xs: clamp(0.5rem, 0.3724rem + 0.7292vw, 0.9375rem);
+	--space-xs-s: clamp(0.75rem, 0.6042rem + 0.8333vw, 1.25rem);
+	--space-s-m: clamp(1rem, 0.7448rem + 1.4583vw, 1.875rem);
+	--space-m-l: clamp(1.5rem, 1.2083rem + 1.6667vw, 2.5rem);
+	--space-l-xl: clamp(2rem, 1.4896rem + 2.9167vw, 3.75rem);
+	--space-xl-2xl: clamp(3rem, 2.4167rem + 3.3333vw, 5rem);
+	--space-2xl-3xl: clamp(4rem, 2.9792rem + 5.8333vw, 7.5rem);
+	/* Custom pairs */
+	--space-s-l: clamp(1rem, 0.5625rem + 2.5vw, 2.5rem);
+}
+
+/* @link https://utopia.fyi/type/calculator?c=280,16,1.2,1240,22,1.333,6,2,&s=0.75,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+:root
+{
+	--step--2: clamp(0.6944rem, 0.6712rem + 0.1323vw, 0.7738rem);
+	--step--1: clamp(0.8331rem, 0.7753rem + 0.3302vw, 1.0313rem);
+	--step-0: clamp(1rem, 0.8906rem + 0.625vw, 1.375rem);
+	--step-1: clamp(1.2rem, 1.0153rem + 1.0552vw, 1.8331rem);
+	--step-2: clamp(1.44rem, 1.1474rem + 1.6719vw, 2.4431rem);
+	--step-3: clamp(1.7281rem, 1.2822rem + 2.5479vw, 3.2569rem);
+	--step-4: clamp(2.0738rem, 1.4124rem + 3.7792vw, 4.3412rem);
+	--step-5: clamp(2.4881rem, 1.526rem + 5.4979vw, 5.7869rem);
+	--step-6: clamp(2.9863rem, 1.6072rem + 7.8802vw, 7.7144rem);
+}
+
+/*#endregion Utopia Variables*/
+
+/*#region Colors, Font Sizes etc*/
+
+:root
+{
+	--color-primary: #7f2;
+	--color-background-footer: #333;
+	--color-title: #fff;
+	--font-family-san-serif: system-ui, sans-serif;
+}
+
+body
+{
+	font-size: var(--step-0);
+	/* TODO: line-height needs to be proportional to the font-size */
+	line-height: 1.3;
+	font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+}
+
+/*#endregion Colors, Font Sizes etc*/
+
+
+/* debugging shit */
+section.talk-subjects
+{
+	display: none;
+}
+/* debugging shit */
+
+
+
+
+
+
+/*#region Main*/
+
+main
+{
+	box-sizing: content-box;
+	max-inline-size: var(--grid-max-width);
+	margin-inline: auto;
+	padding-inline: var(--grid-gutter);
+}
+
+h1, h2, h3, h4
+{
+	text-wrap: balance;
+	font-weight: bold;
+	font-family: var(--font-family-san-serif);
+}
+
+p, li, td, dd, caption, figcaption, blockquote
+{
+	text-wrap: pretty;
+}
+
+p, li, h2, h3, h4
+{
+	margin-bottom: var(--grid-gutter);
+}
+
+strong
+{
+	font-weight: bold;
+}
+
+/*#endregion Main*/
+
+.button
+{
+	cursor: default;
+	font-size: 1rem;
+	line-height: 1;
+	box-sizing: border-box;
+	font-family: system-ui, sans-serif;
+}
+
+.button
+{
+	padding: var(--space-3xs) var(--space-2xs);
+	font-weight: bolder;
+	border: 2px solid var(--color-primary);
+	fborder-radius: 0.2rem;
+	fmargin-right: var(--space-xs);
+	list-style: none;
+	display: inline-block;
+	box-shadow: 3px 4px 0px 1px #000;
+	color: var(--color-primary);
+	text-transform: capitalize;
+	text-decoration: none;
+	transition: ease 0.1s;
+}
+
+/*#region Article*/
+article p:first-of-type
+{
+	font-size: var(--step-1);
+	font-weight: bold;
+	line-height: TODO;
+}
+
+article > aside > ul
+{
+	margin: var(--grid-gutter);
+}
+
+article > aside
+{
+	box-shadow: 0.3rem 0.3rem 0px 0px #444;
+}
+
+	article > aside > h1
+	{
+		background: #0c0;
+		color: #fff;
+		color: #000;
+		font-weight: bold;
+		text-transform: uppercase;
+		text-align: center;
+		padding: 0.5rem 1rem;
+	}
+
+.download-container
+{
+	padding: .5rem .5rem;
+	display: flex;
+	align-items: flex-start; /* Align to the top */
+	ffont-size: 1rem; /* Set the font size here */
+	line-height: 1.5rem;
+	font-family: sans-serif;
+}
+
+	.download-container a
+	{
+		font-weight: bold;
+		text-decoration: underline;
+		text-decoration-color: #fff;
+	}
+
+.dicon
+{
+	width: 2.5em; /* Adjust the icon size relative to the font size */
+	height: 2.5em;
+	margin-right: 0.5em; /* Space between icon and text */
+	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --%3E%3Csvg width='800px' height='800px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21 15V16.2C21 17.8802 21 18.7202 20.673 19.362C20.3854 19.9265 19.9265 20.3854 19.362 20.673C18.7202 21 17.8802 21 16.2 21H7.8C6.11984 21 5.27976 21 4.63803 20.673C4.07354 20.3854 3.6146 19.9265 3.32698 19.362C3 18.7202 3 17.8802 3 16.2V15M17 10L12 15M12 15L7 10M12 15V3' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat no-repeat;
+	background-position: center center;
+	background-size: cover;
+	color: #fff;
+}
+
+.download-description
+{
+	font-size: 60%;
+}
+
+.download-filesize
+{
+	display: flex;
+	align-items: center;
+}
+
+	.download-filesize::before
+	{
+		content: "";
+		width: 1.5em;
+		height: 1.5em;
+		margin-right: 0.5em;
+		background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg width='800px' height='800px' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' fill='none' width='20' height='20'/%3E%3Cg%3E%3Cstyle%3E.st0%7Bfill-rule:evenodd;clip-rule:evenodd;%7D%3C/style%3E%3Cpath d='M5.8 14H5v1h.8c.3 0 .5-.2.5-.5s-.2-.5-.5-.5zM11 2H3v16h13V7l-5-5zM7.2 14.6c0 .8-.6 1.4-1.4 1.4H5v1H4v-4h1.8c.8 0 1.4.6 1.4 1.4v.2zm4.1.5c0 1-.8 1.9-1.9 1.9H8v-4h1.4c1 0 1.9.8 1.9 1.9v.2zM15 14h-2v1h1.5v1H13v1h-1v-4h3v1zm0-2H4V3h7v4h4v5zm-5.6 2H9v2h.4c.6 0 1-.4 1-1s-.5-1-1-1z'/%3E%3C/g%3E%3C/svg%3E");
+		background-repeat: no-repeat no-repeat;
+		background-position: center center;
+		background-size: cover;
+		display: inline-block;
+	}
+
+.dinfo
+{
+	display: flex;
+	flex-direction: column; /* Stack the text vertically */
+}
+
+/*
+article > p:first-of-type
+{
+	color: var(--slot3);
+	ffont-family: var(--fontFamilyAccent);
+	font-size: 1.2rem;
+	letter-spacing: -1.5px;
+	line-height: 1.1;
+	margin-bottom: 1rem;
+	margin-top: 2rem;
+	max-width: 1000px;
+	padding-top: 1.5rem
+}
+
+	article > p:first-of-type b, .fxL > p:first-of-type strong
+	{
+		ffont-family: var(--fontFamilyHeading)
+	}
+
+	article > p:first-of-type:first-letter
+	{
+		color: black;
+		float: left;
+		ffont-family: var(--fontFamilyHeading);
+		font-size: 7rem;
+		line-height: 1;
+		margin: -2rem -1rem;
+		position: static;
+		text-shadow: -1px -1px 0 red,1px -1px 0 red,-1px 1px 0 red,1px 1px 0 red,18px -8px 1px red;
+	}
+*/
+article a
+{
+	color: #0c0;
+	text-decoration: underline solid #0c0 5px;
+	text-decoration-skip-ink: all;
+}
+
+article > ul:not([class])
+{
+	list-style-type: none;
+}
+
+	article > ul:not([class]) > li
+	{
+		position: relative;
+		padding-left: 1.5em;
+		contain: content;
+	}
+
+		article > ul:not([class]) > li::before
+		{
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0.7rem;
+			width: .7rem;
+			height: .7rem;
+			border-radius: 30%;
+			background-color: #0c0;
+			transform: translateY(-50%);
+			box-shadow: 1px 2px 0px 0px #000;
+		}
+
+table
+{
+	border-collapse: collapse;
+	text-align: left;
+}
+
+th
+{
+	background-color: #f2f2f2;
+	color: #333;
+	font-weight: bold;
+	padding: 0.625rem 0.9375rem;
+	border-bottom: 0.125rem solid #ddd;
+}
+
+tr
+{
+	border-bottom: 0.0625rem solid #eee;
+}
+
+	tr:nth-child(even)
+	{
+		background-color: #f7f7f7;
+	}
+
+td
+{
+	padding: 0.625rem 0.9375rem;
+	vertical-align: top;
+}
+
+tr:hover
+{
+	background-color: #e6e6e6;
+}
+
+/*#endregion Article*/
+
+
+/*#region Google Search Box*/
+
+form.gsc-search-box
+{
+	margin: 0 !important;
+}
+
+.gsc-control-cse
+{
+	padding: 0 !important;
+}
+
+.gsc-search-button-v2 svg
+{
+	fill: #000 !important;
+	width: 1rem !important;
+	height: 1rem !important;
+}
+
+.gsc-search-button-v2:hover
+{
+	background-color: #fff !important;
+	border: none !important;
+}
+
+.gsc-search-button-v2
+{
+	box-shadow: 3px 4px 0px 1px #000;
+	transition: ease 0.1s;
+	background-color: var(--color-primary) !important;
+	color: #000 !important;
+	border: none !important;
+	padding: var(--space-3xs) var(--space-2xs) !important;
+	font-size: 1rem !important;
+}
+
+.gsc-control-cse, .gsc-input-box
+{
+	background-color: unset !important;
+	border-style: none !important;
+}
+
+table.gsc-search-box td.gsc-input
+{
+	padding-right: 0 !important;
+	color: black;
+}
+
+table.gsc-search-box, table.gsc-search-box tr
+{
+	margin-bottom: 0 !important;
+	border-bottom: none;
+}
+
+.gsib_a
+{
+	padding: 0 !important;
+}
+
+.gsib_b
+{
+	display: none;
+}
+
+
+input.gsc-input
+{
+	background: #fff !important;
+	padding: 4px 14px !important;
+}
+
+/*#endregion Google Search Box*/
+
+
+article aside
+{
+	float: right;
+	clear: right;
+	width: 100%;
+	background: #000;
+	color: #fff;
+	max-width: 22rem;
+	margin-right: min(0px, calc( ( (var(--grid-max-width) - 100vw) / 2 ) + var(--grid-gutter) ) );
+	background-position-x: calc( ( (var(--grid-max-width) - 100vw) / 2 ) + var(--grid-gutter) );
+	margin-left: var(--grid-gutter);
+	margin-bottom: var(--grid-gutter);
+}
+
+@media screen and (max-width: calc(280px + 22rem) )
+{
+	article aside
+	{
+		float: none;
+		width: 100%;
+		max-width: none;
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+section.talk-subjects
+{
+	background-color: var(--color-primary);
+}
+
+/*#region Header*/
+header li
+{
+	display: inline-block;
+}
+
+.header-a svg
+{
+	color: var(--color-primary);
+}
+
+
+
+#register.button-primary
+{
+	background: var(--color-primary);
+	color: #000;
+}
+
+	#register.button-primary:hover
+	{
+		background-color: #fff;
+	}
+
+.button-secondary
+{
+	fbackground: #0c0;
+	color: #0c0;
+}
+
+#login.button-secondary:hover
+{
+	background-color: var(--color-primary);
+	color: #000;
+}
+
+#login.button-secondary
+{
+	fbackground: #0c0;
+	color: var(--color-primary);
+}
+
+
+.logo-svg
+{
+	width: var(--space-xl);
+	height: var(--space-xl);
+}
+
+header
+{
+	position: relative;
+	z-index: 1;
+}
+
+.header
+{
+	overflow: hidden;
+	padding: var(--grid-gutter);
+	position: absolute;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	color: #fff;
+}
+
+.logo-svg
+{
+	transform: rotate(-15deg);
+}
+
+.header-a svg, .header-b svg
+{
+	fwidth: 3rem;
+	fheight: 3rem;
+	fstroke: #fff;
+	vertical-align: middle;
+}
+
+.header a
+{
+	color: white;
+	text-align: center;
+	fpadding: 12px;
+	text-decoration: none;
+	border-radius: 4px;
+}
+
+	.header a.logo
+	{
+		font-size: 25px;
+		color: white;
+		display: inline-block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+		fwidth: 1rem;
+		ftext-align: center;
+	}
+
+	.header a:hover
+	{
+		color: #aeaeae;
+	}
+
+	.header a.active
+	{
+		color: #aeaeae;
+	}
+
+.header-b
+{
+	float: left;
+	width: 50%;
+	fpadding: var(--grid-gutter);
+	text-align: right;
+}
+
+.header-a
+{
+	float: right;
+	width: 50%;
+	fpadding: var(--grid-gutter);
+}
+
+h1.title
+{
+	margin: 0 auto;
+	text-align: center;
+	line-height: .9;
+	color: var(--color-title);
+	background: linear-gradient(to bottom, #3338, #fff0), url(/sitefiles/1/gqstyletest4.jpg) top center / cover no-repeat;
+	margin-bottom: var(--space-2xl);
+	font-size: var(--step-6);
+	font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	font-weight: 800;
+	letter-spacing: -0.2rem;
+	text-transform: uppercase;
+	text-shadow: .1rem .1rem .1rem #919191, .2rem .2rem .1rem #919191, .3rem .3rem .1rem #919191, .4rem .4rem .1rem #919191, .5rem .5rem .1rem #919191, .6rem .6rem .6rem rgba(60,60,60,0.4), 1rem 1rem 1rem rgba(60,60,60,0.2), 1.5rem 1.5rem 3.5rem rgba(60,60,60,0.2), 2.0rem 2.0rem 6.0rem rgba(60,60,60,0.4);
+	padding: var(--grid-gutter);
+	padding-top: calc(6rem + var(--grid-gutter));
+
+	width: 100vw;
+	position: relative;
+	left: 50%;
+	right: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
+}
+
+
+/*#endregion Header*/
+
+/*#region Categories*/
+.categories
+{
+	padding-top: var(--grid-gutter);
+}
+
+	.categories li
+	{
+		padding: var(--space-3xs) var(--space-2xs);
+		font-weight: bolder;
+		border: 2px solid var(--color-primary);
+		margin: 0 var(--space-xs) var(--space-xs) 0;
+		list-style: none;
+		display: inline-block;
+		box-shadow: 3px 4px 0px 1px #000;
+	}
+
+		.categories li a
+		{
+			color: var(--color-primary);
+			text-transform: uppercase;
+			text-decoration: none;
+			font-family: var(--font-family-san-serif);
+		}
+/*#endregion Categories*/
+
+/*#region Footer*/
+footer
+{
+	color: var(--color-primary);
+	background-color: var(--color-background-footer);
+	font-family: system-ui, sans-serif;
+}
+
+.footer-columns
+{
+	display: grid;
+	gap: var(--grid-gutter);
+	grid-template-columns: repeat(auto-fit, minmax(var(--space-3xl), 1fr));
+	padding: var(--grid-gutter);
+	margin: 0;
+}
+
+footer svg, .nav-item svg
+{
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.footer-columns li.footer-column:first-child
+{
+	grid-column: span 2;
+	font-size: var(--step-2);
+	line-height: 2.5rem; /* TODO */
+	font-weight: bold;
+	letter-spacing: -.1rem;
+}
+/*#endregion Footer*/

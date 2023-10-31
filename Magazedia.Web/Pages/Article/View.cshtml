@@ -17,7 +17,7 @@
 	
 	@Html.Raw(Model.ArticleText)
 </article>
-<section style="margin-left:8rem;">
+<section>
 	@if (Model.ArticleCultureLinks != null)
 	{
 		foreach (var ArticleCultureLink in Model.ArticleCultureLinks)
@@ -30,7 +30,8 @@
 			}
 		}
 	}
-
+</section>
+<section class="talk-subjects">
 	@if (Model.ArticleTalkSubjects != null)
 	{
 		foreach (ArticleTalkSubject ArticleTalkSubject in Model.ArticleTalkSubjects)
@@ -44,7 +45,8 @@
 			</p>
 		}
 	}
-	<br />
+</section>
+<section>
 
 	@if (Model.ArticleFound)
 	{
@@ -62,7 +64,7 @@
 			}
 		}
 
-		<a style="margin-left:1rem;" href="/@Model.UrlSlug/history">Edit History</a>
+		<a href="/@Model.UrlSlug/history">Edit History</a>
 		<br />
 		<br />
 
