@@ -34,6 +34,29 @@ public class MagazineInfoboxHtmlRenderer : HtmlObjectRenderer<MagazineInfobox>
 			Obj.Attributes.Remove("PrimaryCoverImageUrlSlug");
 		}
 
+		string? AlternateCoverImagesUrlSlugs;
+		if (Obj.Attributes.TryGetValue("AlternateCoverImagesUrlSlugs", out AlternateCoverImagesUrlSlugs) && !string.IsNullOrWhiteSpace(AlternateCoverImagesUrlSlugs))
+		{
+			AlternateCoverImagesUrlSlugs = AlternateCoverImagesUrlSlugs.Trim();
+
+			string[] AlternateCoverImagesUrlSlugsParts = AlternateCoverImagesUrlSlugs.Split("|");
+
+			for (int i = 0; i < AlternateCoverImagesUrlSlugsParts.Length; i += 2)
+			{
+				string UrlSlug = AlternateCoverImagesUrlSlugsParts[i];
+				string Caption = AlternateCoverImagesUrlSlugsParts[i + 1];
+
+				(string FileName, string Title) = Helpers.GetImageFilenameAndArticleTitleFromArticleUrlSlug(UrlSlug, Connection);
+				// TODO: This alt text should probably take into account the caption given under the image
+				// as well as the title of the actual image article in the db
+				Renderer.Write($"<img src=\"/sitefiles/1/images/{FileName}\" alt=\"{Title}\" />");
+			}
+
+			Obj.Attributes.Remove("AlternateCoverImagesUrlSlugs");
+		}
+
+		//AlternateCoverImagesUrlSlugs
+
 		Renderer.Write("<ul>");
 		foreach (KeyValuePair<string, string> pair in Obj.Attributes)
         {
