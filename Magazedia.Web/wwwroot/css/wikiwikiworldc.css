@@ -255,6 +255,19 @@ strong
 	font-weight: bold;
 }
 
+a
+{
+	color: var(--color-primary);
+	text-decoration: underline;
+	text-decoration-thickness: 0.125rem;
+	text-underline-offset: 0.25rem;
+}
+
+::selection
+{
+	background-color: var(--color-primary);
+}
+
 /*#endregion Main*/
 
 .button
@@ -401,12 +414,6 @@ article > p:first-of-type
 		text-shadow: -1px -1px 0 red,1px -1px 0 red,-1px 1px 0 red,1px 1px 0 red,18px -8px 1px red;
 	}
 */
-article a
-{
-	color: #0c0;
-	text-decoration: underline solid #0c0 5px;
-	text-decoration-skip-ink: all;
-}
 
 article > ul:not([class])
 {
