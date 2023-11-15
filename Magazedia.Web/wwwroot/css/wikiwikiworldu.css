@@ -297,6 +297,11 @@ form.gsc-search-box
 	margin: 0 !important;
 }
 
+table.gsc-search-box td
+{
+	padding: 0 !important;
+}
+
 .gsc-control-cse
 {
 	padding: 0 !important;

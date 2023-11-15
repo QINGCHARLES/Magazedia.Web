@@ -487,6 +487,17 @@ form.gsc-search-box
 	margin: 0 !important;
 }
 
+table.gsc-search-box tr:hover
+{
+	background-color: unset;
+}
+
+
+table.gsc-search-box td
+{
+	padding: 0 !important;
+}
+
 .gsc-control-cse
 {
 	padding: 0 !important;
@@ -520,12 +531,14 @@ form.gsc-search-box
 {
 	background-color: unset !important;
 	border-style: none !important;
+	height: 100% !important;
 }
 
 table.gsc-search-box td.gsc-input
 {
 	padding-right: 0 !important;
 	color: black;
+	border-radius: 2px !important;
 }
 
 table.gsc-search-box, table.gsc-search-box tr
@@ -549,6 +562,7 @@ input.gsc-input
 {
 	background: #fff !important;
 	padding: 4px 14px !important;
+	border-radius: 2px !important;
 }
 
 /*#endregion Google Search Box*/
