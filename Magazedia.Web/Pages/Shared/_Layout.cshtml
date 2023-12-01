@@ -2,6 +2,8 @@
 @using Magazedia;
 @using Magazedia.Web.Pages;
 @inject IHttpContextAccessor HttpContextAccessor;
+@inject IWebHostEnvironment Environment
+@inject IConfiguration Configuration
 @inject IStringLocalizer<SharedResource> stringLocalizer;
 @inject IHtmlLocalizer<SharedResource> htmlLocalizer;
 @{
@@ -39,8 +41,17 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="~/favicon-16x16.png">
 	<link rel="manifest" href="~/site.webmanifest">
 	@*	<link rel="stylesheet" href="~/css/variables.css" asp-append-version="true" />*@
-	<link rel="stylesheet" href="~/css/wikiwikiworldc.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/css/@(Helpers.GetCultureFromHostname(Hostname.Host, "en")).css" asp-append-version="true" />
+	@if (Environment.IsDevelopment())
+	{
+		<link rel="stylesheet" href="~/css/wikiwikiworldc.css" asp-append-version="true" />
+		<link rel="stylesheet" href="~/css/@(Helpers.GetCultureFromHostname(Hostname.Host, "en")).css" asp-append-version="true" />
+	}
+	else
+	{
+		string? CdnUrl = Configuration["ContentDeliveryNetworkSettings:BaseUrl"];
+		<link rel="stylesheet" href="@CdnUrl/css/wikiwikiworldc.css" asp-append-version="true" />
+		<link rel="stylesheet" href="@CdnUrl/@(Helpers.GetCultureFromHostname(Hostname.Host, "en")).css" asp-append-version="true" />
+	}
 	@*<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Sora:wght@800&family=Ubuntu:ital,wght@1,700&display=swap" rel="stylesheet">
@@ -54,12 +65,13 @@
 		<nav class="header">
 			<div class="header-a">
 				<div class="gcse-search"></div>
-@* 				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-					<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-					<path d="M21 21l-6 -6" />
+				@* 				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+				<path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+				<path d="M21 21l-6 -6" />
 				</svg>
- *@			</div>
+				*@
+			</div>
 			<a class="logo" href="/">
 				<svg class="logo-svg" viewBox="1 -57 55 58"><path fill="#3f1" d="M1.51-14.11L11.88-55.51L13.39-54.00L3.10-12.53L1.51-14.11ZM33.55-20.45L53.06-43.06L54.65-41.47L44.28 0L42.70-1.58L51.84-38.23L49.10-35.06L41.11-3.17L39.60-4.68L46.37-31.90L43.63-28.73L38.02-6.26L36.43-7.85L40.82-25.49L38.16-22.39L34.92-9.36L33.34-10.94L35.35-19.22L34.42-18.07L33.41-19.01L31.75-12.53L30.17-14.11L31.82-20.66L32.76-19.73L25.56-39.89L25.13-38.23L31.32-21.17L29.74-22.75L24.70-36.58L24.34-34.92L28.15-24.34L26.64-25.85L23.90-33.34L23.47-31.75L25.06-27.43L23.47-29.02L23.11-30.10L15.62 0L14.04-1.58L24.41-42.98L25.92-41.47L26.64-39.46L40.61-55.51L42.12-54.00L27.50-37.01L28.37-34.70L43.70-52.42L45.22-50.90L29.23-32.33L30.10-29.95L46.80-49.32L48.38-47.74L30.96-27.58L31.82-25.13L49.90-46.22L51.48-44.64L32.69-22.82L33.55-20.45ZM4.61-11.02L14.98-52.42L16.56-50.83L6.19-9.43L4.61-11.02ZM7.78-7.85L18.14-49.25L19.66-47.74L9.36-6.26L7.78-7.85ZM10.87-4.75L21.24-46.15L22.82-44.57L12.46-3.17L10.87-4.75Z" /></svg>
 			</a>
